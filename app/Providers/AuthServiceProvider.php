@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
@@ -26,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('viewWebSocketsDashboard', function ($user = null) {
-            return in_array($user->email, [
+            return Auth::check() && in_array($user->email, [
                 'mail@princejohnsantillan.net',
                 'prince@tradeconsole.app',
             ]);
