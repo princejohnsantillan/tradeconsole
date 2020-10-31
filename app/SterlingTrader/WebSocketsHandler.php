@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Websockets;
+namespace App\SterlingTrader;
 
-use App\Models\SterlingTraderMessage;
+use App\Events\SampleEvent;
+use App\Models\SterlingTrader\SterlingTraderMessage;
 use BeyondCode\LaravelWebSockets\Apps\App;
 use BeyondCode\LaravelWebSockets\QueryParameters;
 use BeyondCode\LaravelWebSockets\WebSockets\Exceptions\UnknownAppKey;
@@ -11,13 +12,15 @@ use Ratchet\ConnectionInterface;
 use Ratchet\RFC6455\Messaging\MessageInterface;
 use Ratchet\WebSocket\MessageComponentInterface;
 
-class SterlingTraderHandler implements MessageComponentInterface
+class WebsocketsHandler implements MessageComponentInterface
 {
     public function onOpen(ConnectionInterface $conn)
     {
         $this
             ->verifyAppKey($conn)
             ->generateSocketId($conn);
+
+        $conn->send(app(ChannelManager::class)->saveConnection($conn)->connectionCount());
     }
 
     public function onClose(ConnectionInterface $conn)
@@ -31,28 +34,34 @@ class SterlingTraderHandler implements MessageComponentInterface
     public function onMessage(ConnectionInterface $conn, MessageInterface $msg)
     {
         SterlingTraderMessage::create([
+            // 'socket_id' => $conn->socketId,
             'message' => $msg,
         ]);
+
+        $connections = app(ChannelManager::class)->getConnections();
+        $conn->send('There are '.count($connections).' connections.');
+
+        event(new SampleEvent($msg));
     }
 
-    protected function verifyAppKey(ConnectionInterface $connection)
+    protected function verifyAppKey(ConnectionInterface $conn)
     {
-        $appKey = QueryParameters::create($connection->httpRequest)->get('appKey');
+        $appKey = QueryParameters::create($conn->httpRequest)->get('appKey');
 
         if (! $app = App::findByKey($appKey)) {
             throw new UnknownAppKey($appKey);
         }
 
-        $connection->app = $app;
+        $conn->app = $app;
 
         return $this;
     }
 
-    protected function generateSocketId(ConnectionInterface $connection)
+    protected function generateSocketId(ConnectionInterface $conn)
     {
         $socketId = sprintf('%d.%d', random_int(1, 1000000000), random_int(1, 1000000000));
 
-        $connection->socketId = $socketId;
+        $conn->socketId = $socketId;
 
         return $this;
     }

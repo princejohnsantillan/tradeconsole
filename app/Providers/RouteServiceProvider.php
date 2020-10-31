@@ -49,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->namespace($this->namespace)
-                ->group(base_path('routes/websockets.php'));
+                ->group(base_path('routes/sterlingtrader.php'));
         });
     }
 

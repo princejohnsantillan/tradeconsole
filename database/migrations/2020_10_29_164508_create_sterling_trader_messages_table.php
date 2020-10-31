@@ -15,7 +15,10 @@ class CreateSterlingTraderMessagesTable extends Migration
     {
         Schema::create('sterling_trader_messages', function (Blueprint $table) {
             $table->id();
-            $table->text('message')->nullable();
+            $table->string('app_id');
+            $table->string('trader_id');
+            $table->string('adapter_version');
+            $table->json('message');
             $table->timestamps();
         });
     }
