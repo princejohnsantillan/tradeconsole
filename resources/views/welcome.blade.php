@@ -192,7 +192,7 @@
                             </svg>
                           </div>
                           <p class="ml-3 text-base leading-6 font-medium text-gray-500">
-                            Cross platform shadow trading
+                            Single platform shadow trading
                           </p>
                         </li>
                         <li class="mt-4 flex items-start">
@@ -204,6 +204,17 @@
                           </div>
                           <p class="ml-3 text-base leading-6 font-medium text-gray-500">
                             Email alerting
+                          </p>
+                        </li>
+                        <li class="mt-4 flex items-start">
+                          <div class="flex-shrink-0">
+                            <!-- Heroicon name: check -->
+                            <svg class="h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                          <p class="ml-3 text-base leading-6 font-medium text-gray-500">
+                            Console expert support
                           </p>
                         </li>
                       </ul>
@@ -292,6 +303,17 @@
                             </div>
                             <p class="ml-3 text-base leading-6 font-medium text-gray-500">
                               Email and SMS alerting
+                            </p>
+                          </li>
+                          <li class="mt-4 flex items-start">
+                            <div class="flex-shrink-0">
+                              <!-- Heroicon name: check -->
+                              <svg class="h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                              </svg>
+                            </div>
+                            <p class="ml-3 text-base leading-6 font-medium text-gray-500">
+                              Console expert support
                             </p>
                           </li>
                         </ul>
