@@ -125,7 +125,7 @@
                     <div class="absolute inset-x-0 top-0 transform translate-y-px">
                       <div class="flex justify-center transform -translate-y-1/2">
                         <span class="inline-flex rounded-full bg-indigo-600 px-4 py-1 text-sm leading-5 font-semibold tracking-wider uppercase text-white">
-                          Common Use
+                          Most Common
                         </span>
                       </div>
                     </div>
