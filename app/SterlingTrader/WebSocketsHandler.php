@@ -2,7 +2,6 @@
 
 namespace App\SterlingTrader;
 
-use App\Events\SampleEvent;
 use App\Models\SterlingTrader\SterlingTraderMessage;
 use BeyondCode\LaravelWebSockets\Apps\App;
 use BeyondCode\LaravelWebSockets\QueryParameters;
@@ -12,23 +11,28 @@ use Ratchet\ConnectionInterface;
 use Ratchet\RFC6455\Messaging\MessageInterface;
 use Ratchet\WebSocket\MessageComponentInterface;
 
-class WebsocketsHandler implements MessageComponentInterface
+class WebSocketsHandler implements MessageComponentInterface
 {
     public function onOpen(ConnectionInterface $conn)
     {
         $this
             ->verifyAppKey($conn)
-            ->generateSocketId($conn);
+            ->generateSocketId($conn)
+            ->registerConnection($conn);
 
-        $conn->send(app(ChannelManager::class)->saveConnection($conn)->connectionCount());
+        //send connection confirmation?
     }
 
     public function onClose(ConnectionInterface $conn)
     {
+        app(ChannelManager::class)->removeConnection($conn);
     }
 
     public function onError(ConnectionInterface $conn, Exception $e)
     {
+        //track exception
+        //send exception message to the connection
+        //close connection
     }
 
     public function onMessage(ConnectionInterface $conn, MessageInterface $msg)
@@ -38,10 +42,7 @@ class WebsocketsHandler implements MessageComponentInterface
             'message' => $msg,
         ]);
 
-        $connections = app(ChannelManager::class)->getConnections();
-        $conn->send('There are '.count($connections).' connections.');
-
-        event(new SampleEvent($msg));
+        PulseApp::process($msg);     //pulse app will manage what kind of event to fire, like trade updated, order updated (mirror sterling events?)
     }
 
     protected function verifyAppKey(ConnectionInterface $conn)
@@ -62,6 +63,13 @@ class WebsocketsHandler implements MessageComponentInterface
         $socketId = sprintf('%d.%d', random_int(1, 1000000000), random_int(1, 1000000000));
 
         $conn->socketId = $socketId;
+
+        return $this;
+    }
+
+    private function registerConnection(ConnectionInterface $conn)
+    {
+        app(ChannelManager::class)->saveConnection($conn);
 
         return $this;
     }

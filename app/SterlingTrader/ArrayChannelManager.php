@@ -15,6 +15,10 @@ class ArrayChannelManager implements ChannelManager
         return $this;
     }
 
+    public function removeConnection(ConnectionInterface $conn){
+        
+    }
+
     public function getConnections()
     {
         return $this->connections;
