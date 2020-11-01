@@ -3,7 +3,7 @@
 namespace App\SterlingTrader;
 
 use App\Models\SterlingTrader\SterlingTraderMessage;
-use App\Models\SterlingTrader\SterlingTraderWebSocketsErrors;
+use App\Models\SterlingTrader\SterlingTraderWebsocketError;
 use App\SterlingTrader\Apps\Pulse;
 use App\SterlingTrader\Contracts\AdapterProvider;
 use App\SterlingTrader\Contracts\ConnectionManager;
@@ -52,7 +52,7 @@ class WebSocketsHandler implements MessageComponentInterface
 
     public function onError(ConnectionInterface $connection, Exception $e)
     {
-        SterlingTraderWebSocketsErrors::create([
+        SterlingTraderWebsocketError::create([
             'socket_id' => $connection->socketId,
             'code' => $e->getCode(),
             'message' => $e->getMessage(),

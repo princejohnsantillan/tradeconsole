@@ -13,7 +13,7 @@ class CreateSterlingTraderWebSocketsErrorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sterling_trader_web_sockets_errors', function (Blueprint $table) {
+        Schema::create('sterling_trader_websocket_errors', function (Blueprint $table) {
             $table->id();
             $table->string('socket_id')->nullable();
             $table->smallInteger('code')->default(0);
@@ -30,6 +30,6 @@ class CreateSterlingTraderWebSocketsErrorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sterling_trader_web_sockets_errors');
+        Schema::dropIfExists('sterling_trader_websocket_errors');
     }
 }
