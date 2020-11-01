@@ -23,8 +23,8 @@ abstract class Controller implements HttpServerInterface
 
     public function __construct(AdapterProvider $adapterProvider, ConnectionManager $connectionManager)
     {
-        $this->adapterProvider = $adapterProvider;        
-        $this->connectionManager = $connectionManager;        
+        $this->adapterProvider = $adapterProvider;
+        $this->connectionManager = $connectionManager;
     }
 
     public function onOpen(ConnectionInterface $connection, RequestInterface $request = null)
@@ -60,7 +60,7 @@ abstract class Controller implements HttpServerInterface
     }
 
     private function verifySignature(RequestInterface $request)
-    {    
+    {
         $adapter = $this->adapterProvider
             ->findByKey($this->parameters->get('adapterKey'));
 

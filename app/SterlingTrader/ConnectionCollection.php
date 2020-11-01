@@ -36,14 +36,14 @@ class ConnectionCollection implements ConnectionManager
         return $this;
     }
 
-    public function getConnections(string $adapterKey) : array
+    public function getConnections(string $adapterKey): array
     {
         return $this->connections
             ->where('key', $adapterKey)
             ->toArray();
     }
 
-    public function getConnection(string $adapterKey, string $trader) : ConnectionInterface
+    public function getConnection(string $adapterKey, string $trader): ConnectionInterface
     {
         return $this->connections
             ->where('key', $adapterKey)

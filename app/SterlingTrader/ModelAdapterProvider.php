@@ -7,17 +7,17 @@ use App\SterlingTrader\Contracts\AdapterProvider;
 
 class ModelAdapterProvider implements AdapterProvider
 {
-    public function findByKey(string $key) : ?Adapter
+    public function findByKey(string $key): ?Adapter
     {
         return $this->findByField('key', $key);
     }
 
-    public function findBySecret(string $key) : ?Adapter
+    public function findBySecret(string $key): ?Adapter
     {
         return $this->findByField('secret', $key);
     }
 
-    private function findByField(string $field, string $value) : ?Adapter
+    private function findByField(string $field, string $value): ?Adapter
     {
         $adapter = SterlingTraderAdapter::where($field, $value)->first(['key', 'secret', 'capacity']);
 

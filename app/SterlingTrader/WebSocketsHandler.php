@@ -46,7 +46,7 @@ class WebSocketsHandler implements MessageComponentInterface
 
     public function onClose(ConnectionInterface $connection)
     {
-        list($key, $trader) = explode(':', $connection->socketId);
+        [$key, $trader] = explode(':', $connection->socketId);
         $this->connectionManger->removeConnection($key, $trader);
     }
 

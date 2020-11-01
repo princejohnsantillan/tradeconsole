@@ -10,9 +10,9 @@ interface ConnectionManager
 
     public function removeConnection(string $adapterKey, string $trader);
 
-    public function getConnections(string $adapterKey) : array;
+    public function getConnections(string $adapterKey): array;
 
-    public function getConnection(string $adapterKey, string $trader) : ConnectionInterface;
+    public function getConnection(string $adapterKey, string $trader): ConnectionInterface;
 
     public function connectionCount(string $adapterKey);
 

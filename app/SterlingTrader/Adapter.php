@@ -6,8 +6,8 @@ use App\SterlingTrader\Contracts\ConnectionManager;
 use Illuminate\Support\Facades\Http;
 
 class Adapter
-{    
-    /**     
+{
+    /**
      * @var \App\SterlingTrader\Contracts\ConnectionManager
      */
     private $connectionManager;
@@ -40,7 +40,7 @@ class Adapter
     {
         return $this->secret;
     }
-    
+
     public function getCapacity()
     {
         return $this->capacity;
@@ -73,11 +73,12 @@ class Adapter
         return Http::post($url, [
             'signature' => $this->createSignature($url),
             'message' => $message,
-        ]);     
+        ]);
     }
 
-    public function send(string $trader, string $message){
+    public function send(string $trader, string $message)
+    {
         optional($this->connectionManager->getConnection($this->key, $trader))
             ->send($message);
-    }    
+    }
 }
