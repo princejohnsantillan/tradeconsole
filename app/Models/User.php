@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\SterlingTrader\SterlingTraderApp;
+use App\Models\SterlingTrader\SterlingTraderAdapter;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -60,8 +60,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
-    public function sterlingTraderApp()
+    public function sterlingTraderAdapter()
     {
-        return $this->hasOne(SterlingTraderApp::class);
+        return $this->hasOne(SterlingTraderAdapter::class);
     }
 }

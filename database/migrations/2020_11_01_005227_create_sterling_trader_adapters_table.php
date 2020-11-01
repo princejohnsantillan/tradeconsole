@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSterlingTraderAppsTable extends Migration
+class CreateSterlingTraderAdaptersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateSterlingTraderAppsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sterling_trader_apps', function (Blueprint $table) {
+        Schema::create('sterling_trader_adapters', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->boolean('activated')->default(true);
-            $table->string('key');
+            $table->string('key')->unique();
+            $table->string('secret')->unique();
             $table->unsignedTinyInteger('capacity')->default(2);
-            $table->json('accounts')->nullable();
-            $table->json('destinations')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateSterlingTraderAppsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sterling_trader_apps');
+        Schema::dropIfExists('sterling_trader_adapters');
     }
 }

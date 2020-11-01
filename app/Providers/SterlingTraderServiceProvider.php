@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\SterlingTrader\AppProvider;
-use App\SterlingTrader\ArrayChannelManager;
-use App\SterlingTrader\ChannelManager;
-use App\SterlingTrader\ModelAppProvider;
+use App\SterlingTrader\ConnectionCollection;
+use App\SterlingTrader\Contracts\AdapterProvider;
+use App\SterlingTrader\Contracts\ConnectionManager;
+use App\SterlingTrader\ModelAdapterProvider;
 use Illuminate\Support\ServiceProvider;
 
 class SterlingTraderServiceProvider extends ServiceProvider
@@ -17,8 +17,8 @@ class SterlingTraderServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(AppProvider::class, ModelAppProvider::class);
-        $this->app->singleton(ChannelManager::class, ArrayChannelManager::class);
+        $this->app->singleton(AdapterProvider::class, ModelAdapterProvider::class);
+        $this->app->singleton(ConnectionManager::class, ConnectionCollection::class);
     }
 
     /**

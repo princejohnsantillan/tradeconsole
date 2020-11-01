@@ -3,9 +3,11 @@
 namespace App\SterlingTrader;
 
 use App\Models\SterlingTrader\SterlingTraderMessage;
-use BeyondCode\LaravelWebSockets\Apps\App;
+use App\Models\SterlingTrader\SterlingTraderWebSocketsErrors;
+use App\SterlingTrader\Apps\Pulse;
+use App\SterlingTrader\Contracts\AdapterProvider;
+use App\SterlingTrader\Contracts\ConnectionManager;
 use BeyondCode\LaravelWebSockets\QueryParameters;
-use BeyondCode\LaravelWebSockets\WebSockets\Exceptions\UnknownAppKey;
 use Exception;
 use Ratchet\ConnectionInterface;
 use Ratchet\RFC6455\Messaging\MessageInterface;
@@ -13,63 +15,98 @@ use Ratchet\WebSocket\MessageComponentInterface;
 
 class WebSocketsHandler implements MessageComponentInterface
 {
-    public function onOpen(ConnectionInterface $conn)
+    private $adapterProvider;
+
+    private $connectionManger;
+
+    private $parameters;
+
+    public function __construct(AdapterProvider $adapterProvider, ConnectionManager $connectionManger)
     {
+        $this->adapterProvider = $adapterProvider;
+        $this->connectionManger = $connectionManger;
+    }
+
+    private function getParameter($name)
+    {
+        return $this->parameters->get($name);
+    }
+
+    public function onOpen(ConnectionInterface $connection)
+    {
+        $this->parameters = QueryParameters::create($connection->httpRequest);
+
         $this
-            ->verifyAppKey($conn)
-            ->generateSocketId($conn)
-            ->registerConnection($conn);
+            ->verifyAdapter()
+            ->generateSocketId($connection)
+            ->registerConnection($connection);
 
-        //send connection confirmation?
+        //TODO: send connection confirmation?
     }
 
-    public function onClose(ConnectionInterface $conn)
+    public function onClose(ConnectionInterface $connection)
     {
-        app(ChannelManager::class)->removeConnection($conn);
+        list($key, $trader) = explode(':', $connection->socketId);
+        $this->connectionManger->removeConnection($key, $trader);
     }
 
-    public function onError(ConnectionInterface $conn, Exception $e)
+    public function onError(ConnectionInterface $connection, Exception $e)
     {
-        //track exception
-        //send exception message to the connection
-        //close connection
+        SterlingTraderWebSocketsErrors::create([
+            'socket_id' => $connection->socketId,
+            'code' => $e->getCode(),
+            'message' => $e->getMessage(),
+            'trace' => $e->getTraceAsString(),
+        ]);
     }
 
-    public function onMessage(ConnectionInterface $conn, MessageInterface $msg)
+    public function onMessage(ConnectionInterface $connection, MessageInterface $message)
     {
         SterlingTraderMessage::create([
-            // 'socket_id' => $conn->socketId,
-            'message' => $msg,
+            'adapter_key' => $this->getParameter('adapterKey'),
+            'trader_id' => $this->getParameter('traderId'),
+            'adapter_version' => $this->getParameter('adapterVersion'),
+            'message' => $message,
         ]);
 
-        PulseApp::process($msg);     //pulse app will manage what kind of event to fire, like trade updated, order updated (mirror sterling events?)
+        Pulse::process($message);
     }
 
-    protected function verifyAppKey(ConnectionInterface $conn)
+    protected function verifyAdapter()
     {
-        $appKey = QueryParameters::create($conn->httpRequest)->get('appKey');
+        $adapterKey = $this->getParameter('adapterKey');
+        $adapterVersion = $this->getParameter('adapterVersion');
 
-        if (! $app = App::findByKey($appKey)) {
-            throw new UnknownAppKey($appKey);
+        $adapter = $this->adapterProvider->findByKey($adapterKey);
+
+        if ($adapter === null) {
+            throw new  Exception('Invalid adapter key.', 401);
         }
 
-        $conn->app = $app;
+        if ($this->connectionManger->connectionCount($adapterKey) >= $adapter->getCapacity()) {
+            throw new  Exception('Connection limit reached.', 401);
+        }
+
+        if ($adapterVersion !== config('sterlingtrader.adapter_version')) {
+            throw new  Exception('Outdated adapter.', 401);
+        }
 
         return $this;
     }
 
-    protected function generateSocketId(ConnectionInterface $conn)
+    protected function generateSocketId(ConnectionInterface $connection)
     {
-        $socketId = sprintf('%d.%d', random_int(1, 1000000000), random_int(1, 1000000000));
-
-        $conn->socketId = $socketId;
+        $connection->socketId = $this->getParameter('adapterKey').':'.$this->getParameter('traderId');
 
         return $this;
     }
 
-    private function registerConnection(ConnectionInterface $conn)
+    private function registerConnection(ConnectionInterface $connection)
     {
-        app(ChannelManager::class)->saveConnection($conn);
+        $adapterKey = $this->getParameter('adapterKey');
+        $traderId = $this->getParameter('traderId');
+
+        $this->connectionManger->saveConnection($connection, $adapterKey, $traderId);
 
         return $this;
     }

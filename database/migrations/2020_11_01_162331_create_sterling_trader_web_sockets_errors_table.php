@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSterlingTraderMessagesTable extends Migration
+class CreateSterlingTraderWebSocketsErrorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateSterlingTraderMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sterling_trader_messages', function (Blueprint $table) {
+        Schema::create('sterling_trader_web_sockets_errors', function (Blueprint $table) {
             $table->id();
-            $table->string('app_id');
-            $table->string('trader_id');
-            $table->string('adapter_version');
-            $table->json('message');
+            $table->string('socket_id');
+            $table->smallInteger('code')->default(0);
+            $table->text('message');
+            $table->longText('trace');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateSterlingTraderMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sterling_trader_messages');
+        Schema::dropIfExists('sterling_trader_web_sockets_errors');
     }
 }
