@@ -34,6 +34,17 @@ class SterlingTraderAdapter extends Model
         ];
     }
 
+    public function saveWithFreshKeys()
+    {
+        $freshKeys = $this->freshKeys();
+
+        $this->key = $freshKeys['key'];
+
+        $this->secret = $freshKeys['secret'];
+
+        $this->save();
+    }
+
     public function regenerateKeys()
     {
         $this->update($this->freshKeys());

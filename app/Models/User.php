@@ -64,4 +64,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(SterlingTraderAdapter::class);
     }
+
+    public function activeSterlingTraderAdapter()
+    {
+        return $this->hasOne(SterlingTraderAdapter::class)->active();
+    }
+
+    public function getSterlingTraderAdapterKey()
+    {
+        return optional($this->activeSterlingTraderAdapter)->key;
+    }
 }
