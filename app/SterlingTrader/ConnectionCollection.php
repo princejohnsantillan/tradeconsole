@@ -17,7 +17,7 @@ class ConnectionCollection implements ConnectionManager
 
     public function saveConnection(ConnectionInterface $connection, string $adapterKey, string $trader)
     {
-        $this->collection->push([
+        $this->connections->push([
             'key' => $adapterKey,
             'trader' => $trader,
             'connection' => $connection,

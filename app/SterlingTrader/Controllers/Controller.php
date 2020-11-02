@@ -46,11 +46,17 @@ abstract class Controller implements HttpServerInterface
 
     public function onError(ConnectionInterface $connection, Exception $e)
     {
-        $connection->send(response()->json([
-            'code' => $e->getCode(),
-            'message' => $e->getMessage(),
-            'trace' => $e->getTrace(),
-        ]));
+        if (config('app.env') == 'production') {
+            $connection->send(response()->json([
+                'message' => $e->getMessage(),
+            ]));
+        } else {
+            $connection->send(response()->json([
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+                'trace' => $e->getTrace(),
+            ]));
+        }
 
         $connection->close();
     }

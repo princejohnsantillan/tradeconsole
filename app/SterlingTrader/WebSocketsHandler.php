@@ -15,6 +15,8 @@ use Ratchet\WebSocket\MessageComponentInterface;
 
 class WebSocketsHandler implements MessageComponentInterface
 {
+    private const SOCKET_DELIMITER = '::';
+
     private $adapterProvider;
 
     private $connectionManger;
@@ -37,16 +39,16 @@ class WebSocketsHandler implements MessageComponentInterface
         $this->parameters = QueryParameters::create($connection->httpRequest);
 
         $this
-            ->verifyAdapter()
+            ->verifyAdapter($connection)
             ->generateSocketId($connection)
             ->registerConnection($connection);
 
-        //TODO: send connection confirmation?
+        //TODO: Send connection confirmation?
     }
 
     public function onClose(ConnectionInterface $connection)
     {
-        [$key, $trader] = explode(':', $connection->socketId);
+        [$key, $trader] = explode(self::SOCKET_DELIMITER, $connection->socketId);
         $this->connectionManger->removeConnection($key, $trader);
     }
 
@@ -72,31 +74,44 @@ class WebSocketsHandler implements MessageComponentInterface
         Pulse::process($message);
     }
 
-    protected function verifyAdapter()
+    private function verifyAdapter(ConnectionInterface $connection)
     {
         $adapterKey = $this->getParameter('adapterKey');
         $adapterVersion = $this->getParameter('adapterVersion');
 
         $adapter = $this->adapterProvider->findByKey($adapterKey);
 
+        $connection->socketId = 'tmp'.self::SOCKET_DELIMITER.time(); //NOTE: Needed by laravel websockets' logger.
+
         if ($adapter === null) {
-            throw new  Exception('Invalid adapter key.', 401);
+            $this->verificationFailed($connection, 'Invalid adapter key.');
         }
 
-        if ($this->connectionManger->connectionCount($adapterKey) >= $adapter->getCapacity()) {
-            throw new  Exception('Connection limit reached.', 401);
+        if ($this->connectionManger->connectionCount($adapterKey) >= $adapter->capacity) {
+            $this->verificationFailed($connection, 'Connection limit reached.');
         }
 
         if ($adapterVersion !== config('sterlingtrader.adapter_version')) {
-            throw new  Exception('Outdated adapter.', 401);
+            $this->verificationFailed($connection, 'Outdated adapter.');
         }
+
+        $connection->app = $adapter;  //NOTE: Needed by laravel websockets' logger.
 
         return $this;
     }
 
-    protected function generateSocketId(ConnectionInterface $connection)
+    private function verificationFailed(ConnectionInterface $connection, string $message)
     {
-        $connection->socketId = $this->getParameter('adapterKey').':'.$this->getParameter('traderId');
+        $connection->send('Connection closed: '.$message); //TODO: Revisit how the adapter receives this.
+        $connection->close();
+        throw new  Exception($message, 401);
+    }
+
+    private function generateSocketId(ConnectionInterface $connection)
+    {
+        $connection->socketId = $this->getParameter('adapterKey')
+            .self::SOCKET_DELIMITER
+            .$this->getParameter('traderId');
 
         return $this;
     }

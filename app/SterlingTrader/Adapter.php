@@ -12,38 +12,30 @@ class Adapter
      */
     private $connectionManager;
 
-    private $key;
+    public $id;
 
-    private $secret;
+    public $key;
 
-    private $capacity;
+    public $secret;
+
+    public $capacity;
 
     public function __construct(string $key, string $secret, int $capacity)
     {
         $this->connectionManager = app(ConnectionManager::class);
+
+        $this->id = $key;
+
         $this->key = $key;
+
         $this->secret = $secret;
+
         $this->capacity = $capacity;
     }
 
     public static function create(string $key, string $secret, int $capacity)
     {
         return new static($key, $secret, $capacity);
-    }
-
-    public function getKey()
-    {
-        return $this->key;
-    }
-
-    public function getSecret()
-    {
-        return $this->secret;
-    }
-
-    public function getCapacity()
-    {
-        return $this->capacity;
     }
 
     /**
