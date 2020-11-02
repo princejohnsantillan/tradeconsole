@@ -4,12 +4,13 @@ namespace App\SterlingTrader\Controllers;
 
 use App\SterlingTrader\Contracts\AdapterProvider;
 use App\SterlingTrader\Contracts\ConnectionManager;
+use App\SterlingTrader\Exceptions\IncorrectSignature;
+use App\SterlingTrader\Exceptions\InvalidAdapterKey;
 use BeyondCode\LaravelWebSockets\QueryParameters;
 use Exception;
 use Psr\Http\Message\RequestInterface;
 use Ratchet\ConnectionInterface;
 use Ratchet\Http\HttpServerInterface;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 abstract class Controller implements HttpServerInterface
 {
@@ -48,18 +49,18 @@ abstract class Controller implements HttpServerInterface
     {
     }
 
-    public function onError(ConnectionInterface $connection, Exception $e)
+    public function onError(ConnectionInterface $connection, Exception $exception)
     {
         if (config('app.env') == 'production') {
             $connection->send(response()->json([
-                'code' => $e->getCode(),
-                'message' => $e->getMessage(),
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage(),
             ]));
         } else {
             $connection->send(response()->json([
-                'code' => $e->getCode(),
-                'message' => $e->getMessage(),
-                'trace' => $e->getTrace(),
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage(),
+                'trace' => $exception->getTrace(),
             ]));
         }
 
@@ -76,11 +77,11 @@ abstract class Controller implements HttpServerInterface
             ->findByKey($this->getParameter('adapterKey'));
 
         if ($adapter === null) {
-            throw new  HttpException(401, 'Invalid adapter key.');
+            throw new  InvalidAdapterKey;
         }
 
         if ($this->getField('signature') !== $adapter->signRequest($request)) {
-            throw new  HttpException(401, 'Unauthorized.');
+            throw new  IncorrectSignature;
         }
 
         return $this;
