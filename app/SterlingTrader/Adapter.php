@@ -62,15 +62,22 @@ class Adapter
             $trader
         );
 
-        return Http::post($url, [
+        return (string) Http::post($url, [
             'signature' => $this->createSignature($url),
             'message' => $message,
-        ]);
+        ])->getBody();
     }
 
     public function send(string $trader, string $message)
     {
-        optional($this->connectionManager->getConnection($this->key, $trader))
-            ->send($message);
+        $connection = $this->connectionManager->getConnection($this->key, $trader);
+
+        if ($connection === null) {
+            return false;
+        }
+
+        $connection->send($message);
+
+        return true;
     }
 }

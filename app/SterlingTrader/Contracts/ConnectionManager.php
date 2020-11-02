@@ -6,15 +6,17 @@ use Ratchet\ConnectionInterface;
 
 interface ConnectionManager
 {
-    public function saveConnection(ConnectionInterface $connection, string $adapterKey, string $trader);
+    public function saveConnection(ConnectionInterface $connection, string $adapterKey, string $trader) : self;
 
-    public function removeConnection(string $adapterKey, string $trader);
+    public function removeConnection(string $adapterKey, string $trader) : self;
 
-    public function getConnections(string $adapterKey): array;
+    public function getAllConnections(): array;
 
-    public function getConnection(string $adapterKey, string $trader): ConnectionInterface;
+    public function getAdapterConnections(string $adapterKey): array;
 
-    public function connectionCount(string $adapterKey);
+    public function getConnection(string $adapterKey, string $trader): ?ConnectionInterface;
 
-    public function totalConnections();
+    public function connectionCount(string $adapterKey) : int;
+
+    public function totalConnections() : int;
 }

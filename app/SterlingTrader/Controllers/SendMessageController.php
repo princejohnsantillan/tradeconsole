@@ -2,15 +2,23 @@
 
 namespace App\SterlingTrader\Controllers;
 
+use Exception;
+
 class SendMessageController extends Controller
 {
     public function handle()
     {
         $adapterKey = $this->parameters->get('adapterKey');
-        $traderId = $this->parameters->get('traderId');
-        $message = $this->parameters->get('message');
+        $trader = $this->parameters->get('traderId');
+        $message = $this->getField('message');
 
-        $this->connectionManager->getConnection($adapterKey, $traderId)->send($message);
+        $connection = $this->connectionManager->getConnection($adapterKey, $trader);
+
+        if ($connection === null) {
+            throw new Exception('Connection not found.', 404);
+        }
+
+        $connection->send($message);
 
         return 'ok';
     }

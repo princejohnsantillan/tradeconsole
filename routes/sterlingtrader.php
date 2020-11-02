@@ -7,6 +7,6 @@ use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 
 WebSocketsRouter::webSocket('/sterling-trader/{adapterKey}/{traderId}/{adapterVersion}', WebSocketsHandler::class);
 
-WebSocketsRouter::get('/sterling-trader/{adapterKey}/send-message/{traderId}', SendMessageController::class);
+WebSocketsRouter::post('/sterling-trader/{adapterKey}/send-message/{traderId}', SendMessageController::class);
 
 WebSocketsRouter::get('/sterling-trader/{adapterKey}/fetch-connections', FetchConnectionsController::class);

@@ -7,6 +7,6 @@ class FetchConnectionsController extends Controller
     public function handle()
     {
         return $this->connectionManager
-            ->getConnections($this->getParameter('adapterKey'));
+            ->getAdapterConnections($this->getParameter('adapterKey'));
     }
 }

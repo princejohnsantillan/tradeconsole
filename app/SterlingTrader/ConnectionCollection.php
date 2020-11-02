@@ -15,7 +15,7 @@ class ConnectionCollection implements ConnectionManager
         $this->connections = new Collection;
     }
 
-    public function saveConnection(ConnectionInterface $connection, string $adapterKey, string $trader)
+    public function saveConnection(ConnectionInterface $connection, string $adapterKey, string $trader) : self
     {
         $this->connections->push([
             'key' => $adapterKey,
@@ -26,7 +26,7 @@ class ConnectionCollection implements ConnectionManager
         return $this;
     }
 
-    public function removeConnection(string $adapterKey, string $trader)
+    public function removeConnection(string $adapterKey, string $trader) : self
     {
         $this->connections = $this->connections
             ->reject(function ($connection) use ($adapterKey, $trader) {
@@ -36,27 +36,38 @@ class ConnectionCollection implements ConnectionManager
         return $this;
     }
 
-    public function getConnections(string $adapterKey): array
+    public function getAllConnections(): array
+    {
+        return $this->connections->toArray();
+    }
+
+    public function getAdapterConnections(string $adapterKey): array
     {
         return $this->connections
             ->where('key', $adapterKey)
             ->toArray();
     }
 
-    public function getConnection(string $adapterKey, string $trader): ConnectionInterface
+    public function getConnection(string $adapterKey, string $trader): ?ConnectionInterface
     {
-        return $this->connections
+        $connection = $this->connections
             ->where('key', $adapterKey)
             ->where('trader', $trader)
-            ->first()['connection'];
+            ->first();
+
+        if ($connection === null) {
+            return null;
+        }
+
+        return $connection['connection'];
     }
 
-    public function connectionCount(string $adapterKey)
+    public function connectionCount(string $adapterKey) : int
     {
         return $this->connections->where('key', $adapterKey)->count();
     }
 
-    public function totalConnections()
+    public function totalConnections() : int
     {
         return $this->connections->count();
     }

@@ -21,6 +21,8 @@ abstract class Controller implements HttpServerInterface
 
     protected $parameters;
 
+    protected $body;
+
     public function __construct(AdapterProvider $adapterProvider, ConnectionManager $connectionManager)
     {
         $this->adapterProvider = $adapterProvider;
@@ -32,6 +34,8 @@ abstract class Controller implements HttpServerInterface
         $this->request = $request;
 
         $this->parameters = QueryParameters::create($request);
+
+        $this->body = json_decode((string) $request->getBody());
 
         $response = $this->verifySignature($request)->handle();
 
@@ -68,13 +72,13 @@ abstract class Controller implements HttpServerInterface
     private function verifySignature(RequestInterface $request)
     {
         $adapter = $this->adapterProvider
-            ->findByKey($this->parameters->get('adapterKey'));
+            ->findByKey($this->getParameter('adapterKey'));
 
         if ($adapter === null) {
             throw new  HttpException(401, 'Invalid adapter key.');
         }
 
-        $requestSignature = $this->parameters->get('signature');
+        $requestSignature = $this->getField('signature');
 
         $authSignature = $adapter->createSignature($request);
 
@@ -88,6 +92,20 @@ abstract class Controller implements HttpServerInterface
     protected function getParameter($name)
     {
         return $this->parameters->get($name);
+    }
+
+    protected function getBody($name)
+    {
+        if (property_exists($this->body, $name)) {
+            return $this->body->{$name};
+        }
+
+        return '';
+    }
+
+    protected function getField($name)
+    {
+        return $this->getParameter($name) ?: $this->getBody($name);
     }
 
     abstract public function handle();

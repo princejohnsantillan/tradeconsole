@@ -119,9 +119,9 @@ class WebSocketsHandler implements MessageComponentInterface
     private function registerConnection(ConnectionInterface $connection)
     {
         $adapterKey = $this->getParameter('adapterKey');
-        $traderId = $this->getParameter('traderId');
+        $trader = $this->getParameter('traderId');
 
-        $this->connectionManger->saveConnection($connection, $adapterKey, $traderId);
+        $this->connectionManger->saveConnection($connection, $adapterKey, $trader);
 
         return $this;
     }
