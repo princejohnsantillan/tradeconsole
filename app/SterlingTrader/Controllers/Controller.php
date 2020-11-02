@@ -52,6 +52,7 @@ abstract class Controller implements HttpServerInterface
     {
         if (config('app.env') == 'production') {
             $connection->send(response()->json([
+                'code' => $e->getCode(),
                 'message' => $e->getMessage(),
             ]));
         } else {
@@ -78,11 +79,7 @@ abstract class Controller implements HttpServerInterface
             throw new  HttpException(401, 'Invalid adapter key.');
         }
 
-        $requestSignature = $this->getField('signature');
-
-        $authSignature = $adapter->createSignature($request);
-
-        if ($requestSignature !== $authSignature) {
+        if ($this->getField('signature') !== $adapter->signRequest($request)) {
             throw new  HttpException(401, 'Unauthorized.');
         }
 

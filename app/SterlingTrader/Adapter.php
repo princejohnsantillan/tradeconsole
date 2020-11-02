@@ -42,8 +42,9 @@ class Adapter
      * @param  string|\Psr\Http\Message\RequestInterface $request
      * @return string
      */
-    public function createSignature($request)
+    public function signRequest($request)
     {
+        //NOTE: Revisit if we need to improve security.
         if ($request instanceof \Psr\Http\Message\RequestInterface) {
             $path = (string) $request->getUri()->getPath();
         } else {
@@ -53,19 +54,22 @@ class Adapter
         return hash_hmac('sha256', $path, $this->secret);
     }
 
-    public function httpSend(string $trader, string $message)
+    public function httpGet(string $url, array $query = [])
     {
-        $url = sprintf('%s:%s/sterling-trader/%s/send-message/%s',
-            config('app.url'),
-            config('websockets.port'),
-            $this->key,
-            $trader
-        );
+        return (string) Http::get($url,
+            array_merge($query, [
+                'signature' => $this->signRequest($url),
+            ])
+        )->getBody();
+    }
 
-        return (string) Http::post($url, [
-            'signature' => $this->createSignature($url),
-            'message' => $message,
-        ])->getBody();
+    public function httpPost(string $url, array $data = [])
+    {
+        return (string) Http::post($url,
+            array_merge($data, [
+                'signature' => $this->signRequest($url),
+            ])
+        )->getBody();
     }
 
     public function send(string $trader, string $message)
