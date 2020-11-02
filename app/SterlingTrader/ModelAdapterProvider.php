@@ -19,7 +19,9 @@ class ModelAdapterProvider implements AdapterProvider
 
     private function findByField(string $field, string $value): ?Adapter
     {
-        $adapter = SterlingTraderAdapter::where($field, $value)->first(['key', 'secret', 'capacity']);
+        $adapter = SterlingTraderAdapter::where('activated', true)
+            ->where($field, $value)
+            ->first(['key', 'secret', 'capacity']);
 
         if ($adapter === null) {
             return null;

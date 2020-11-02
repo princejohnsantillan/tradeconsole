@@ -12,6 +12,10 @@ class SterlingTraderAdapter extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'activated' => 'boolean',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
