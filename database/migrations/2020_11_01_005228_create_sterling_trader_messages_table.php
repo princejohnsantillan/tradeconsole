@@ -15,13 +15,13 @@ class CreateSterlingTraderMessagesTable extends Migration
     {
         Schema::create('sterling_trader_messages', function (Blueprint $table) {
             $table->id();
-            $table->string('adapter_key');
-            $table->string('trader_id');
-            $table->string('adapter_version');
+            $table->unsignedBigInteger('adapter_id');
+            $table->string('trader_id')->index();
+            $table->string('adapter_version')->index();
             $table->json('message');
             $table->timestamps();
 
-            $table->foreign('adapter_key')->references('key')->on('sterling_trader_adapters')->cascadeOnDelete();
+            $table->foreign('adapter_id')->references('id')->on('sterling_trader_adapters')->cascadeOnDelete();
         });
     }
 

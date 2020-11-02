@@ -7,6 +7,11 @@ use App\SterlingTrader\Contracts\AdapterProvider;
 
 class ModelAdapterProvider implements AdapterProvider
 {
+    public function findById(int $key): ?Adapter
+    {
+        return $this->findByField('id', $key);
+    }
+
     public function findByKey(string $key): ?Adapter
     {
         return $this->findByField('key', $key);
@@ -17,16 +22,21 @@ class ModelAdapterProvider implements AdapterProvider
         return $this->findByField('secret', $key);
     }
 
-    private function findByField(string $field, string $value): ?Adapter
+    /**
+     * @param  string $field
+     * @param  int|string $value
+     * @return \App\SterlingTrader\Adapter|null
+     */
+    private function findByField(string $field, $value): ?Adapter
     {
-        $adapter = SterlingTraderAdapter::where('activated', true)
+        $adapter = SterlingTraderAdapter::active()
             ->where($field, $value)
-            ->first(['key', 'secret', 'capacity']);
+            ->first(['id', 'key', 'secret', 'capacity']);
 
         if ($adapter === null) {
             return null;
         }
 
-        return Adapter::create($adapter->key, $adapter->secret, $adapter->capacity);
+        return Adapter::create($adapter->id, $adapter->key, $adapter->secret, $adapter->capacity);
     }
 }

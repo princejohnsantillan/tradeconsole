@@ -20,11 +20,11 @@ class Adapter
 
     public $capacity;
 
-    public function __construct(string $key, string $secret, int $capacity)
+    public function __construct(int $id, string $key, string $secret, int $capacity)
     {
         $this->connectionManager = app(ConnectionManager::class);
 
-        $this->id = $key;
+        $this->id = $id;
 
         $this->key = $key;
 
@@ -33,9 +33,9 @@ class Adapter
         $this->capacity = $capacity;
     }
 
-    public static function create(string $key, string $secret, int $capacity)
+    public static function create(int $id, string $key, string $secret, int $capacity)
     {
-        return new static($key, $secret, $capacity);
+        return new static($id, $key, $secret, $capacity);
     }
 
     /**

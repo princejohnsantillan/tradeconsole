@@ -12,6 +12,6 @@ return [
     |
     */
 
-    'adapter_version' => '0.9',
+    'adapter_version' => '0.10',
 
 ];
