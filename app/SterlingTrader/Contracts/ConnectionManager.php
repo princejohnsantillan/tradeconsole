@@ -6,9 +6,9 @@ use Ratchet\ConnectionInterface;
 
 interface ConnectionManager
 {
-    public function saveConnection(ConnectionInterface $connection, string $adapterKey, string $trader) : self;
+    public function saveConnection(ConnectionInterface $connection, string $adapterKey, string $trader): self;
 
-    public function removeConnection(string $adapterKey, string $trader) : self;
+    public function removeConnection(string $adapterKey, string $trader): self;
 
     public function getAllConnections(): array;
 
@@ -16,7 +16,7 @@ interface ConnectionManager
 
     public function getConnection(string $adapterKey, string $trader): ?ConnectionInterface;
 
-    public function connectionCount(string $adapterKey) : int;
+    public function connectionCount(string $adapterKey): int;
 
-    public function totalConnections() : int;
+    public function totalConnections(): int;
 }

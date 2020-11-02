@@ -15,7 +15,7 @@ class ConnectionCollection implements ConnectionManager
         $this->connections = new Collection;
     }
 
-    public function saveConnection(ConnectionInterface $connection, string $adapterKey, string $trader) : self
+    public function saveConnection(ConnectionInterface $connection, string $adapterKey, string $trader): self
     {
         $this->connections->push([
             'key' => $adapterKey,
@@ -26,7 +26,7 @@ class ConnectionCollection implements ConnectionManager
         return $this;
     }
 
-    public function removeConnection(string $adapterKey, string $trader) : self
+    public function removeConnection(string $adapterKey, string $trader): self
     {
         $this->connections = $this->connections
             ->reject(function ($connection) use ($adapterKey, $trader) {
@@ -62,12 +62,12 @@ class ConnectionCollection implements ConnectionManager
         return $connection['connection'];
     }
 
-    public function connectionCount(string $adapterKey) : int
+    public function connectionCount(string $adapterKey): int
     {
         return $this->connections->where('key', $adapterKey)->count();
     }
 
-    public function totalConnections() : int
+    public function totalConnections(): int
     {
         return $this->connections->count();
     }
