@@ -47,7 +47,7 @@ class WebSocketsHandler implements MessageComponentInterface
         $this->adapterKey = $parameters->get('adapterKey');
         $this->traderId = $parameters->get('traderId');
         $this->adapterVersion = $parameters->get('adapterVersion');
-        $this->signature = $parameters->get('signature');
+        // $this->signature = $parameters->get('signature');
 
         $this
             ->verifyAdapter($connection)
@@ -55,8 +55,9 @@ class WebSocketsHandler implements MessageComponentInterface
             ->generateSocketId($connection)
             ->registerConnection($connection);
 
-        //TODO: For added security. Add Signature verification.
-        //TODO: Send connection confirmation?
+        $connection->send(AdapterResponse::notify('Success! You are connected. Have a good trading day.'));
+
+        //TODO: Add signature verification to increase security.
     }
 
     public function onClose(ConnectionInterface $connection)
@@ -76,14 +77,14 @@ class WebSocketsHandler implements MessageComponentInterface
         ]);
 
         if ($exception instanceof WebSocketException) {
-            $connection->send(json_encode($exception->getPayload()));
+            $connection->send(AdapterResponse::webSocketException($exception));
             $connection->close();
         }
     }
 
     public function onMessage(ConnectionInterface $connection, MessageInterface $message)
     {
-        //TODO: For added security. Add Signature verification.
+        //TODO: Add signature verification to increase security.
 
         SterlingTraderMessage::create([
             'adapter_id' => $connection->adapter->id,
@@ -92,7 +93,7 @@ class WebSocketsHandler implements MessageComponentInterface
             'message' => $message,
         ]);
 
-        Pulse::process($message);
+        Pulse::process($connection, $message);
     }
 
     private function verifyAdapter(ConnectionInterface $connection)

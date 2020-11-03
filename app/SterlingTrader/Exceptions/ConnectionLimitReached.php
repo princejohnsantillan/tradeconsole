@@ -6,8 +6,8 @@ class ConnectionLimitReached extends WebSocketException
 {
     public function __construct()
     {
-        $this->message = 'Connection Limit Reached';
-
         $this->code = 4003;
+
+        $this->message = 'Connection Limit Reached';
     }
 }

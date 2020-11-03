@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'adapter_version' => '0.12',
+    'adapter_version' => env('STERLING_TRADER_ADAPTER_VERSION'),
 
     /*
     |--------------------------------------------------------------------------

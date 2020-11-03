@@ -1,13 +1,13 @@
 <x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="py-8">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
             <div class="pb-5 border-b border-gray-200 mb-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                   Application List
                 </h3>
             </div>
 
-            <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 <li class="col-span-1 bg-white rounded-lg shadow">
                     <div class="w-full flex items-center justify-between p-6 space-x-6">
                         <div class="flex-1 truncate">

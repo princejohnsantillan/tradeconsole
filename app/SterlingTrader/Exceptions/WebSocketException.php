@@ -4,16 +4,13 @@ namespace App\SterlingTrader\Exceptions;
 
 use Exception;
 
-class WebSocketException extends Exception
+abstract class WebSocketException extends Exception
 {
-    public function getPayload()
+    public function getPayload() : array
     {
         return [
-            'event' => 'WebSocketException',
-            'data' => [
-                'message' => $this->getMessage(),
-                'code' => $this->getCode(),
-            ],
+            'message' => $this->getMessage(),
+            'code' => $this->getCode(),
         ];
     }
 }
