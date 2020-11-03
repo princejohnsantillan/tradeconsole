@@ -16,7 +16,7 @@ interface ConnectionManager
 
     public function getConnection(string $adapterKey, string $trader): ?ConnectionInterface;
 
-    public function connectionCount(string $adapterKey): int;
-
-    public function totalConnections(): int;
+    public function totalConnectionsCount(): int;
+    
+    public function adapterConnectionsCount(string $adapterKey): int;    
 }

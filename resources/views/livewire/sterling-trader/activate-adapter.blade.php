@@ -11,10 +11,16 @@
           </p>
         </div>
         <div class="mt-5 sm:flex sm:items-center">
-          <div class="max-w-xl w-full">
+          <div x-data="{}" class="max-w-xl w-full">
             <label for="console-address" class="sr-only">Console Address</label>
-            <div class="relative rounded-md shadow-sm">
-              <input id="console-address" class="form-input block w-full sm:text-sm sm:leading-5" readonly value="{{$consoleAddress}}">
+            <div @click="$refs.consoleAddress.select(); document.execCommand('copy')" class=" relative rounded-md shadow-sm">
+              <input x-ref="consoleAddress" id="console-address" class="cursor-pointer form-input block w-full pr-10 sm:text-sm sm:leading-5" readonly value="{{$consoleAddress}}">
+              <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 3C8 2.44772 8.44772 2 9 2H11C11.5523 2 12 2.44772 12 3C12 3.55228 11.5523 4 11 4H9C8.44772 4 8 3.55228 8 3Z" />
+                  <path d="M6 3C4.89543 3 4 3.89543 4 5V16C4 17.1046 4.89543 18 6 18H14C15.1046 18 16 17.1046 16 16V5C16 3.89543 15.1046 3 14 3C14 4.65685 12.6569 6 11 6H9C7.34315 6 6 4.65685 6 3Z" />
+                </svg>
+              </div>
             </div>
           </div>
           <span class="mt-3 inline-flex rounded-md shadow-sm sm:mt-0 sm:ml-3 sm:w-auto">

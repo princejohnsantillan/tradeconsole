@@ -29,8 +29,8 @@ class SterlingTraderAdapter extends Model
     private function freshKeys()
     {
         return [
-            'key' => md5(uniqid($this->id).time()),
-            'secret' => sha1(uniqid($this->id).time()),
+            'key' => hash('md5', uniqid($this->id).time()),
+            'secret' => hash('sha256', uniqid($this->id).time()),
         ];
     }
 
@@ -43,11 +43,6 @@ class SterlingTraderAdapter extends Model
         $this->secret = $freshKeys['secret'];
 
         $this->save();
-    }
-
-    public function regenerateKeys()
-    {
-        $this->update($this->freshKeys());
     }
 
     public function activate()

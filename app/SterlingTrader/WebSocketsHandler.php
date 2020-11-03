@@ -8,7 +8,7 @@ use App\SterlingTrader\Apps\Pulse;
 use App\SterlingTrader\Contracts\AdapterProvider;
 use App\SterlingTrader\Contracts\ConnectionManager;
 use App\SterlingTrader\Exceptions\ConnectionLimitReached;
-use App\SterlingTrader\Exceptions\IncorrectSignature;
+// use App\SterlingTrader\Exceptions\IncorrectSignature;
 use App\SterlingTrader\Exceptions\InvalidAdapterKey;
 use App\SterlingTrader\Exceptions\OutdatedAdapter;
 use App\SterlingTrader\Exceptions\WebSocketException;
@@ -32,7 +32,7 @@ class WebSocketsHandler implements MessageComponentInterface
 
     private $adapterVersion;
 
-    private $signature;
+    // private $signature;
 
     public function __construct(AdapterProvider $adapterProvider, ConnectionManager $connectionManger)
     {
@@ -62,7 +62,7 @@ class WebSocketsHandler implements MessageComponentInterface
 
     public function onClose(ConnectionInterface $connection)
     {
-        [$key, $trader] = explode(self::SOCKET_DELIMITER, $connection->socketId);
+        [$key, $trader] = explode(static::SOCKET_DELIMITER, $connection->socketId);
 
         $this->connectionManger->removeConnection($key, $trader);
     }
@@ -98,7 +98,7 @@ class WebSocketsHandler implements MessageComponentInterface
 
     private function verifyAdapter(ConnectionInterface $connection)
     {
-        $connection->socketId = uniqid().self::SOCKET_DELIMITER.time();
+        $connection->socketId = uniqid().static::SOCKET_DELIMITER.time();
 
         if ($this->adapterVersion !== config('sterlingtrader.adapter_version')) {
             throw new OutdatedAdapter;
@@ -110,7 +110,7 @@ class WebSocketsHandler implements MessageComponentInterface
             throw new InvalidAdapterKey;
         }
 
-        if ($this->connectionManger->connectionCount($this->adapterKey) >= $adapter->capacity) {
+        if ($this->connectionManger->adapterConnectionsCount($this->adapterKey) >= $adapter->capacity) {
             throw new ConnectionLimitReached;
         }
 
@@ -123,14 +123,7 @@ class WebSocketsHandler implements MessageComponentInterface
 
     // private function verifyRequestSignature(ConnectionInterface $connection)
     // {
-    //     $uri = $connection->httpRequest->getUri();
-
-    //     $authSignature = hash_hmac('sha256',
-    //         $uri->getHost().':'.$uri->getPort().$uri->getPath(),
-    //         $connection->adapter->secret
-    //     );
-
-    //     if ($this->signature !== $authSignature) {
+    //     if ($this->signature !== $this->adapter->signRequest($connection->httpRequest)) {
     //         throw new IncorrectSignature;
     //     }
 
@@ -140,9 +133,9 @@ class WebSocketsHandler implements MessageComponentInterface
     private function generateSocketId(ConnectionInterface $connection)
     {
         $connection->socketId = $this->adapterKey
-            .self::SOCKET_DELIMITER
+            .static::SOCKET_DELIMITER
             .$this->traderId
-            .self::SOCKET_DELIMITER
+            .static::SOCKET_DELIMITER
             .$connection->adapter->id;
 
         return $this;

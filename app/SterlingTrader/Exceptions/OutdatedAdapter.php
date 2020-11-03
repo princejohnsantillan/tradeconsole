@@ -8,7 +8,7 @@ class OutdatedAdapter extends WebSocketException
     {
         $this->code = 4001;
 
-        $this->message = sprintf('Outdated Adapter: The latest version(%s) is required',
+        $this->message = sprintf('Outdated Adapter: The latest version(%s) is required.',
             config('sterlingtrader.adapter_version')
         );
     }

@@ -30,7 +30,7 @@ class ConnectionCollection implements ConnectionManager
     {
         $this->connections = $this->connections
             ->reject(function ($connection) use ($adapterKey, $trader) {
-                return $connection['key'] === $adapterKey && $connection['trader'] == $trader;
+                return $connection['key'] === $adapterKey && $connection['trader'] === $trader;
             });
 
         return $this;
@@ -62,13 +62,13 @@ class ConnectionCollection implements ConnectionManager
         return $connection['connection'];
     }
 
-    public function connectionCount(string $adapterKey): int
-    {
-        return $this->connections->where('key', $adapterKey)->count();
-    }
-
-    public function totalConnections(): int
+    public function totalConnectionsCount(): int
     {
         return $this->connections->count();
+    }
+
+    public function adapterConnectionsCount(string $adapterKey): int
+    {
+        return $this->connections->where('key', $adapterKey)->count();
     }
 }

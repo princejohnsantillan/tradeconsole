@@ -21,7 +21,7 @@ class ActivateAdapter extends Component
         return view('livewire.sterling-trader.activate-adapter');
     }
 
-    public function setConsoleAddress()
+    private function setConsoleAddress()
     {
         $adapterKey = Auth::user()->getSterlingTraderAdapterKey();
 

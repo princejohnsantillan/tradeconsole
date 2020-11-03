@@ -8,6 +8,6 @@ class IncorrectSignature extends WebSocketException
     {
         $this->code = 4004;
 
-        $this->message = 'Unauthorized: Incorrect signature.';
+        $this->message = 'Unauthorized: Incorrect Signature';
     }
 }
