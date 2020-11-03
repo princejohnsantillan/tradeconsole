@@ -14,7 +14,7 @@ class ActivateAdapter extends Component
     public function mount()
     {
         $this->setConsoleAddress();
-        
+
         $this->downloadLink = config('sterlingtrader.adapter_download');
     }
 

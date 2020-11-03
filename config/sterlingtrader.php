@@ -19,7 +19,7 @@ return [
     | Adapter Download Link
     |--------------------------------------------------------------------------
     |
-    | Link to the latest adapter.    
+    | Link to the latest adapter.
     |
     */
 
