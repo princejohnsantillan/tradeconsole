@@ -3,7 +3,6 @@
 namespace App\SterlingTrader\Controllers;
 
 use App\SterlingTrader\Exceptions\ConnectionNotFound;
-use Exception;
 
 class SendMessageController extends Controller
 {
