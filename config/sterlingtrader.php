@@ -19,7 +19,7 @@ return [
     | Adapter Download Link
     |--------------------------------------------------------------------------
     |
-    | Link to the latest adapter.
+    | Provide a download link to the latest adapter.
     |
     */
 
@@ -31,7 +31,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Use this address when connecting to Trade Console from the
-    | platform adapter.
+    | Sterling Trader adapter.
     |
     */
 
