@@ -123,7 +123,7 @@ class WebSocketsHandler implements MessageComponentInterface
 
     // private function verifyRequestSignature(ConnectionInterface $connection)
     // {
-    //     if ($this->signature !== $this->adapter->signRequest($connection->httpRequest)) {
+    //     if ($this->signature !== $connection->adapter->signRequest($connection->httpRequest)) {
     //         throw new IncorrectSignature;
     //     }
 

@@ -51,6 +51,8 @@ class Adapter
             $path = parse_url($request)['path'];
         }
 
+        $path = config('app.host').':'.config('websockets.port').$path;
+
         return hash_hmac('sha256', $path, $this->secret);
     }
 

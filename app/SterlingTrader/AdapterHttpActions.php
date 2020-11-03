@@ -12,7 +12,7 @@ class AdapterHttpActions
     {
         $this->adapter = $adapter;
         $this->url = sprintf('%s:%s/sterling-trader/%s',
-            config('app.url'),
+            config('app.host'),
             config('websockets.port'),
             $adapter->key
         );
