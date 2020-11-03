@@ -94,7 +94,7 @@
                               </svg>
                             </div>
                             <p class="ml-3 text-base leading-6 font-medium text-gray-500">
-                              14 days data retention
+                              7 days data retention
                             </p>
                           </li>
                           <li class="mt-4 flex items-start">
