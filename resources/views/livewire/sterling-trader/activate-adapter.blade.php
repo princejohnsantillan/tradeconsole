@@ -13,7 +13,7 @@
         <div class="mt-5 sm:flex sm:items-center">
           <div x-data="{}" class="max-w-xl w-full">
             <label for="console-address" class="sr-only">Console Address</label>
-            <div @click="$refs.consoleAddress.select(); document.execCommand('copy')" class=" relative rounded-md shadow-sm">
+            <div x-on:click="$refs.consoleAddress.select(); document.execCommand('copy')" class=" relative rounded-md shadow-sm">
               <input x-ref="consoleAddress" id="console-address" class="cursor-pointer form-input block w-full pr-10 sm:text-sm sm:leading-5" readonly value="{{$consoleAddress}}">
               <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                 <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
