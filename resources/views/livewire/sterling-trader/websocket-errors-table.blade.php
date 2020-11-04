@@ -53,7 +53,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">No messages yet</td>
+                                <td colspan="6">No messages yet</td>
                             </tr>
                         @endforelse
                     </tbody>
