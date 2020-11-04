@@ -11,6 +11,10 @@ class SterlingTraderMessage extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'message' => 'json',
+    ];
+
     public function adapter()
     {
         return $this->belongsTo(SterlingTraderAdapter::class);
