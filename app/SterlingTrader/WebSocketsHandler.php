@@ -71,6 +71,7 @@ class WebSocketsHandler implements MessageComponentInterface
     {
         SterlingTraderWebsocketError::create([
             'socket_id' => $connection->socketId,
+            'class' => get_class($exception),
             'code' => $exception->getCode(),
             'message' => $exception->getMessage(),
             'trace' => $exception->getTraceAsString(),
@@ -86,14 +87,14 @@ class WebSocketsHandler implements MessageComponentInterface
     {
         //TODO: Add signature verification to increase security.
 
-        SterlingTraderMessage::create([
+        $sterlingTraderMessage = SterlingTraderMessage::create([
             'adapter_id' => $connection->adapter->id,
             'trader_id' => $this->traderId,
             'adapter_version' => $this->adapterVersion,
             'message' => $message,
         ]);
 
-        Pulse::process($connection, $message);
+        Pulse::given($connection, $sterlingTraderMessage)->process();
     }
 
     private function verifyAdapter(ConnectionInterface $connection)

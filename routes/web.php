@@ -21,7 +21,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/pulse-for-sterling', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/debugger-for-sterling', function () {
     return view('applications.debugger-for-sterling');
 })->name('debugger-for-sterling');
 
