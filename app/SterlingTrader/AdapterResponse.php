@@ -50,92 +50,92 @@ class AdapterResponse
         return static::render(static::NOTIFY, ['Message' => $message]);
     }
 
-    public static function sendMetadata() : string
+    public static function sendMetadata(): string
     {
         return static::render(static::SENDMETADATA, []);
     }
 
-    public static function sendMessageBox() : string
+    public static function sendMessageBox(): string
     {
         return static::render(static::SENDMESSAGEBOX, []);
     }
 
-    public static function getAccountInfo() : string
+    public static function getAccountInfo(): string
     {
         return static::render(static::GETACCOUNTINFO, []);
     }
 
-    public static function maintainAccount() : string
+    public static function maintainAccount(): string
     {
         return static::render(static::MAINTAINACCOUNT, []);
     }
 
-    public static function maintainSymbolControl() : string
+    public static function maintainSymbolControl(): string
     {
         return static::render(static::MAINTAINSYMBOLCONTROL, []);
     }
 
-    public static function replaceOrderStruct() : string
+    public static function replaceOrderStruct(): string
     {
         return static::render(static::REPLACEORDERSTRUCT, []);
     }
 
-    public static function submitOrderStruct() : string
+    public static function submitOrderStruct(): string
     {
         return static::render(static::SUBMITORDERSTRUCT, []);
     }
 
-    public static function cancelAllOrder() : string
+    public static function cancelAllOrder(): string
     {
         return static::render(static::CANCELALLORDER, []);
     }
 
-    public static function cancelOrder() : string
+    public static function cancelOrder(): string
     {
         return static::render(static::CANCELORDER, []);
     }
 
-    public static function cancelOrderEx() : string
+    public static function cancelOrderEx(): string
     {
         return static::render(static::CANCELORDEREX, []);
     }
 
-    public static function getOrderInfo() : string
+    public static function getOrderInfo(): string
     {
         return static::render(static::GETORDERINFO, []);
     }
 
-    public static function getOrderList() : string
+    public static function getOrderList(): string
     {
         return static::render(static::GETORDERLIST, []);
     }
 
-    public static function getOrderListEx() : string
+    public static function getOrderListEx(): string
     {
         return static::render(static::GETORDERLISTEX, []);
     }
 
-    public static function getTraderListEx() : string
+    public static function getTraderListEx(): string
     {
         return static::render(static::GETTRADERLISTEX, []);
     }
 
-    public static function getPositionInfoStruct() : string
+    public static function getPositionInfoStruct(): string
     {
         return static::render(static::GETPOSITIONINFOSTRUCT, []);
     }
 
-    public static function getPositionList() : string
+    public static function getPositionList(): string
     {
         return static::render(static::GETPOSITIONLIST, []);
     }
 
-    public static function getPosListByAccount() : string
+    public static function getPosListByAccount(): string
     {
         return static::render(static::GETPOSLISTBYACCOUNT, []);
     }
 
-    public static function getPosListBySym() : string
+    public static function getPosListBySym(): string
     {
         return static::render(static::GETPOSLISTBYSYM, []);
     }
