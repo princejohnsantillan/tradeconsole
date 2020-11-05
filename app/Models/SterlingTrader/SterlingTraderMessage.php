@@ -12,7 +12,7 @@ class SterlingTraderMessage extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'message' => 'json',
+        'message' => 'array',
     ];
 
     public function adapter()
@@ -27,7 +27,7 @@ class SterlingTraderMessage extends Model
 
     public function getDataAsString()
     {
-        return array_key_exists('data', $this->message) ? json_encode($this->message['data']) : null;
+        return array_key_exists('data', $this->message) ? $this->message['data'] : null;
     }
 
     public function isEvent(string $event)

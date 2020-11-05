@@ -91,7 +91,7 @@ class WebSocketsHandler implements MessageComponentInterface
             'adapter_id' => $connection->adapter->id,
             'trader_id' => $this->traderId,
             'adapter_version' => $this->adapterVersion,
-            'message' => json_decode($message),
+            'message' => $message,
         ]);
 
         Pulse::given($connection, $sterlingTraderMessage)->process();
