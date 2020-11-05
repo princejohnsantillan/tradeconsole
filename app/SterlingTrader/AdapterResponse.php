@@ -55,14 +55,19 @@ class AdapterResponse
         return static::render(static::SENDMETADATA, []);
     }
 
-    public static function sendMessageBox(): string
+    public static function sendMessageBox(string $trader, string $text): string
     {
-        return static::render(static::SENDMESSAGEBOX, []);
+        return static::render(static::SENDMESSAGEBOX, [
+            'Trader' => $trader,
+            'Text' => $text,
+        ]);
     }
 
-    public static function getAccountInfo(): string
+    public static function getAccountInfo(string $account): string
     {
-        return static::render(static::GETACCOUNTINFO, []);
+        return static::render(static::GETACCOUNTINFO, [
+            'Account' => $account,
+        ]);
     }
 
     public static function maintainAccount(): string
@@ -77,12 +82,18 @@ class AdapterResponse
 
     public static function replaceOrderStruct(): string
     {
-        return static::render(static::REPLACEORDERSTRUCT, []);
+        return static::render(static::REPLACEORDERSTRUCT, [
+            'Order' => '', //Order Struct
+            'OldOrderRecordID' => '',
+            'OldClientOrderID' => '',
+        ]);
     }
 
     public static function submitOrderStruct(): string
     {
-        return static::render(static::SUBMITORDERSTRUCT, []);
+        return static::render(static::SUBMITORDERSTRUCT, [
+
+        ]);
     }
 
     public static function cancelAllOrder(): string
@@ -90,24 +101,39 @@ class AdapterResponse
         return static::render(static::CANCELALLORDER, []);
     }
 
-    public static function cancelOrder(): string
+    public static function cancelOrder(string $account, string $orderRecordId, string $oldClientOrderId, string $clientOrderId): string
     {
-        return static::render(static::CANCELORDER, []);
+        return static::render(static::CANCELORDER, [
+            'Account' => $account,
+            'OrderRecordID' => $orderRecordId,
+            'OldClientOrderID' => $oldClientOrderId,
+            'ClientOrderID' => $clientOrderId,
+        ]);
     }
 
-    public static function cancelOrderEx(): string
+    public static function cancelOrderEx(string $account, string $orderRecordId, string $oldClientOrderId, string $clientOrderId, string $instrument): string
     {
-        return static::render(static::CANCELORDEREX, []);
+        return static::render(static::CANCELORDEREX, [
+            'Account' => $account,
+            'OrderRecordID' => $orderRecordId,
+            'OldClientOrderID' => $oldClientOrderId,
+            'ClientOrderID' => $clientOrderId,
+            'Instrucment' => $instrument,
+        ]);
     }
 
-    public static function getOrderInfo(): string
+    public static function getOrderInfo(string $clientOrderId): string
     {
-        return static::render(static::GETORDERINFO, []);
+        return static::render(static::GETORDERINFO, [
+            'ClientOrderID' => $clientOrderId,
+        ]);
     }
 
     public static function getOrderList(): string
     {
-        return static::render(static::GETORDERLIST, []);
+        return static::render(static::GETORDERLIST, [
+            'OpenOnly' => '',
+        ]);
     }
 
     public static function getOrderListEx(): string
@@ -120,9 +146,13 @@ class AdapterResponse
         return static::render(static::GETTRADERLISTEX, []);
     }
 
-    public static function getPositionInfoStruct(): string
+    public static function getPositionInfoStruct(string $symbol, string $exchange, string $account): string
     {
-        return static::render(static::GETPOSITIONINFOSTRUCT, []);
+        return static::render(static::GETPOSITIONINFOSTRUCT, [
+            'Symbol' => $symbol,
+            'Exchange' => $exchange,
+            'Account' => $account,
+        ]);
     }
 
     public static function getPositionList(): string
@@ -130,13 +160,17 @@ class AdapterResponse
         return static::render(static::GETPOSITIONLIST, []);
     }
 
-    public static function getPosListByAccount(): string
+    public static function getPosListByAccount(string $account): string
     {
-        return static::render(static::GETPOSLISTBYACCOUNT, []);
+        return static::render(static::GETPOSLISTBYACCOUNT, [
+            'Account' => $account,
+        ]);
     }
 
-    public static function getPosListBySym(): string
+    public static function getPosListBySym(string $symbol): string
     {
-        return static::render(static::GETPOSLISTBYSYM, []);
+        return static::render(static::GETPOSLISTBYSYM, [
+            'Symbol' => $symbol,
+        ]);
     }
 }
