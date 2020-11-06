@@ -40,6 +40,7 @@ class Pulse
 
             case AdapterRequest::TRADEUPDATE:
                 $this->onTradeUpdate();
+                $this->connection->send(AdapterResponse::getPositionList());
                 break;
 
             case AdapterRequest::POSITIONUPDATE:
@@ -53,16 +54,16 @@ class Pulse
 
     private function onOrderUpdate()
     {
-        $this->connection->send(AdapterResponse::submitOrderStruct());
+        // $this->connection->send(AdapterResponse::submitOrderStruct());
     }
 
     private function onTradeUpdate()
     {
-        $this->connection->send(AdapterResponse::submitOrderStruct());
+        // $this->connection->send(AdapterResponse::submitOrderStruct());
     }
 
     private function onPositionUpdate()
     {
-        $this->connection->send(AdapterResponse::submitOrderStruct());
+        // $this->connection->send(AdapterResponse::submitOrderStruct());
     }
 }
