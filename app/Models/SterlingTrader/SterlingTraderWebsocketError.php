@@ -10,4 +10,9 @@ class SterlingTraderWebsocketError extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function adapter()
+    {
+        return $this->belongsTo(SterlingTraderAdapter::class);
+    }
 }

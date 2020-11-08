@@ -12,21 +12,28 @@ class AdapterHttpActions
     {
         $this->adapter = $adapter;
         $this->url = sprintf('%s:%s/sterling-trader/%s',
-            config('app.host'),
+            config('app.url'),
             config('websockets.port'),
             $adapter->key
         );
     }
 
-    public function sendMessage(string $trader, string $message)
+    public function sendData(string $trader, string $data)
     {
-        return $this->adapter->httpPost($this->url."/send-message/$trader",
-            ['message' => $message]
+        $response = $this->adapter->httpPost(
+            $this->url."/send-data/$trader",
+            ['data' => $data]
         );
+
+        return $response->ok();
     }
 
     public function fetchConnections()
     {
-        return $this->adapter->httpGet($this->url.'/fetch-connections');
+        $response = $this->adapter->httpGet($this->url.'/fetch-connections')->json();
+
+        return collect($response)
+            ->pluck('key', 'trader')
+            ->toArray();
     }
 }

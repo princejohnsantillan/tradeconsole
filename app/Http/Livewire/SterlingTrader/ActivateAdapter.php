@@ -35,7 +35,7 @@ class ActivateAdapter extends Component
         if (Auth::user()->sterlingTraderAdapter()->exists()) {
             Auth::user()->sterlingTraderAdapter->activate();
         } else {
-            Auth::user()->sterlingTraderAdapter()->make()->saveWithFreshKeys();
+            Auth::user()->sterlingTraderAdapter()->make()->activate();
         }
 
         $this->setConsoleAddress();

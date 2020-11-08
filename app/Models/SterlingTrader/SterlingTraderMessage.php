@@ -20,26 +20,17 @@ class SterlingTraderMessage extends Model
         return $this->belongsTo(SterlingTraderAdapter::class);
     }
 
-    public function getEvent()
+    public function getFromMessage(string $key)
     {
         if (! is_array($this->message)) {
             return null;
         }
 
-        return array_key_exists('event', $this->message) ? $this->message['event'] : null;
-    }
-
-    public function getDataAsString()
-    {
-        if (! is_array($this->message)) {
-            return null;
-        }
-
-        return array_key_exists('data', $this->message) ? json_encode($this->message['data']) : null;
+        return array_key_exists($key, $this->message) ? $this->message[$key] : null;
     }
 
     public function isEvent(string $event)
     {
-        return $event === $this->getEvent();
+        return $event === $this->getFromMessage('event');
     }
 }

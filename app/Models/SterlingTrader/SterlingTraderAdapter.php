@@ -47,7 +47,9 @@ class SterlingTraderAdapter extends Model
 
     public function activate()
     {
-        $this->update(array_merge(['activated' => true], $this->freshKeys()));
+        $this->activated = true;
+
+        $this->saveWithFreshKeys();
     }
 
     public function deactivate()

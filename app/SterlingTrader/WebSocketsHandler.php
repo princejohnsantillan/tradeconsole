@@ -70,6 +70,7 @@ class WebSocketsHandler implements MessageComponentInterface
     public function onError(ConnectionInterface $connection, Exception $exception)
     {
         SterlingTraderWebsocketError::create([
+            'adapter_id' => property_exists($connection, 'adapter') ? $connection->adapter->id : null,
             'socket_id' => $connection->socketId,
             'class' => get_class($exception),
             'code' => $exception->getCode(),
@@ -93,7 +94,7 @@ class WebSocketsHandler implements MessageComponentInterface
             'adapter_version' => $this->adapterVersion,
             'message' => json_decode($message),
         ]);
-        $connection->send(AdapterResponse::getPositionList());
+
         Pulse::given($connection, $sterlingTraderMessage)->process();
     }
 

@@ -3,6 +3,7 @@
 namespace App\SterlingTrader;
 
 use App\SterlingTrader\Contracts\ConnectionManager;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 class Adapter
@@ -33,7 +34,7 @@ class Adapter
         $this->capacity = $capacity;
     }
 
-    public static function create(int $id, string $key, string $secret, int $capacity)
+    public static function create(int $id, string $key, string $secret, int $capacity) : self
     {
         return new static($id, $key, $secret, $capacity);
     }
@@ -42,7 +43,7 @@ class Adapter
      * @param  string|\Psr\Http\Message\RequestInterface $request
      * @return string
      */
-    public function signRequest($request)
+    public function signRequest($request) : string
     {
         //NOTE: Revisit if we need to improve security.
         if ($request instanceof \Psr\Http\Message\RequestInterface) {
@@ -56,25 +57,25 @@ class Adapter
         return hash_hmac('sha256', $path, $this->secret);
     }
 
-    public function httpGet(string $url, array $query = [])
+    public function httpGet(string $url, array $query = []) : Response
     {
-        return (string) Http::get($url,
+        return Http::get($url,
             array_merge($query, [
                 'signature' => $this->signRequest($url),
             ])
-        )->getBody();
+        );
     }
 
-    public function httpPost(string $url, array $data = [])
+    public function httpPost(string $url, array $data = []) : Response
     {
-        return (string) Http::post($url,
+        return Http::post($url,
             array_merge($data, [
                 'signature' => $this->signRequest($url),
             ])
-        )->getBody();
+        );
     }
 
-    public function send(string $trader, string $message)
+    public function send(string $trader, string $message) :bool
     {
         $connection = $this->connectionManager->getConnection($this->key, $trader);
 

@@ -3,23 +3,27 @@
 namespace App\SterlingTrader\Apps;
 
 use App\Models\SterlingTrader\SterlingTraderMessage;
-use App\SterlingTrader\AdapterRequest;
-use App\SterlingTrader\AdapterResponse;
+use App\SterlingTrader\Apps\Pulse\EventHandlerFactory;
 use Ratchet\ConnectionInterface;
 
 class Pulse
 {
+    /** @var \Ratchet\ConnectionInterface */
     private $connection;
 
-    private $message;
+    /** @var \App\Models\User */
+    private $user;
 
     private $event;
+
+    private $data;
 
     public function __construct(ConnectionInterface $connection, SterlingTraderMessage $message)
     {
         $this->connection = $connection;
-        $this->message = $message;
-        $this->event = $message->getEvent();
+        $this->user = $message->adapter->user;
+        $this->event = $message->getFromMessage('event');
+        $this->data = $message->getFromMessage('data');
     }
 
     public static function given(ConnectionInterface $connection, SterlingTraderMessage $message)
@@ -29,41 +33,17 @@ class Pulse
 
     public function process()
     {
-        //TODO: Check pulse settings and respond accordingly.
+        $handler = EventHandlerFactory::create($this->event);
 
-        //NOTE: for each setting check conditions and mutate to configuration.
+        foreach ($this->user->activePulseInstructions as $instruction) {
+            if (! $handler->shouldHandle($instruction)) {
+                continue;
+            }
 
-        switch ($this->event) {
-            case AdapterRequest::ORDERUPDATE:
-                $this->onOrderUpdate();
-                break;
-
-            case AdapterRequest::TRADEUPDATE:
-                $this->onTradeUpdate();
-                $this->connection->send(AdapterResponse::getPositionList());
-                break;
-
-            case AdapterRequest::POSITIONUPDATE:
-                $this->onPositionUpdate();
-                break;
-
-            default:
-
+            $handler
+                ->on($this->connection)
+                ->following($instruction)
+                ->execute($this->data);
         }
-    }
-
-    private function onOrderUpdate()
-    {
-        // $this->connection->send(AdapterResponse::submitOrderStruct());
-    }
-
-    private function onTradeUpdate()
-    {
-        // $this->connection->send(AdapterResponse::submitOrderStruct());
-    }
-
-    private function onPositionUpdate()
-    {
-        // $this->connection->send(AdapterResponse::submitOrderStruct());
     }
 }
