@@ -16,7 +16,7 @@ class SymbolControlStruct extends Struct
     /** @var int */
     public $lMarginPct;
 
-    public function root() : string
+    public function root(): string
     {
         return 'structSTISymbolControl';
     }

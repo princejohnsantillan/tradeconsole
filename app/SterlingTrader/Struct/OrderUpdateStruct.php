@@ -265,7 +265,7 @@ class OrderUpdateStruct extends Struct
     /** @var int */
     public $nTrailId;
 
-    public function root() : string
+    public function root(): string
     {
         return 'structSTIOrderUpdate';
     }

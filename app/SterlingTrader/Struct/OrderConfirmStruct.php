@@ -28,7 +28,7 @@ class OrderConfirmStruct extends Struct
     /** @var int */
     public $nOrderRecordId;
 
-    public function root() : string
+    public function root(): string
     {
         return 'structSTIOrderConfirm';
     }

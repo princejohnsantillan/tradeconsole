@@ -235,7 +235,7 @@ class OrderStruct extends Struct
     /** @var int */
     public $nSizeMax;
 
-    public function root() : string
+    public function root(): string
     {
         return 'structSTIOrder';
     }

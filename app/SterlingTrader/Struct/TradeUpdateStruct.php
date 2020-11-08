@@ -151,7 +151,7 @@ class TradeUpdateStruct extends Struct
     /** @var int */
     public $nTradeRecordId;
 
-    public function root() : string
+    public function root(): string
     {
         return 'structSTITradeUpdate';
     }

@@ -16,7 +16,7 @@ class OrderFilterStruct extends Struct
     /** @var string */
     public $bstrSymbol;
 
-    public function root() : string
+    public function root(): string
     {
         return 'structSTIOrderFilter';
     }

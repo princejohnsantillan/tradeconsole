@@ -85,7 +85,7 @@ class PositionUpdateStruct extends Struct
     /** @var int */
     public $nTicketsSldShort;
 
-    public function root() : string
+    public function root(): string
     {
         return 'structSTIPositionUpdate';
     }

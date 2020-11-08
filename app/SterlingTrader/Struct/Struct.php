@@ -44,5 +44,5 @@ abstract class Struct
         return $xml->asXML();
     }
 
-    abstract public function root() : string;
+    abstract public function root(): string;
 }

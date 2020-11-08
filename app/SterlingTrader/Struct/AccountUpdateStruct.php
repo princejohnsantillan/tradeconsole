@@ -55,12 +55,12 @@ class AccountUpdateStruct extends Struct
     /** @var int */
     public $lStatus;
 
-    public function root() : string
+    public function root(): string
     {
         return 'structSTIAcctUpdate';
     }
 
-    public function test() : int
+    public function test(): int
     {
         return 1.2;
     }
