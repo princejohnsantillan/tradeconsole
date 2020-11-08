@@ -114,15 +114,17 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5">No messages yet</td>
+                                <td colspan="5" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">No messages found</td>
                             </tr>
                             @endforelse
                         </tbody>
                     </table>
 
+                    @if($messages instanceof \Illuminate\Contracts\Pagination\Paginator)
                     <div class="m-2">
                         {{ $messages->links() }}
                     </div>
+                    @endif
                     @elseif($tab === 'errors')
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
@@ -167,15 +169,17 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5">No messages yet</td>
+                                <td colspan="5" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">No errors found</td>
                             </tr>
                             @endforelse
                         </tbody>
                     </table>
 
+                    @if($messages instanceof \Illuminate\Contracts\Pagination\Paginator)
                     <div class="m-2">
                         {{ $websocketErrors->links() }}
                     </div>
+                    @endif
                     @endif
                 </div>
             </div>

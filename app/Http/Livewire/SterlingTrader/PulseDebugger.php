@@ -26,6 +26,10 @@ class PulseDebugger extends Component
     {
         $adapterKey = Auth::user()->getSterlingTraderAdapterKey();
 
+        if ($adapterKey === null) {
+            return null;
+        }
+
         $adapter = app(AdapterProvider::class)->findByKey($adapterKey);
 
         return new AdapterHttpActions($adapter);
@@ -33,8 +37,8 @@ class PulseDebugger extends Component
 
     public function mount()
     {
-        $this->connections = $this->callAdapterAction()
-            ->fetchConnections();
+        $this->connections = optional($this->callAdapterAction())
+            ->fetchConnections() ?? [];
     }
 
     public function render()
@@ -73,7 +77,7 @@ class PulseDebugger extends Component
             return;
         }
 
-        $this->callAdapterAction()->sendData($this->trader, $this->data);
+        optional($this->callAdapterAction())->sendData($this->trader, $this->data);
 
         $this->data = null;
     }
