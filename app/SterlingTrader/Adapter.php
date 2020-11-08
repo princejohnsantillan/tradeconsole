@@ -34,7 +34,7 @@ class Adapter
         $this->capacity = $capacity;
     }
 
-    public static function create(int $id, string $key, string $secret, int $capacity) : self
+    public static function create(int $id, string $key, string $secret, int $capacity): self
     {
         return new static($id, $key, $secret, $capacity);
     }
@@ -43,7 +43,7 @@ class Adapter
      * @param  string|\Psr\Http\Message\RequestInterface $request
      * @return string
      */
-    public function signRequest($request) : string
+    public function signRequest($request): string
     {
         //NOTE: Revisit if we need to improve security.
         if ($request instanceof \Psr\Http\Message\RequestInterface) {
@@ -57,7 +57,7 @@ class Adapter
         return hash_hmac('sha256', $path, $this->secret);
     }
 
-    public function httpGet(string $url, array $query = []) : Response
+    public function httpGet(string $url, array $query = []): Response
     {
         return Http::get($url,
             array_merge($query, [
@@ -66,7 +66,7 @@ class Adapter
         );
     }
 
-    public function httpPost(string $url, array $data = []) : Response
+    public function httpPost(string $url, array $data = []): Response
     {
         return Http::post($url,
             array_merge($data, [
@@ -75,7 +75,7 @@ class Adapter
         );
     }
 
-    public function send(string $trader, string $message) :bool
+    public function send(string $trader, string $message): bool
     {
         $connection = $this->connectionManager->getConnection($this->key, $trader);
 

@@ -7,7 +7,7 @@ use App\SterlingTrader\Exceptions\InvalidEventHandlerInstance;
 
 class EventHandlerFactory
 {
-    public static function create($event) : EventHandler
+    public static function create($event): EventHandler
     {
         $eventClass = '\App\SterlingTrader\Apps\Pulse\On'.$event;
 

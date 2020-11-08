@@ -7,7 +7,7 @@ use App\SterlingTrader\AdapterResponse;
 
 class OnOrderConfirm extends EventHandler
 {
-    public function shouldHandle(PulseUserInstruction $instruction) : bool
+    public function shouldHandle(PulseUserInstruction $instruction): bool
     {
         return false;
     }

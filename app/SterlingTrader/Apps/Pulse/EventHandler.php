@@ -13,21 +13,21 @@ abstract class EventHandler
     /** @var \App\Models\SterlingTrader\PulseUserInstruction */
     protected $instruction;
 
-    public function on(ConnectionInterface $connection) : self
+    public function on(ConnectionInterface $connection): self
     {
         $this->connection = $connection;
 
         return $this;
     }
 
-    public function following(PulseUserInstruction $instruction) : self
+    public function following(PulseUserInstruction $instruction): self
     {
         $this->instruction = $instruction;
 
         return $this;
     }
 
-    abstract public function shouldHandle(PulseUserInstruction $instruction) : bool;
+    abstract public function shouldHandle(PulseUserInstruction $instruction): bool;
 
     abstract public function execute($data);
 }
