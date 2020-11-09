@@ -2,7 +2,6 @@
 
 namespace App\SterlingTrader\Apps\Pulse;
 
-use App\Models\SterlingTrader\PulseUserInstruction;
 use App\SterlingTrader\AdapterResponse;
 
 class OnDestinationList extends EventHandler
