@@ -35,7 +35,7 @@ class Pulse
     {
         $handler = EventHandlerFactory::create($this->event)->on($this->connection);
 
-        foreach ($this->user->activePulseInstructions as $instruction) {
+        foreach ($this->user->activePulseInstructions->fresh() as $instruction) {
             if (! $handler->following($instruction)->shouldHandle()) {
                 continue;
             }

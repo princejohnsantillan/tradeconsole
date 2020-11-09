@@ -36,4 +36,9 @@ class AdapterHttpActions
             ->pluck('key', 'trader')
             ->toArray();
     }
+
+    public function fetchPositions()
+    {
+        return $this->adapter->httpGet($this->url.'/fetch-positions')->json();
+    }
 }

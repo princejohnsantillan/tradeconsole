@@ -18,6 +18,8 @@ abstract class Controller implements HttpServerInterface
 
     protected $connectionManager;
 
+    protected $connection;
+
     protected $request;
 
     protected $parameters;
@@ -32,6 +34,8 @@ abstract class Controller implements HttpServerInterface
 
     public function onOpen(ConnectionInterface $connection, RequestInterface $request = null)
     {
+        $this->connection = $connection;
+
         $this->request = $request;
 
         $this->parameters = QueryParameters::create($request);

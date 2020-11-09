@@ -21,6 +21,8 @@ class OnPositionList extends EventHandler
             $this->connection->positionManager = new PositionManager;
         }
 
+        $this->connection->positionManager->reset();
+
         foreach ($data as $postition) {
             $this->connection->positionManager->register(PositionUpdateStruct::build($postition));
         }

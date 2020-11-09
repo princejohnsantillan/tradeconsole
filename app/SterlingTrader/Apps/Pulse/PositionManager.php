@@ -22,6 +22,11 @@ class PositionManager
         return [];
     }
 
+    public function getAllPositions()
+    {
+        return $this->positions;
+    }
+
     public function reset()
     {
         $this->positions = [];
