@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader\Struct;
 
-class TradeFilterStruct extends Struct
+class TradeFilterStruct extends XMLStruct
 {
     /** @var string */
     public $bstrAccount;

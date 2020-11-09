@@ -2,20 +2,27 @@
 
 namespace App\SterlingTrader\Apps\Pulse;
 
-use App\Models\SterlingTrader\PulseUserInstruction;
-use App\SterlingTrader\AdapterResponse;
+use App\SterlingTrader\Struct\PositionUpdateStruct;
 
 class OnPositionList extends EventHandler
 {
-    public function shouldHandle(PulseUserInstruction $instruction): bool
+    public function shouldHandle(): bool
     {
-        return false;
+        return true;
     }
 
     public function execute($data)
     {
-        //modify orders accordingly
+        if (! is_array($data)) {
+            return;
+        }
 
-        $this->connection->send(AdapterResponse::notify('WIP'));
+        if (! property_exists($this->connection, 'positionManager')) {
+            $this->connection->positionManager = new PositionManager;
+        }
+
+        foreach ($data as $postition) {
+            $this->connection->positionManager->register(PositionUpdateStruct::build($postition));
+        }
     }
 }

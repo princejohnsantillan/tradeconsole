@@ -33,17 +33,14 @@ class Pulse
 
     public function process()
     {
-        $handler = EventHandlerFactory::create($this->event);
+        $handler = EventHandlerFactory::create($this->event)->on($this->connection);
 
         foreach ($this->user->activePulseInstructions as $instruction) {
-            if (! $handler->shouldHandle($instruction)) {
+            if (! $handler->following($instruction)->shouldHandle()) {
                 continue;
             }
 
-            $handler
-                ->on($this->connection)
-                ->following($instruction)
-                ->execute($this->data);
+            $handler->execute($this->data);
         }
     }
 }

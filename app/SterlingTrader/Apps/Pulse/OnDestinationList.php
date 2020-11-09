@@ -7,15 +7,13 @@ use App\SterlingTrader\AdapterResponse;
 
 class OnDestinationList extends EventHandler
 {
-    public function shouldHandle(PulseUserInstruction $instruction): bool
+    public function shouldHandle(): bool
     {
         return false;
     }
 
     public function execute($data)
     {
-        //modify orders accordingly
-
         $this->connection->send(AdapterResponse::notify('WIP'));
     }
 }

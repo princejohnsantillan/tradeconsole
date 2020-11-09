@@ -27,7 +27,7 @@ abstract class EventHandler
         return $this;
     }
 
-    abstract public function shouldHandle(PulseUserInstruction $instruction): bool;
+    abstract public function shouldHandle(): bool;
 
     abstract public function execute($data);
 }

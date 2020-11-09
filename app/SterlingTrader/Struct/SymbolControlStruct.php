@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader\Struct;
 
-class SymbolControlStruct extends Struct
+class SymbolControlStruct extends XMLStruct
 {
     /** @var bool */
     public $bSetMarginPctFlag;

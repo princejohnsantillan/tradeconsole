@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader\Struct;
 
-class PositionUpdateStruct extends Struct
+class PositionUpdateStruct extends XMLStruct
 {
     /** @var bool */
     public $bLast;
@@ -85,8 +85,21 @@ class PositionUpdateStruct extends Struct
     /** @var int */
     public $nTicketsSldShort;
 
+    /** @var int */
+    public $Position;
+
     public function root(): string
     {
         return 'structSTIPositionUpdate';
+    }
+
+    protected function computeProperties()
+    {
+        $this->Position = $this->getPosition();
+    }
+
+    public function getPosition()
+    {
+        return $this->nOpeningPosition + ($this->nSharesBot - $this->nSharesSld);
     }
 }

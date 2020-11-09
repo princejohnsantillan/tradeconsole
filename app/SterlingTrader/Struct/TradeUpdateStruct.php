@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader\Struct;
 
-class TradeUpdateStruct extends Struct
+class TradeUpdateStruct extends XMLStruct
 {
     /** @var bool */
     public $bClearable;

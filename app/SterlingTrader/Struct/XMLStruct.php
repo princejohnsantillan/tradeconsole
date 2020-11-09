@@ -4,7 +4,7 @@ namespace App\SterlingTrader\Struct;
 
 use SimpleXMLElement;
 
-abstract class Struct
+abstract class XMLStruct
 {
     public function __construct($data)
     {
@@ -29,6 +29,8 @@ abstract class Struct
                 $this->{$key} = $value;
             }
         }
+
+        $this->computeProperties();
     }
 
     public function asXML()
@@ -42,6 +44,11 @@ abstract class Struct
         }
 
         return $xml->asXML();
+    }
+
+    protected function computeProperties()
+    {
+        //NOTE: Trigger computed properties here.
     }
 
     abstract public function root(): string;

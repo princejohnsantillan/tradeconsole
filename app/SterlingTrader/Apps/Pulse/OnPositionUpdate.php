@@ -2,12 +2,11 @@
 
 namespace App\SterlingTrader\Apps\Pulse;
 
-use App\Models\SterlingTrader\PulseUserInstruction;
 use App\SterlingTrader\Struct\PositionUpdateStruct;
 
 class OnPositionUpdate extends EventHandler
 {
-    public function shouldHandle(PulseUserInstruction $instruction): bool
+    public function shouldHandle(): bool
     {
         return true;
     }

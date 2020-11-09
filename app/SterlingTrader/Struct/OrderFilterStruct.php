@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader\Struct;
 
-class OrderFilterStruct extends Struct
+class OrderFilterStruct extends XMLStruct
 {
     /** @var bool */
     public $bOpenOnly;

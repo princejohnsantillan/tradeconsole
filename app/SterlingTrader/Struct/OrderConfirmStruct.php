@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader\Struct;
 
-class OrderConfirmStruct extends Struct
+class OrderConfirmStruct extends XMLStruct
 {
     /** @var string */
     public $bstrAccount;

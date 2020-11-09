@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader\Struct;
 
-class CancelAllStruct extends Struct
+class CancelAllStruct extends XMLStruct
 {
     /** @var bool */
     public $bExtendingOnly;

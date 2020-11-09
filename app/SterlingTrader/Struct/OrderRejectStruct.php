@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader\Struct;
 
-class OrderRejectStruct extends Struct
+class OrderRejectStruct extends XMLStruct
 {
     /** @var bool */
     public $bMoc;

@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader\Struct;
 
-class AccountUpdateStruct extends Struct
+class AccountUpdateStruct extends XMLStruct
 {
     /** @var bool */
     public $bSetDayBpFlag;
@@ -58,10 +58,5 @@ class AccountUpdateStruct extends Struct
     public function root(): string
     {
         return 'structSTIAcctUpdate';
-    }
-
-    public function test(): int
-    {
-        return 1.2;
     }
 }
