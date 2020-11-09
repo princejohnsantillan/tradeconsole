@@ -17,7 +17,7 @@ class OnPositionList extends EventHandler
             return;
         }
 
-        if (! property_exists($this->connection, 'positionManager')) {
+        if (! isset($this->connection->positionManager)) {
             $this->connection->positionManager = new PositionManager;
         }
 

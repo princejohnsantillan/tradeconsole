@@ -2,8 +2,8 @@
 
 namespace App\SterlingTrader\Apps\Pulse;
 
-use App\SterlingTrader\Exceptions\EventHandlerDoesNotExist;
-use App\SterlingTrader\Exceptions\InvalidEventHandlerInstance;
+use App\SterlingTrader\Apps\Pulse\Exceptions\EventHandlerDoesNotExist;
+use App\SterlingTrader\Apps\Pulse\Exceptions\InvalidEventHandlerInstance;
 
 class EventHandlerFactory
 {
@@ -11,16 +11,12 @@ class EventHandlerFactory
     {
         $eventClass = '\App\SterlingTrader\Apps\Pulse\On'.$event;
 
-        if (class_exists($eventClass)) {
-            $handler = new $eventClass;
+        throw_unless(class_exists($eventClass), new EventHandlerDoesNotExist($eventClass));
 
-            if ($handler instanceof EventHandler) {
-                return $handler;
-            }
+        $handler = new $eventClass;
 
-            throw new InvalidEventHandlerInstance($eventClass);
-        }
+        throw_unless($handler instanceof EventHandler, new InvalidEventHandlerInstance($eventClass));
 
-        throw new EventHandlerDoesNotExist($eventClass);
+        return $handler;
     }
 }

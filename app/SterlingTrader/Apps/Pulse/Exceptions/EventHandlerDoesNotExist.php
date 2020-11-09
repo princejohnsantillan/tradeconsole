@@ -1,12 +1,12 @@
 <?php
 
-namespace App\SterlingTrader\Exceptions;
+namespace App\SterlingTrader\Apps\Pulse\Exceptions;
 
-class EventHandlerDoesNotExist extends WebSocketException
+class EventHandlerDoesNotExist extends PulseException
 {
     public function __construct(string $class)
     {
-        $this->code = 4006;
+        $this->code = 5001;
 
         $this->message = "Event Handler Does Not Exist: $class";
     }

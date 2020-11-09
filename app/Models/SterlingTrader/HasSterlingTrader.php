@@ -26,6 +26,6 @@ trait HasSterlingTrader
 
     public function activePulseInstructions()
     {
-        return $this->hasMany(PulseUserInstruction::class)->active;
+        return $this->hasMany(PulseUserInstruction::class)->active();
     }
 }

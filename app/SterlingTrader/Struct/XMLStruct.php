@@ -25,7 +25,7 @@ abstract class XMLStruct
         $data = is_array($data) ? $data : json_decode($data, true);
 
         foreach ($data as $key => $value) {
-            if (property_exists($this, $key)) {
+            if (isset($this->{$key})) {
                 $this->{$key} = $value;
             }
         }
@@ -40,6 +40,10 @@ abstract class XMLStruct
         $xml = new SimpleXMLElement("<$root />");
 
         foreach (get_object_vars($this) as $key => $val) {
+            if ($val === null) {
+                continue;
+            }
+
             $xml->addChild($key, $val);
         }
 

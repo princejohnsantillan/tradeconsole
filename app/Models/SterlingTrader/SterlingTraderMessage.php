@@ -20,6 +20,11 @@ class SterlingTraderMessage extends Model
         return $this->belongsTo(SterlingTraderAdapter::class);
     }
 
+    public function getRawMessageAttribute()
+    {
+        return json_encode($this->message);
+    }
+
     public function getFromMessage(string $key)
     {
         if (! is_array($this->message)) {

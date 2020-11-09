@@ -22,7 +22,7 @@
                 <span class="mt-4 w-full lg:w-1/2 flex items-center">
                     <select id="country" wire:model="trader"
                         class="block form-select w-1/2 md:w-1/2 xl:1/4 mr-2 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-                        <option disabled selected>Choose a Trader</option>
+                        <option value="" selected>Choose a Trader</option>
                         @foreach ($connections as $trader => $key)
                         <option value="{{ $trader }}">{{ $trader }}</option>
                         @endforeach
@@ -45,7 +45,6 @@
                     class="form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150">
                     <option wire:click="switchTab('messages')" {{ $tab === 'messages' ? 'selected' : '' }}>Messages
                     </option>
-
                     <option wire:click="switchTab('errors')" {{ $tab === 'errors' ? 'selected' : '' }}>Errors</option>
                 </select>
             </div>
@@ -109,18 +108,20 @@
                                     {{ $message->created_at }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Details</a>
+                                    <a href="#" wire:click="getDetails({{ $message->id }})"
+                                        class="text-indigo-600 hover:text-indigo-900">Details</a>
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">No messages found</td>
+                                <td colspan="5" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">No
+                                    messages found</td>
                             </tr>
                             @endforelse
                         </tbody>
                     </table>
 
-                    @if($messages instanceof \Illuminate\Contracts\Pagination\Paginator)
+                    @if ($messages instanceof \Illuminate\Contracts\Pagination\Paginator)
                     <div class="m-2">
                         {{ $messages->links() }}
                     </div>
@@ -164,18 +165,20 @@
                                     {{ $websocketError->created_at }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Details</a>
+                                    <a href="#" wire:click="getDetails({{ $websocketError->id }})"
+                                        class="text-indigo-600 hover:text-indigo-900">Details</a>
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">No errors found</td>
+                                <td colspan="5" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">No
+                                    errors found</td>
                             </tr>
                             @endforelse
                         </tbody>
                     </table>
 
-                    @if($messages instanceof \Illuminate\Contracts\Pagination\Paginator)
+                    @if ($messages instanceof \Illuminate\Contracts\Pagination\Paginator)
                     <div class="m-2">
                         {{ $websocketErrors->links() }}
                     </div>
@@ -185,4 +188,49 @@
             </div>
         </div>
     </div>
+
+
+    <div x-data="{showDetails: @entangle('showDetails')}">
+        @if($showDetails)
+        <div class="fixed z-10 inset-0 overflow-y-auto">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 transition-opacity">
+                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                </div>
+
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
+
+                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full"
+                    role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex flex-col w-full mr-3">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                                    Details
+                                </h3>
+                                <div class="mt-2">
+                                    <p class="text-sm leading-5 text-gray-500">
+                                        <textarea wire:model='details' readonly
+                                            class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                            rows="20">
+                                        </textarea>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+                            <button x-on:click="showDetails = false" type="button"
+                                class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                Close
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+    </div>
+
 </div>

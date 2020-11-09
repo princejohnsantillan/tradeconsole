@@ -22,6 +22,10 @@ class PulseDebugger extends Component
 
     public $trader;
 
+    public $details;
+
+    public $showDetails = false;
+
     private function callAdapterAction()
     {
         $adapterKey = Auth::user()->getSterlingTraderAdapterKey();
@@ -51,9 +55,7 @@ class PulseDebugger extends Component
         if ($activeAdapter !== null) {
             if ($this->tab === 'messages') {
                 $messages = SterlingTraderMessage::where('adapter_id', $activeAdapter->id)->latest()->paginate(100);
-                $websocketErrors = [];
             } elseif ($this->tab === 'errors') {
-                $messages = [];
                 $websocketErrors = SterlingTraderWebsocketError::where('adapter_id', $activeAdapter->id)->latest()->paginate(100);
             }
         }
@@ -80,5 +82,16 @@ class PulseDebugger extends Component
         optional($this->callAdapterAction())->sendData($this->trader, $this->data);
 
         $this->data = null;
+    }
+
+    public function getDetails($id)
+    {
+        if ($this->tab === 'messages') {
+            $this->details = optional(SterlingTraderMessage::find($id))->raw_message;
+        } elseif ($this->tab === 'errors') {
+            $this->details = optional(SterlingTraderWebsocketError::find($id))->trace;
+        }
+
+        $this->showDetails = true;
     }
 }
