@@ -4,7 +4,7 @@ namespace App\SterlingTrader\Apps\Pulse;
 
 use App\SterlingTrader\AdapterResponse;
 
-class OnTraderList extends EventHandler
+class OnTradeUpdate extends EventHandler
 {
     public function shouldHandle(): bool
     {
