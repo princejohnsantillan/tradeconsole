@@ -6,10 +6,17 @@ class FetchPositionsController extends Controller
 {
     public function handle()
     {
-        return [];
+        $connections = $this->connectionManager->getAdapterConnections($this->getParameter('adapterKey'));
 
-        return isset($this->connection->positionManager)
-            ? $this->connection->positionManager->getAllPositions()
-            : [];
+        $positions = [];
+
+        foreach ($connections as $connection) {
+            $traderPositions = $connection['connection']->positionManager->getAllPositions();
+
+            dump($traderPositions, $positions);
+            $positions = array_merge($positions, $traderPositions);
+        }
+
+        return $positions;
     }
 }

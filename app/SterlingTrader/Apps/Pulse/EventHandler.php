@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader\Apps\Pulse;
 
-use App\Models\SterlingTrader\PulseUserInstruction;
+use Illuminate\Database\Eloquent\Collection;
 use Ratchet\ConnectionInterface;
 
 abstract class EventHandler
@@ -10,8 +10,8 @@ abstract class EventHandler
     /** @var \Ratchet\ConnectionInterface */
     protected $connection;
 
-    /** @var \App\Models\SterlingTrader\PulseUserInstruction */
-    protected $instruction;
+    /** @var Illuminate\Database\Eloquent\Collection */
+    protected $instructions;
 
     public function on(ConnectionInterface $connection): self
     {
@@ -20,9 +20,9 @@ abstract class EventHandler
         return $this;
     }
 
-    public function following(PulseUserInstruction $instruction): self
+    public function following(Collection $instructions): self
     {
-        $this->instruction = $instruction;
+        $this->instructions = $instructions;
 
         return $this;
     }

@@ -98,7 +98,7 @@ abstract class Controller implements HttpServerInterface
 
     protected function getBody($name)
     {
-        if (isset($this->body->{$name})) {
+        if (property_exists($this->body, $name)) {
             return $this->body->{$name};
         }
 

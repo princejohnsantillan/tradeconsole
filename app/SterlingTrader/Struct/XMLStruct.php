@@ -25,7 +25,7 @@ abstract class XMLStruct
         $data = is_array($data) ? $data : json_decode($data, true);
 
         foreach ($data as $key => $value) {
-            if (isset($this->{$key})) {
+            if (property_exists($this, $key)) {
                 $this->{$key} = $value;
             }
         }
