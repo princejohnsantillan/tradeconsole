@@ -13,7 +13,7 @@
             </div>
             <div class="ml-3">
                 <p class="text-sm leading-5 text-yellow-700">
-                    Temporarily disable. This feature is currently being worked on.
+                    Temporarily disabled. This feature is currently being worked on.
                 </p>
             </div>
         </div>
