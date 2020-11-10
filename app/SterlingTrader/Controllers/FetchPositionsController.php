@@ -11,6 +11,9 @@ class FetchPositionsController extends Controller
         $positions = [];
 
         foreach ($connections as $connection) {
+            if (! property_exists($connection['connection'], 'positionManager')) {
+                continue;
+            }
             $positions += $connection['connection']->positionManager->getAllPositions();
         }
 

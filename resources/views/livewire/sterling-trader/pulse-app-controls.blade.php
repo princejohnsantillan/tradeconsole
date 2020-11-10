@@ -52,7 +52,7 @@
                                 {{ $position['Real'] }}
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $position['Position'] === 0 ? 'bg-gray-100 text-gray-800' : $position['Position'] > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $position['Position'] === 0 ? 'bg-gray-100 text-gray-800' : ($position['Position'] > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800') }}">
                                     {{ $position['Position'] }}
                                 </span>
                             </td>
