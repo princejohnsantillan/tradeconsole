@@ -11,10 +11,7 @@ class FetchPositionsController extends Controller
         $positions = [];
 
         foreach ($connections as $connection) {
-            $traderPositions = $connection['connection']->positionManager->getAllPositions();
-
-            dump($traderPositions, $positions);
-            $positions = array_merge($positions, $traderPositions);
+            $positions += $connection['connection']->positionManager->getAllPositions();
         }
 
         return $positions;

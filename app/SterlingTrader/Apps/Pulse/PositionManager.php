@@ -10,16 +10,17 @@ class PositionManager
 
     public function register(PositionUpdateStruct $position)
     {
-        $this->positions[$position->bstrAcct][$position->bstrSym] = $position;
+        $this->positions[] = [
+            'Account' => $position->bstrAcct,
+            'Symbol' => $position->bstrSym,
+            'Real' => $position->fReal,
+            'Position' => $position->Position,
+        ];
     }
 
     public function getAccountPositions(string $account)
     {
-        if (array_key_exists($account, $this->positions)) {
-            return $this->positions[$account];
-        }
-
-        return [];
+        return collect($this->positions)->where('Account', $account)->toArray();
     }
 
     public function getAllPositions()

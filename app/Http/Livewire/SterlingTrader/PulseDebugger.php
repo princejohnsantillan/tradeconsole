@@ -75,7 +75,7 @@ class PulseDebugger extends Component
 
     public function sendData()
     {
-        if ($this->trader === null) {
+        if (empty($this->trader)) {
             return;
         }
 
