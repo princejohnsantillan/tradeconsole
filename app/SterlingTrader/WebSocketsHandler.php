@@ -5,6 +5,7 @@ namespace App\SterlingTrader;
 use App\Models\SterlingTrader\SterlingTraderMessage;
 use App\Models\SterlingTrader\SterlingTraderWebsocketError;
 use App\SterlingTrader\Apps\Pulse;
+use App\SterlingTrader\Apps\Pulse\PositionManager;
 use App\SterlingTrader\Contracts\AdapterProvider;
 use App\SterlingTrader\Contracts\ConnectionManager;
 use App\SterlingTrader\Exceptions\ConnectionLimitReached;
@@ -53,7 +54,8 @@ class WebSocketsHandler implements MessageComponentInterface
             ->verifyAdapter($connection)
             // ->verifyRequestSignature($connection)
             ->generateSocketId($connection)
-            ->registerConnection($connection);
+            ->registerConnection($connection)
+            ->bootstrapResources($connection);
 
         $connection->send(AdapterResponse::notify('Success! You are connected. Have a good trading day.'));
 
@@ -146,6 +148,13 @@ class WebSocketsHandler implements MessageComponentInterface
     private function registerConnection(ConnectionInterface $connection)
     {
         $this->connectionManger->saveConnection($connection, $this->adapterKey, $this->traderId);
+
+        return $this;
+    }
+
+    private function bootstrapResources(ConnectionInterface $connection)
+    {
+        $this->positionManager = new PositionManager;
 
         return $this;
     }

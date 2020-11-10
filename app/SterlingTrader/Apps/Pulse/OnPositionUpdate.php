@@ -13,10 +13,6 @@ class OnPositionUpdate extends EventHandler
 
     public function execute($data)
     {
-        if (! isset($this->connection->positionManager)) {
-            $this->connection->positionManager = new PositionManager;
-        }
-
         $this->connection->positionManager->register(PositionUpdateStruct::build($data));
     }
 }

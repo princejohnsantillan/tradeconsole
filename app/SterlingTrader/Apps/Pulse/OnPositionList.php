@@ -17,10 +17,6 @@ class OnPositionList extends EventHandler
             return;
         }
 
-        if (! isset($this->connection->positionManager)) {
-            $this->connection->positionManager = new PositionManager;
-        }
-
         $this->connection->positionManager->reset();
 
         foreach ($data as $postition) {
