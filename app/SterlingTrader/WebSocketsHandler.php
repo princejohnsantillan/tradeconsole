@@ -154,7 +154,7 @@ class WebSocketsHandler implements MessageComponentInterface
 
     private function bootstrapResources(ConnectionInterface $connection)
     {
-        $this->positionManager = new PositionManager;
+        $connection->positionManager = new PositionManager;
 
         return $this;
     }
