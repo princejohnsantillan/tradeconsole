@@ -54,7 +54,7 @@ class WebSocketsHandler implements MessageComponentInterface
 
     public function onClose(ConnectionInterface $connection)
     {
-        $this->connectionManger->removeConnection($connection->adapterKey ?? '', $connection->traderId ?? '');
+        $this->connectionManger->removeConnection($connection->adapterKey, $connection->traderId);
     }
 
     public function onError(ConnectionInterface $connection, Exception $exception)
@@ -80,8 +80,8 @@ class WebSocketsHandler implements MessageComponentInterface
 
         $sterlingTraderMessage = SterlingTraderMessage::create([
             'adapter_id' => $connection->adapter->id,
-            'trader_id' => $connection->traderId ?? '',
-            'adapter_version' => $connection->adapterVersion ?? '',
+            'trader_id' => $connection->traderId,
+            'adapter_version' => $connection->adapterVersion,
             'message' => json_decode($message),
         ]);
 
@@ -92,17 +92,17 @@ class WebSocketsHandler implements MessageComponentInterface
     {
         $connection->socketId = uniqid().static::SOCKET_DELIMITER.time();
 
-        if (($connection->adapterVersion ?? '') !== config('sterlingtrader.adapter_version')) {
+        if (($connection->adapterVersion) !== config('sterlingtrader.adapter_version')) {
             throw new OutdatedAdapter;
         }
 
-        $adapter = $this->adapterProvider->findByKey($connection->adapterKey ?? '');
+        $adapter = $this->adapterProvider->findByKey($connection->adapterKey);
 
         if ($adapter === null) {
             throw new InvalidAdapterKey;
         }
 
-        if ($this->connectionManger->adapterConnectionsCount($connection->adapterKey ?? '') >= $adapter->capacity) {
+        if ($this->connectionManger->adapterConnectionsCount($connection->adapterKey) >= $adapter->capacity) {
             throw new ConnectionLimitReached;
         }
 
@@ -124,9 +124,9 @@ class WebSocketsHandler implements MessageComponentInterface
 
     private function generateSocketId(ConnectionInterface $connection)
     {
-        $connection->socketId = $connection->adapterKey ?? ''
+        $connection->socketId = $connection->adapterKey
             .static::SOCKET_DELIMITER
-            .$connection->traderId ?? ''
+            .$connection->traderId
             .static::SOCKET_DELIMITER
             .$connection->adapter->id;
 
@@ -135,7 +135,7 @@ class WebSocketsHandler implements MessageComponentInterface
 
     private function registerConnection(ConnectionInterface $connection)
     {
-        $this->connectionManger->saveConnection($connection, $connection->adapterKey ?? '', $connection->traderId ?? '');
+        $this->connectionManger->saveConnection($connection, $connection->adapterKey, $connection->traderId);
 
         return $this;
     }
