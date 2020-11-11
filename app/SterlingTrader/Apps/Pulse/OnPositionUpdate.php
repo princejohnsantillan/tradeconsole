@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader\Apps\Pulse;
 
-use App\Events\SterlingTrader\PositionUpdated;
+use App\Events\PositionUpdated;
 use App\SterlingTrader\Struct\PositionUpdateStruct;
 
 class OnPositionUpdate extends EventHandler
