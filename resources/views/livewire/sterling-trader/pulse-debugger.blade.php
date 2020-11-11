@@ -121,11 +121,10 @@
                         </tbody>
                     </table>
 
-                    @if ($messages instanceof \Illuminate\Contracts\Pagination\Paginator)
                     <div class="m-2">
                         {{ $messages->links() }}
                     </div>
-                    @endif
+
                     @elseif($tab === 'errors')
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
@@ -178,11 +177,10 @@
                         </tbody>
                     </table>
 
-                    @if ($messages instanceof \Illuminate\Contracts\Pagination\Paginator)
                     <div class="m-2">
                         {{ $websocketErrors->links() }}
                     </div>
-                    @endif
+
                     @endif
                 </div>
             </div>

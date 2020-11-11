@@ -47,22 +47,11 @@ class PulseDebugger extends Component
 
     public function render()
     {
-        $messages = [];
-        $websocketErrors = [];
-
         $activeAdapter = Auth::user()->activeSterlingTraderAdapter;
 
-        if ($activeAdapter !== null) {
-            if ($this->tab === 'messages') {
-                $messages = SterlingTraderMessage::where('adapter_id', $activeAdapter->id)->latest('id')->paginate(100);
-            } elseif ($this->tab === 'errors') {
-                $websocketErrors = SterlingTraderWebsocketError::where('adapter_id', $activeAdapter->id)->latest('id')->paginate(100);
-            }
-        }
-
         return view('livewire.sterling-trader.pulse-debugger', [
-            'messages' => $messages,
-            'websocketErrors' => $websocketErrors,
+            'messages' => SterlingTraderMessage::where('adapter_id', optional($activeAdapter)->id)->latest('id')->paginate(50),
+            'websocketErrors' => SterlingTraderWebsocketError::where('adapter_id', optional($activeAdapter)->id)->latest('id')->paginate(50),
         ]);
     }
 
