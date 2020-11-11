@@ -54,9 +54,9 @@ class PulseDebugger extends Component
 
         if ($activeAdapter !== null) {
             if ($this->tab === 'messages') {
-                $messages = SterlingTraderMessage::where('adapter_id', $activeAdapter->id)->latest()->paginate(100);
+                $messages = SterlingTraderMessage::where('adapter_id', $activeAdapter->id)->latest('id')->paginate(100);
             } elseif ($this->tab === 'errors') {
-                $websocketErrors = SterlingTraderWebsocketError::where('adapter_id', $activeAdapter->id)->latest()->paginate(100);
+                $websocketErrors = SterlingTraderWebsocketError::where('adapter_id', $activeAdapter->id)->latest('id')->paginate(100);
             }
         }
 
