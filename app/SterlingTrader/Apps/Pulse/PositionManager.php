@@ -10,7 +10,7 @@ class PositionManager
 
     public function register(PositionUpdateStruct $position)
     {
-        $this->positions[] = [
+        $this->positions[$position->bstrAcct][$position->bstrSym] = [
             'Account' => $position->bstrAcct,
             'Symbol' => $position->bstrSym,
             'Real' => $position->fReal,
@@ -20,12 +20,19 @@ class PositionManager
 
     public function getAccountPositions(string $account)
     {
-        return collect($this->positions)->where('Account', $account)->toArray();
+        return collect($this->positions)
+            ->flatten(1)
+            ->where('Account', $account)
+            ->values()
+            ->toArray();
     }
 
     public function getAllPositions()
     {
-        return $this->positions;
+        return collect($this->positions)
+            ->flatten(1)
+            ->values()
+            ->toArray();
     }
 
     public function reset()

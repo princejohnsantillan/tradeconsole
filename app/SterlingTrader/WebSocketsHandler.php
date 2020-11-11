@@ -57,7 +57,7 @@ class WebSocketsHandler implements MessageComponentInterface
             ->registerConnection($connection)
             ->bootstrap($connection);
 
-        // $connection->send(AdapterResponse::notify('Success! You are connected. Have a good trading day.'));
+        $connection->send(AdapterResponse::notify('Success! You are connected. Have a good trading day.'));
 
         //TODO: Add signature verification to increase security.
     }
