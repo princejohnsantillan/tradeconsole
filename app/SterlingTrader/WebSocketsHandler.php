@@ -144,6 +144,8 @@ class WebSocketsHandler implements MessageComponentInterface
     {
         $connection->positionManager = new PositionManager;
 
+        $connection->send(AdapterResponse::getPositionList());
+
         return $this;
     }
 }
