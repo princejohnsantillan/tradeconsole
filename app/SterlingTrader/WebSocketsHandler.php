@@ -54,10 +54,10 @@ class WebSocketsHandler implements MessageComponentInterface
             ->verifyAdapter($connection)
             // ->verifyRequestSignature($connection)
             ->generateSocketId($connection)
-            ->registerConnection($connection);
-        // ->bootstrapResources($connection);
+            ->registerConnection($connection)
+            ->bootstrap($connection);
 
-        $connection->send(AdapterResponse::notify('Success! You are connected. Have a good trading day.'));
+        // $connection->send(AdapterResponse::notify('Success! You are connected. Have a good trading day.'));
 
         //TODO: Add signature verification to increase security.
     }
@@ -152,7 +152,7 @@ class WebSocketsHandler implements MessageComponentInterface
         return $this;
     }
 
-    private function bootstrapResources(ConnectionInterface $connection)
+    private function bootstrap(ConnectionInterface $connection)
     {
         $connection->positionManager = new PositionManager;
 
