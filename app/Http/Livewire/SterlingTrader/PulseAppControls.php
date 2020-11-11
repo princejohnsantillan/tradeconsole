@@ -11,16 +11,12 @@ class PulseAppControls extends Component
 {
     public $positions;
 
-    private $adapterKey;
-
     protected $listeners = [
         'echo:SterlingTraderAdapter,PositionUpdated' => 'fetchPositions',
     ];
 
     public function mount()
     {
-        $this->adapterKey = Auth::user()->getSterlingTraderAdapterKey();
-
         $this->fetchPositions();
     }
 
@@ -31,11 +27,13 @@ class PulseAppControls extends Component
 
     private function newAdapterAction()
     {
-        if ($this->adapterKey === null) {
+        $adapterKey = Auth::user()->getSterlingTraderAdapterKey();
+
+        if ($adapterKey === null) {
             return null;
         }
 
-        $adapter = app(AdapterProvider::class)->findByKey($this->adapterKey);
+        $adapter = app(AdapterProvider::class)->findByKey($adapterKey);
 
         return new AdapterHttpAction($adapter);
     }
