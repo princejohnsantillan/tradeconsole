@@ -2,6 +2,7 @@
 
 namespace App\SterlingTrader\Apps\Pulse;
 
+use App\Events\SterlingTrader\PositionUpdated;
 use App\SterlingTrader\Struct\PositionUpdateStruct;
 
 class OnPositionList extends EventHandler
@@ -22,5 +23,7 @@ class OnPositionList extends EventHandler
         foreach ($data as $postition) {
             $this->connection->positionManager->register(PositionUpdateStruct::build($postition));
         }
+
+        event(new PositionUpdated);
     }
 }
