@@ -2,7 +2,7 @@
 
 namespace App\SterlingTrader;
 
-class AdapterHttpActions
+class AdapterHttpAction
 {
     private $adapter;
 

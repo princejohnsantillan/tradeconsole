@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\SterlingTrader;
 
-use App\SterlingTrader\AdapterHttpActions;
+use App\SterlingTrader\AdapterHttpAction;
 use App\SterlingTrader\Contracts\AdapterProvider;
 use Auth;
 use Livewire\Component;
@@ -11,7 +11,7 @@ class PulseAppControls extends Component
 {
     public $positions;
 
-    private function callAdapterAction()
+    private function newAdapterAction()
     {
         $adapterKey = Auth::user()->getSterlingTraderAdapterKey();
 
@@ -21,12 +21,12 @@ class PulseAppControls extends Component
 
         $adapter = app(AdapterProvider::class)->findByKey($adapterKey);
 
-        return new AdapterHttpActions($adapter);
+        return new AdapterHttpAction($adapter);
     }
 
     public function mount()
     {
-        $this->positions = optional($this->callAdapterAction())
+        $this->positions = optional($this->newAdapterAction())
             ->fetchPositions() ?? [];
     }
 

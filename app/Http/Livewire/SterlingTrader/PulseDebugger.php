@@ -4,7 +4,7 @@ namespace App\Http\Livewire\SterlingTrader;
 
 use App\Models\SterlingTrader\SterlingTraderMessage;
 use App\Models\SterlingTrader\SterlingTraderWebsocketError;
-use App\SterlingTrader\AdapterHttpActions;
+use App\SterlingTrader\AdapterHttpAction;
 use App\SterlingTrader\Contracts\AdapterProvider;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -26,7 +26,7 @@ class PulseDebugger extends Component
 
     public $showDetails = false;
 
-    private function callAdapterAction()
+    private function newAdapterAction()
     {
         $adapterKey = Auth::user()->getSterlingTraderAdapterKey();
 
@@ -36,12 +36,12 @@ class PulseDebugger extends Component
 
         $adapter = app(AdapterProvider::class)->findByKey($adapterKey);
 
-        return new AdapterHttpActions($adapter);
+        return new AdapterHttpAction($adapter);
     }
 
     public function mount()
     {
-        $this->connections = optional($this->callAdapterAction())
+        $this->connections = optional($this->newAdapterAction())
             ->fetchConnections() ?? [];
     }
 
@@ -68,7 +68,7 @@ class PulseDebugger extends Component
             return;
         }
 
-        optional($this->callAdapterAction())->sendData($this->trader, $this->data);
+        optional($this->newAdapterAction())->sendData($this->trader, $this->data);
 
         $this->data = null;
     }
