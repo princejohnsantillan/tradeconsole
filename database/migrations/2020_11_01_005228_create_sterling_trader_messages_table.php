@@ -16,6 +16,7 @@ class CreateSterlingTraderMessagesTable extends Migration
         Schema::create('sterling_trader_messages', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('adapter_id');
+            $table->string('socket_id')->nullable();
             $table->string('trader_id')->index();
             $table->string('adapter_version')->index();
             $table->json('message');

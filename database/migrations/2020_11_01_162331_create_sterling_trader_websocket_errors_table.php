@@ -16,7 +16,7 @@ class CreateSterlingTraderWebsocketErrorsTable extends Migration
         Schema::create('sterling_trader_websocket_errors', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('adapter_id')->nullable();
-            $table->string('socket_id')->nullable();
+            $table->string('socket_id');
             $table->string('class');
             $table->smallInteger('code')->default(0);
             $table->text('message');

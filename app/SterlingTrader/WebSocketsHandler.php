@@ -128,7 +128,7 @@ class WebSocketsHandler implements MessageComponentInterface
             .static::SOCKET_DELIMITER
             .$connection->traderId
             .static::SOCKET_DELIMITER
-            .$connection->adapter->id;
+            .time();
 
         return $this;
     }
