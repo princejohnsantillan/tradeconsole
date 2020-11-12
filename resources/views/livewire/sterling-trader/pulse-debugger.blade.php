@@ -121,7 +121,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">No
+                                <td colspan="6" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">No
                                     messages found</td>
                             </tr>
                             @endforelse
