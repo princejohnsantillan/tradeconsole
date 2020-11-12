@@ -80,6 +80,7 @@ class WebSocketsHandler implements MessageComponentInterface
 
         $sterlingTraderMessage = SterlingTraderMessage::create([
             'adapter_id' => $connection->adapter->id,
+            'socket_id' => $connection->socketId,
             'trader_id' => $connection->traderId,
             'adapter_version' => $connection->adapterVersion,
             'message' => json_decode($message),
