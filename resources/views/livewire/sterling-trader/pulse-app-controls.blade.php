@@ -52,14 +52,3 @@
         </div>
     </div>
 </div>
-
-@push('scripts')
-    <script>
-        window.addEventListener('DOMContentLoaded',function(){
-            Echo.channel('SterlingTraderAdapter.{{ $key }}')
-                .listen('PositionUpdated', (e) => {
-                    window.livewire.emit('echo:SterlingTraderAdapter,PositionUpdated');
-                });
-        });
-    </script>
-@endpush
