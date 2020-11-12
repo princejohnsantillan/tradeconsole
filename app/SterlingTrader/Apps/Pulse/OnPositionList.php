@@ -24,6 +24,6 @@ class OnPositionList extends EventHandler
             $this->connection->positionManager->register(PositionUpdateStruct::build($postition));
         }
 
-        event(new PositionUpdated);
+        event(new PositionUpdated($this->connection->adapter->key));
     }
 }

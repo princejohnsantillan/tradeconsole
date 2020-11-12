@@ -11,12 +11,16 @@ class PulseAppControls extends Component
 {
     public $positions;
 
+    public $key;
+
     protected $listeners = [
         'echo:SterlingTraderAdapter,PositionUpdated' => 'fetchPositions',
     ];
 
     public function mount()
     {
+        $this->key = Auth::user()->getSterlingTraderAdapterKey();
+
         $this->fetchPositions();
     }
 

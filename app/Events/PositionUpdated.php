@@ -12,13 +12,16 @@ class PositionUpdated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $key;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($adapterKey)
     {
+        $this->key = $adapterKey;
     }
 
     /**
@@ -28,6 +31,6 @@ class PositionUpdated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('SterlingTraderAdapter');
+        return new Channel("SterlingTraderAdapter.{$this->key}");
     }
 }

@@ -16,6 +16,6 @@ class OnPositionUpdate extends EventHandler
     {
         $this->connection->positionManager->register(PositionUpdateStruct::build($data));
 
-        event(new PositionUpdated);
+        event(new PositionUpdated($this->connection->adapter->key))
     }
 }
