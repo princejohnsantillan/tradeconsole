@@ -2,6 +2,7 @@
 
 namespace App\SterlingTrader;
 
+use App\Models\SterlingTrader\SterlingTraderAdapterResponse;
 use App\SterlingTrader\Exceptions\WebSocketException;
 use App\SterlingTrader\Struct\OrderStruct;
 
@@ -36,11 +37,18 @@ class AdapterResponse
     private static function render(string $event, $data): string
     {
         //TODO: Add signature to increase security.
-        return json_encode([
+        $response = json_encode([
             'event' => $event,
             'data' => $data,
             // 'signature' => $signature,
         ]);
+
+        SterlingTraderAdapterResponse::create([
+            'event' => $event,
+            'response' => $response,
+        ]);
+
+        return $response;
     }
 
     public static function webSocketException(WebSocketException $exception): string
