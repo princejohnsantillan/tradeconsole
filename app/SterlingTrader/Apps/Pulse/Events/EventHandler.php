@@ -22,7 +22,7 @@ abstract class EventHandler
 
     public function __construct()
     {
-        $this->connectionManager = app(ConnectionManager::class) ;
+        $this->connectionManager = app(ConnectionManager::class);
     }
 
     public function on(ConnectionInterface $connection): self
