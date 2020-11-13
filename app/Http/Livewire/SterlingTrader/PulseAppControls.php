@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire\SterlingTrader;
 
-use App\SterlingTrader\AdapterHttpAction;
-use App\SterlingTrader\Contracts\AdapterProvider;
 use Auth;
 use Livewire\Component;
 

@@ -3,7 +3,6 @@
 namespace App\SterlingTrader;
 
 use App\SterlingTrader\Exceptions\WebSocketException;
-use App\SterlingTrader\Struct\AccountUpdateStruct;
 use App\SterlingTrader\Struct\OrderStruct;
 
 class AdapterResponse

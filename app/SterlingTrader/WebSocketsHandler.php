@@ -5,7 +5,6 @@ namespace App\SterlingTrader;
 use App\Models\SterlingTrader\SterlingTraderMessage;
 use App\Models\SterlingTrader\SterlingTraderWebsocketError;
 use App\SterlingTrader\Apps\Pulse;
-use App\SterlingTrader\PositionManager;
 use App\SterlingTrader\Contracts\AdapterProvider;
 use App\SterlingTrader\Contracts\ConnectionManager;
 use App\SterlingTrader\Exceptions\ConnectionLimitReached;

@@ -4,8 +4,6 @@ namespace App\Http\Livewire\SterlingTrader;
 
 use App\Models\SterlingTrader\SterlingTraderMessage;
 use App\Models\SterlingTrader\SterlingTraderWebsocketError;
-use App\SterlingTrader\AdapterHttpAction;
-use App\SterlingTrader\Contracts\AdapterProvider;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
