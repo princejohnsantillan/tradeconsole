@@ -95,11 +95,6 @@ class PositionUpdateStruct extends XMLStruct
 
     protected function computeProperties()
     {
-        $this->Position = $this->getPosition();
-    }
-
-    public function getPosition()
-    {
-        return $this->nOpeningPosition + ($this->nSharesBot - $this->nSharesSld);
+        $this->Position = $this->nOpeningPosition + ($this->nSharesBot - $this->nSharesSld);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SterlingTrader\Apps\Pulse;
+namespace App\SterlingTrader\Apps\Pulse\Events;
 
 use Illuminate\Database\Eloquent\Collection;
 use Ratchet\ConnectionInterface;
@@ -25,6 +25,13 @@ abstract class EventHandler
         $this->instructions = $instructions;
 
         return $this;
+    }
+
+    public function handle($data)
+    {
+        if ($this->shouldHandle()) {
+            $this->execute($data);
+        }
     }
 
     abstract public function shouldHandle(): bool;

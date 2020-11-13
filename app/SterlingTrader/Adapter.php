@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class Adapter
 {
-    /**
-     * @var \App\SterlingTrader\Contracts\ConnectionManager
-     */
+    /** @var \App\SterlingTrader\Contracts\ConnectionManager */
     private $connectionManager;
 
     public $id;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SterlingTrader\Apps\Pulse;
+namespace App\SterlingTrader;
 
 use App\SterlingTrader\Struct\PositionUpdateStruct;
 
@@ -18,11 +18,30 @@ class PositionManager
         ];
     }
 
-    public function getAccountPositions(string $account)
+    public function getPositionsByAccount(string $account)
     {
         return collect($this->positions)
             ->flatten(1)
             ->where('Account', $account)
+            ->values()
+            ->toArray();
+    }
+
+    public function getPositionsBySymbol(string $symbol)
+    {
+        return collect($this->positions)
+            ->flatten(1)
+            ->where('Symbol', $symbol)
+            ->values()
+            ->toArray();
+    }
+
+    public function getPosition(string $account, string $symbol)
+    {
+        return collect($this->positions)
+            ->flatten(1)
+            ->where('Account', $account)
+            ->where('Symbol', $symbol)
             ->values()
             ->toArray();
     }

@@ -9,10 +9,10 @@ class SendDataController extends Controller
     public function handle()
     {
         $adapterKey = $this->parameters->get('adapterKey');
-        $trader = $this->parameters->get('trader');
+        $traderId = $this->parameters->get('traderId');
         $data = $this->getField('data');
 
-        $connection = $this->connectionManager->getConnection($adapterKey, $trader);
+        $connection = $this->connectionManager->getConnection($adapterKey, $traderId);
 
         if ($connection === null) {
             throw new ConnectionNotFound;

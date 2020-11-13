@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SterlingTrader\Apps\Pulse;
+namespace App\SterlingTrader\Apps\Pulse\Events;
 
 use App\SterlingTrader\AdapterResponse;
 

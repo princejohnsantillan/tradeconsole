@@ -57,7 +57,6 @@ abstract class Controller implements HttpServerInterface
     {
         if (config('app.env') == 'production') {
             $connection->send(response()->json([
-                'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
             ]));
         } else {
@@ -77,8 +76,7 @@ abstract class Controller implements HttpServerInterface
 
     private function verifySignature(RequestInterface $request)
     {
-        $adapter = $this->adapterProvider
-            ->findByKey($this->getParameter('adapterKey'));
+        $adapter = $this->adapterProvider->findByKey($this->getParameter('adapterKey'));
 
         if ($adapter === null) {
             throw new  InvalidAdapterKey;

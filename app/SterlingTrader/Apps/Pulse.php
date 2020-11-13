@@ -3,7 +3,7 @@
 namespace App\SterlingTrader\Apps;
 
 use App\Models\SterlingTrader\SterlingTraderMessage;
-use App\SterlingTrader\Apps\Pulse\EventHandlerFactory;
+use App\SterlingTrader\Apps\Pulse\Events\EventHandlerFactory;
 use Ratchet\ConnectionInterface;
 
 class Pulse
@@ -33,12 +33,9 @@ class Pulse
 
     public function process()
     {
-        $handler = EventHandlerFactory::create($this->event)
+        EventHandlerFactory::create($this->event)
             ->on($this->connection)
-            ->following($this->user->activePulseInstructions);
-
-        if ($handler->shouldHandle()) {
-            $handler->execute($this->data);
-        }
+            ->following($this->user->pulseInstructionsFor($this->event))
+            ->handle($this->data);
     }
 }

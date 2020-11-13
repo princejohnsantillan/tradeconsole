@@ -1,10 +1,10 @@
 <?php
 
-namespace App\SterlingTrader\Apps\Pulse;
+namespace App\SterlingTrader\Apps\Pulse\Events;
 
 use App\SterlingTrader\AdapterResponse;
 
-class OnMessage extends EventHandler
+class OnDestinationList extends EventHandler
 {
     public function shouldHandle(): bool
     {

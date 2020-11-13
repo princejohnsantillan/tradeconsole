@@ -1,10 +1,10 @@
 <?php
 
-namespace App\SterlingTrader\Apps\Pulse;
+namespace App\SterlingTrader\Apps\Pulse\Events;
 
 use App\SterlingTrader\AdapterResponse;
 
-class OnTradeList extends EventHandler
+class OnMaintainSymbolControlResponse extends EventHandler
 {
     public function shouldHandle(): bool
     {

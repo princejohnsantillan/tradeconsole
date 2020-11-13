@@ -17,6 +17,7 @@ class CreatePulseUserInstructionsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->boolean('activated')->default(true);
+            $table->string('event');
             $table->json('instruction');
             $table->timestamps();
         });

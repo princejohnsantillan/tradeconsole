@@ -25,22 +25,10 @@ class PulseAppControls extends Component
         return view('livewire.sterling-trader.pulse-app-controls');
     }
 
-    private function newAdapterAction()
-    {
-        $adapterKey = Auth::user()->getSterlingTraderAdapterKey();
-
-        if ($adapterKey === null) {
-            return null;
-        }
-
-        $adapter = app(AdapterProvider::class)->findByKey($adapterKey);
-
-        return new AdapterHttpAction($adapter);
-    }
-
     public function fetchPositions()
     {
-        $this->positions = optional($this->newAdapterAction())
-            ->fetchPositions() ?? [];
+        $adapterAction = Auth::user()->getSterlingTraderAdapterHttpAction();
+
+        $this->positions = optional($adapterAction)->fetchPositions() ?? [];
     }
 }

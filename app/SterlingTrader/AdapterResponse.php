@@ -3,6 +3,8 @@
 namespace App\SterlingTrader;
 
 use App\SterlingTrader\Exceptions\WebSocketException;
+use App\SterlingTrader\Struct\AccountUpdateStruct;
+use App\SterlingTrader\Struct\OrderStruct;
 
 class AdapterResponse
 {
@@ -80,20 +82,18 @@ class AdapterResponse
         return static::render(static::MAINTAINSYMBOLCONTROL, []);
     }
 
-    public static function replaceOrderStruct(): string
+    public static function replaceOrderStruct(OrderStruct $order, string $oldOrderRecordId, string $oldClientOrderId): string
     {
         return static::render(static::REPLACEORDERSTRUCT, [
-            'Order' => '', //Order Struct
-            'OldOrderRecordID' => '',
-            'OldClientOrderID' => '',
+            'Order' => $order->asXML(),
+            'OldOrderRecordID' => $oldOrderRecordId,
+            'OldClientOrderID' => $oldClientOrderId,
         ]);
     }
 
-    public static function submitOrderStruct(): string
+    public static function submitOrderStruct(OrderStruct $order): string
     {
-        return static::render(static::SUBMITORDERSTRUCT, [
-
-        ]);
+        return static::render(static::SUBMITORDERSTRUCT, $order->asXML());
     }
 
     public static function cancelAllOrder(): string

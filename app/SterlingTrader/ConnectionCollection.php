@@ -15,22 +15,22 @@ class ConnectionCollection implements ConnectionManager
         $this->connections = new Collection;
     }
 
-    public function saveConnection(ConnectionInterface $connection, string $adapterKey, string $trader): self
+    public function saveConnection(ConnectionInterface $connection, string $adapterKey, string $traderId): self
     {
         $this->connections->push([
             'key' => $adapterKey,
-            'trader' => $trader,
+            'trader' => $traderId,
             'connection' => $connection,
         ]);
 
         return $this;
     }
 
-    public function removeConnection(string $adapterKey, string $trader): self
+    public function removeConnection(string $adapterKey, string $traderId): self
     {
         $this->connections = $this->connections
-            ->reject(function ($connection) use ($adapterKey, $trader) {
-                return $connection['key'] === $adapterKey && $connection['trader'] === $trader;
+            ->reject(function ($connection) use ($adapterKey, $traderId) {
+                return $connection['key'] === $adapterKey && $connection['trader'] === $traderId;
             });
 
         return $this;
@@ -48,11 +48,11 @@ class ConnectionCollection implements ConnectionManager
             ->toArray();
     }
 
-    public function getConnection(string $adapterKey, string $trader): ?ConnectionInterface
+    public function getConnection(string $adapterKey, string $traderId): ?ConnectionInterface
     {
         $connection = $this->connections
             ->where('key', $adapterKey)
-            ->where('trader', $trader)
+            ->where('trader', $traderId)
             ->first();
 
         if ($connection === null) {
