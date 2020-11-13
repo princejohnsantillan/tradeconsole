@@ -11,7 +11,7 @@ class OnTradeUpdate extends EventHandler
     {
         $conditions = $instruction['conditions'];
 
-        $excluded_symbols = array_map('trim', explode(",", $conditions['excluded_symbols']));
+        $excluded_symbols = array_map('trim', explode(',', $conditions['excluded_symbols']));
 
         return $conditions['source_account'] === $this->data['bstrAccount']
             && ! in_array($this->data['bstrSymbol'], $excluded_symbols);
