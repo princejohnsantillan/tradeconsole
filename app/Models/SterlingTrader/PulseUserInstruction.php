@@ -12,6 +12,11 @@ class PulseUserInstruction extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'activated' => 'bool',
+        'instruction' => 'array',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -20,5 +25,10 @@ class PulseUserInstruction extends Model
     public function scopeActive($query)
     {
         return $query->where('activated', true);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('activated', false);
     }
 }

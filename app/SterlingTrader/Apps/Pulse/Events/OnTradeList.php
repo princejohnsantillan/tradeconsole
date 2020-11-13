@@ -6,13 +6,17 @@ use App\SterlingTrader\AdapterResponse;
 
 class OnTradeList extends EventHandler
 {
-    public function shouldHandle(): bool
+    protected function canHandle(array $instruction): bool
     {
+        $conditions = $instruction['conditions'];
+
         return false;
     }
 
-    public function execute($data)
+    protected function execute(array $instruction)
     {
+        $parameters = $instruction['parameters'];
+
         $this->connection->send(AdapterResponse::notify('WIP'));
     }
 }

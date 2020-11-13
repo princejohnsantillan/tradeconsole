@@ -10,8 +10,11 @@ abstract class EventHandler
     /** @var \Ratchet\ConnectionInterface */
     protected $connection;
 
-    /** @var Illuminate\Database\Eloquent\Collection */
+    /** @var \Illuminate\Support\Collection */
     protected $instructions;
+
+    /** @var mixed */
+    protected $data;
 
     public function on(ConnectionInterface $connection): self
     {
@@ -29,12 +32,16 @@ abstract class EventHandler
 
     public function handle($data)
     {
-        if ($this->shouldHandle()) {
-            $this->execute($data);
+        $this->data = $data;
+
+        foreach($this->instructions as $instruction){
+            if ($this->canHandle($instruction)) {
+                $this->execute($instruction);
+            }
         }
     }
 
-    abstract public function shouldHandle(): bool;
+    abstract protected function canHandle(array $instruction): bool;
 
-    abstract public function execute($data);
+    abstract protected function execute(array $instruction);
 }

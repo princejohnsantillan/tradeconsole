@@ -23,8 +23,8 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($positions as $position)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
-                                    {{ $position['Account'] }}
+                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                        {{ $position['Account'] }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
                                         {{ $position['Symbol'] }}

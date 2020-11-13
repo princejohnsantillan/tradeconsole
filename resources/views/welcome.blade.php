@@ -104,7 +104,7 @@
                                                         </svg>
                                                     </div>
                                                     <p class="ml-3 text-base leading-6 font-medium text-gray-500">
-                                                        Single platform shadow trading
+                                                        Single platform copy trading
                                                     </p>
                                                 </li>
                                                 <li class="mt-4 flex items-start">
@@ -203,7 +203,7 @@
                                                     </svg>
                                                 </div>
                                                 <p class="ml-3 text-base leading-6 font-medium text-gray-500">
-                                                    Single platform shadow trading
+                                                    Single platform copy trading
                                                 </p>
                                             </li>
                                             <li class="mt-4 flex items-start">
@@ -314,7 +314,7 @@
                                                         </svg>
                                                     </div>
                                                     <p class="ml-3 text-base leading-6 font-medium text-gray-500">
-                                                        Cross platform shadow trading
+                                                        Cross platform copy trading
                                                     </p>
                                                 </li>
                                                 <li class="mt-4 flex items-start">

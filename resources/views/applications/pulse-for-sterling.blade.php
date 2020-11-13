@@ -5,7 +5,11 @@
         </div>
 
         <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-            @livewire('sterling-trader.pulse-app-controls')
+            @livewire('sterling-trader.pulse-instructions')
+        </div>
+
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+            @livewire('sterling-trader.pulse-positions')
         </div>
     </div>
 </x-app-layout>

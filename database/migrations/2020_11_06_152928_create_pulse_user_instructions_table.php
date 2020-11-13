@@ -16,8 +16,8 @@ class CreatePulseUserInstructionsTable extends Migration
         Schema::create('pulse_user_instructions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->boolean('activated')->default(true);
-            $table->string('event');
+            $table->boolean('activated')->default(false);
+            $table->string('event')->nullable();
             $table->json('instruction');
             $table->timestamps();
         });

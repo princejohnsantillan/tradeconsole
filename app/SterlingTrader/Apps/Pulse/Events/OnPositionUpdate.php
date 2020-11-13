@@ -7,14 +7,14 @@ use App\SterlingTrader\Struct\PositionUpdateStruct;
 
 class OnPositionUpdate extends EventHandler
 {
-    public function shouldHandle(): bool
+    protected function canHandle(array $instruction): bool
     {
         return true;
     }
 
-    public function execute($data)
+    protected function execute(array $instruction)
     {
-        $this->connection->positionManager->register(PositionUpdateStruct::build($data));
+        $this->connection->positionManager->register(PositionUpdateStruct::build($this->data));
 
         event(new PositionUpdated);
     }

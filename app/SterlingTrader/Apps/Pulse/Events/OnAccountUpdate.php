@@ -6,12 +6,12 @@ use App\SterlingTrader\AdapterResponse;
 
 class OnAccountUpdate extends EventHandler
 {
-    public function shouldHandle(): bool
+    protected function canHandle(array $instruction): bool
     {
         return false;
     }
 
-    public function execute($data)
+    protected function execute(array $instruction)
     {
         $this->connection->send(AdapterResponse::notify('WIP'));
     }
