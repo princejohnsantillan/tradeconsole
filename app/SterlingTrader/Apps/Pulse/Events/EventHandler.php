@@ -20,9 +20,9 @@ abstract class EventHandler
     /** @var \App\SterlingTrader\Contracts\ConnectionManager */
     protected $connectionManager;
 
-    public function __construct(ConnectionManager $connectionManager)
+    public function __construct()
     {
-        $this->connectionManager = $connectionManager;
+        $this->connectionManager = app(ConnectionManager::class) ;
     }
 
     public function on(ConnectionInterface $connection): self
