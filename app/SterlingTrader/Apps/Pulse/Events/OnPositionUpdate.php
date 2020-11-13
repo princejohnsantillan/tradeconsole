@@ -14,7 +14,11 @@ class OnPositionUpdate extends EventHandler
 
     protected function execute(array $instruction)
     {
-        $this->connection->positionManager->register(PositionUpdateStruct::build($this->data));
+    }
+
+    public function handle($data)
+    {
+        $this->connection->positionManager->register(PositionUpdateStruct::build($data));
 
         event(new PositionUpdated);
     }

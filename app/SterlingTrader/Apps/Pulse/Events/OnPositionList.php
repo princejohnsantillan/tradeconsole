@@ -14,13 +14,17 @@ class OnPositionList extends EventHandler
 
     protected function execute(array $instruction)
     {
-        if (! is_array($this->data)) {
+    }
+
+    public function handle($data)
+    {
+        if (! is_array($data)) {
             return;
         }
 
         $this->connection->positionManager->reset();
 
-        foreach ($this->data as $postition) {
+        foreach ($data as $postition) {
             $this->connection->positionManager->register(PositionUpdateStruct::build($postition));
         }
 
