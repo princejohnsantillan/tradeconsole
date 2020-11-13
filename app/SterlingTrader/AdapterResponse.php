@@ -28,7 +28,12 @@ class AdapterResponse
     public const GETPOSLISTBYACCOUNT = 'GetPosListByAccount';
     public const GETPOSLISTBYSYM = 'GetPosListBySym';
 
-    private static function render(string $event, array $data): string
+    /**
+     * @param  string $event
+     * @param  string|array $data
+     * @return string
+     */
+    private static function render(string $event, $data): string
     {
         //TODO: Add signature to increase security.
         return json_encode([
