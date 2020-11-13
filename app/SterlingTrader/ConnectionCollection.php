@@ -65,7 +65,7 @@ class ConnectionCollection implements ConnectionManager
 
     public function getConnection(string $adapterKey, string $accountId): ?ConnectionInterface
     {
-        $connection = $this->connections->filter(function($connection) use($adapterKey, $accountId){
+        $connection = $this->connections->filter(function ($connection) use ($adapterKey, $accountId) {
             return $adapterKey === $connection['key'] && in_array($accountId, $connection['accounts']);
         })->first();
 

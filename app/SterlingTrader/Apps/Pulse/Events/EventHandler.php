@@ -25,7 +25,6 @@ abstract class EventHandler
         $this->connectionManager = $connectionManager;
     }
 
-
     public function on(ConnectionInterface $connection): self
     {
         $this->connection = $connection;
