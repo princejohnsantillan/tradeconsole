@@ -32,7 +32,9 @@ class OnTradeUpdate extends EventHandler
             'bstrTif' => 'D',
         ]);
 
-        $this->connection->send(AdapterResponse::submitOrderStruct($orderStruct));
+        $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $parameters['account']);
+
+        $target_connection->send(AdapterResponse::submitOrderStruct($orderStruct));
     }
 
     private function determineSide($parameters)

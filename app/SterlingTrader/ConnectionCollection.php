@@ -21,6 +21,7 @@ class ConnectionCollection implements ConnectionManager
             'key' => $adapterKey,
             'trader' => $traderId,
             'connection' => $connection,
+            'accounts' => [$traderId],
         ]);
 
         return $this;
@@ -36,6 +37,20 @@ class ConnectionCollection implements ConnectionManager
         return $this;
     }
 
+    public function addAccounts(string $adapterKey, string $traderId, array $accountIds)
+    {
+        $connection = $this->connections
+            ->where('key', $adapterKey)
+            ->where('trader', $traderId)
+            ->first();
+
+        if ($connection === null) {
+            return;
+        }
+
+        $connection['accounts'] = array_values(array_unique(array_merge($connection['accounts'], $accountIds)));
+    }
+
     public function getAllConnections(): array
     {
         return $this->connections->toArray();
@@ -48,12 +63,11 @@ class ConnectionCollection implements ConnectionManager
             ->toArray();
     }
 
-    public function getConnection(string $adapterKey, string $traderId): ?ConnectionInterface
+    public function getConnection(string $adapterKey, string $accountId): ?ConnectionInterface
     {
-        $connection = $this->connections
-            ->where('key', $adapterKey)
-            ->where('trader', $traderId)
-            ->first();
+        $connection = $this->connections->filter(function($connection) use($adapterKey, $accountId){
+            return $adapterKey === $connection['key'] && in_array($accountId, $connection['accounts']);
+        })->first();
 
         if ($connection === null) {
             return null;

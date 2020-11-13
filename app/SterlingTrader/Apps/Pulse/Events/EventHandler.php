@@ -2,6 +2,7 @@
 
 namespace App\SterlingTrader\Apps\Pulse\Events;
 
+use App\SterlingTrader\Contracts\ConnectionManager;
 use Illuminate\Support\Collection;
 use Ratchet\ConnectionInterface;
 
@@ -15,6 +16,15 @@ abstract class EventHandler
 
     /** @var mixed */
     protected $data;
+
+    /** @var \App\SterlingTrader\Contracts\ConnectionManager */
+    protected $connectionManager;
+
+    public function __construct(ConnectionManager $connectionManager)
+    {
+        $this->connectionManager = $connectionManager;
+    }
+
 
     public function on(ConnectionInterface $connection): self
     {

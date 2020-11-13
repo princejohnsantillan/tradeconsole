@@ -2,17 +2,19 @@
 
 namespace App\SterlingTrader\Apps\Pulse\Events;
 
-use App\SterlingTrader\AdapterResponse;
-
 class OnMetadata extends EventHandler
 {
     protected function canHandle(array $instruction): bool
     {
-        return false;
+        return true;
     }
 
     protected function execute(array $instruction)
     {
-        $this->connection->send(AdapterResponse::notify('WIP'));
+    }
+
+    public function handle($data)
+    {
+        $this->connectionManager->addAccounts($this->connection->adapterKey, $this->connection->traderId, $data['AccountList']);
     }
 }
