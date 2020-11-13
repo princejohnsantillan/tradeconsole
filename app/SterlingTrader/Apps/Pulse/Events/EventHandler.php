@@ -34,7 +34,7 @@ abstract class EventHandler
     {
         $this->data = $data;
 
-        foreach($this->instructions as $instruction){
+        foreach ($this->instructions as $instruction) {
             if ($this->canHandle($instruction)) {
                 $this->execute($instruction);
             }

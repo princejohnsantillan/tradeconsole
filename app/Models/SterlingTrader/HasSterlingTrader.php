@@ -51,6 +51,6 @@ trait HasSterlingTrader
 
     public function pulseInstructionsFor(string $event)
     {
-        return $this->activePulseInstructions()->where('event', $event)->pluck('instruction','id');
+        return $this->activePulseInstructions()->where('event', $event)->pluck('instruction', 'id');
     }
 }

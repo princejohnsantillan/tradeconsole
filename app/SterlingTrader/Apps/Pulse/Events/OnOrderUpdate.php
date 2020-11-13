@@ -56,7 +56,7 @@ class OnOrderUpdate extends EventHandler
         return (int) round((int) $this->data['nQuantity'] * (int) $parameters['quantity']);
     }
 
-    private function determinePriceType($parameters) : int
+    private function determinePriceType($parameters): int
     {
         if ($parameters['price_mode'] === 'market') {
             return 1;
@@ -65,7 +65,7 @@ class OnOrderUpdate extends EventHandler
         return 5;
     }
 
-    private function determinePrice($parameters) : float
+    private function determinePrice($parameters): float
     {
         $data_price = (float) $this->data['fLmtPrice'];
 

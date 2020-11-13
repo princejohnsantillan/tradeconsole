@@ -18,8 +18,8 @@ class PulseInstructions extends Component
 
     public function render()
     {
-        return view('livewire.sterling-trader.pulse-instructions',[
-            'instructions' => Auth::user()->pulseInstructions
+        return view('livewire.sterling-trader.pulse-instructions', [
+            'instructions' => Auth::user()->pulseInstructions,
         ]);
     }
 
