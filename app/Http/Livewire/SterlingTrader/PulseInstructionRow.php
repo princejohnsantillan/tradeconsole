@@ -75,7 +75,7 @@ class PulseInstructionRow extends Component
 
             case 'excludedSymbols':
                 $tmp = $instruction->instruction;
-                $tmp['conditions']['excluded_symbols'] = $value;
+                $tmp['conditions']['excluded_symbols'] = strtoupper($value);
                 $instruction->instruction = $tmp;
                 $instruction->save();
                 break;
