@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire\SterlingTrader;
 
-use App\Models\SterlingTrader\PulseUserInstruction;
+use App\Models\SterlingTrader\PulseInstruction;
 use Livewire\Component;
 
-class PulseInstruction extends Component
+class PulseInstructionRow extends Component
 {
     public $instructionId;
 
@@ -46,12 +46,12 @@ class PulseInstruction extends Component
 
     public function render()
     {
-        return view('livewire.sterling-trader.pulse-instruction');
+        return view('livewire.sterling-trader.pulse-instruction-row');
     }
 
     public function updated($name, $value)
     {
-        $instruction = PulseUserInstruction::find($this->instructionId);
+        $instruction = PulseInstruction::find($this->instructionId);
 
         if ($instruction === null) {
             return;
@@ -129,7 +129,7 @@ class PulseInstruction extends Component
 
     public function removeInstruction()
     {
-        PulseUserInstruction::destroy($this->instructionId);
+        PulseInstruction::destroy($this->instructionId);
 
         $this->emitUp('InstructionRemoved');
     }

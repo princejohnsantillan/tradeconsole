@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PulseUserInstruction extends Model
+class PulseInstruction extends Model
 {
     use HasFactory;
 
