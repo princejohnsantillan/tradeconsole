@@ -20,7 +20,7 @@
             </div>
         </div>
     </td>
-    <td class="px-1 py-2 whitespace-no-wrap text-center text-sm leading-5 font-medium ">
+    <td class="px-2 py-2 whitespace-no-wrap text-center text-sm leading-5 font-medium ">
         <button  wire:click='removeSetting' class="text-indigo-600 hover:text-indigo-900">Remove</button>
     </td>
 </tr>

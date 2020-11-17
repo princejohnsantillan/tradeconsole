@@ -77,7 +77,7 @@
             </div>
         </div>
     </td>
-    <td class="py-2 px-1 whitespace-no-wrap text-center text-sm leading-5 font-medium ">
+    <td class="py-2 px-2 whitespace-no-wrap text-center text-sm leading-5 font-medium ">
         <button  wire:click='removeInstruction' class="text-indigo-600 hover:text-indigo-900">Remove</button>
     </td>
 </tr>

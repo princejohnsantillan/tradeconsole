@@ -2,17 +2,17 @@
 
 namespace App\SterlingTrader\Apps\Pulse\Events;
 
-use App\SterlingTrader\AdapterResponse;
+use App\SterlingTrader\Exceptions\SterlingTraderException;
 
 class OnExceptionMessage extends EventHandler
 {
     protected function canHandle(array $instruction): bool
     {
-        return false;
+        return true;
     }
 
     protected function execute(array $instruction)
     {
-        $this->connection->send(AdapterResponse::notify('WIP'));
+        throw new SterlingTraderException($this->data);
     }
 }

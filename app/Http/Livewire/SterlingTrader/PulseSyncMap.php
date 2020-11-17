@@ -56,7 +56,7 @@ class PulseSyncMap extends Component
                     'TargetAccount' => $setting->target,
                     'TargetPosition' => $targetPosition,
                     'Weight' =>  $weight,
-                    'Discrepancy' => round(round($sourcePosition * $weight) - $targetPosition),
+                    'Discrepancy' => (int) round(round($sourcePosition * $weight) - $targetPosition),
                 ];
             }
         }
@@ -69,7 +69,7 @@ class PulseSyncMap extends Component
         $httpAction = Auth::user()->getSterlingTraderAdapterHttpAction();
 
         foreach ($this->positionMap as $position) {
-            if ($position['Discrepancy'] == 0) {
+            if ($position['Discrepancy'] === 0) {
                 continue;
             }
 
