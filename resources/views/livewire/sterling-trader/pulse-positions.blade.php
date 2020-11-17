@@ -28,12 +28,12 @@
                                 <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 text-gray-500">
                                     {{ $position['Symbol'] }}
                                 </td>
-                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 ">
+                                <td class="px-2 py-3 text-right whitespace-no-wrap text-sm leading-5 ">
                                     <span class="{{ $position['Position'] === 0 ? 'text-gray-500' : ($position['Position'] > 0 ? 'text-green-800' : 'text-red-800') }}">
                                         {{ $position['Position'] }}
                                     </span>
                                 </td>
-                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 ">
+                                <td class="px-2 py-3 text-right whitespace-no-wrap text-sm leading-5 ">
                                     <span class="{{ $position['Real'] === 0 ? 'text-gray-500' : ($position['Real'] > 0 ? 'text-green-800' : 'text-red-800') }}">
                                         {{ number_format($position['Real'],4) }}
                                     </span>
