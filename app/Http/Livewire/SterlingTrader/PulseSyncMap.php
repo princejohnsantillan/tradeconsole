@@ -45,8 +45,8 @@ class PulseSyncMap extends Component
             $symbols = $positions->whereIn('Account', [$setting->source, $setting->target])->pluck('Symbol');
 
             foreach ($symbols as $symbol) {
-                $sourcePosition = (int) optional($positions->where('Account', $setting->source)->where('Symbol', $symbol)->only(['Position']))->first() ?? 0;
-                $targetPosition = (int) optional($positions->where('Account', $setting->target)->where('Symbol', $symbol)->only(['Position']))->first() ?? 0;
+                $sourcePosition = (int) optional($positions->where('Account', $setting->source)->where('Symbol', $symbol)->first())['Position'] ?? 0;
+                $targetPosition = (int) optional($positions->where('Account', $setting->target)->where('Symbol', $symbol)->first())['Position'] ?? 0;
                 $weight = $setting->weight;
 
                 $this->positionMap[] = [
