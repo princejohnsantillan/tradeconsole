@@ -22,18 +22,18 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($positions as $position)
                             <tr>
-                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                     {{ $position['Account'] }}
                                 </td>
-                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 text-gray-500">
                                     {{ $position['Symbol'] }}
                                 </td>
-                                <td class="px-2 py-3 text-right whitespace-no-wrap text-sm leading-5 ">
+                                <td class="px-4 py-2 text-right whitespace-no-wrap text-sm leading-5 ">
                                     <span class="{{ $position['Position'] === 0 ? 'text-gray-500' : ($position['Position'] > 0 ? 'text-green-800' : 'text-red-800') }}">
                                         {{ $position['Position'] }}
                                     </span>
                                 </td>
-                                <td class="px-2 py-3 text-right whitespace-no-wrap text-sm leading-5 ">
+                                <td class="px-4 py-2 text-right whitespace-no-wrap text-sm leading-5 ">
                                     <span class="{{ $position['Real'] === 0 ? 'text-gray-500' : ($position['Real'] > 0 ? 'text-green-800' : 'text-red-800') }}">
                                         {{ number_format($position['Real'],4) }}
                                     </span>
@@ -41,7 +41,7 @@
                             </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="px-2 py-3 text-center whitespace-no-wrap text-sm leading-5 font-medium text-gray-800">
+                            <td colspan="4" class="px-4 py-2 text-center whitespace-no-wrap text-sm leading-5 font-medium text-gray-800">
                                 No positions found
                             </td>
                         </tr>

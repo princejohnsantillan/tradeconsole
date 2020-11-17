@@ -36,29 +36,29 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($positionMap as $position)
                             <tr>
-                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                     {{ $position['Symbol'] }}
                                 </td>
-                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                     {{ $position['SourceAccount'] }}
                                 </td>
-                                <td class="px-2 py-3 text-right whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                <td class="px-4 py-2 text-right whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                     <span class="{{ $position['SourcePosition'] === 0 ? 'text-gray-500' : ($position['SourcePosition'] > 0 ? 'text-green-800' : 'text-red-800') }}">
                                         {{ $position['SourcePosition'] }}
                                     </span>
                                 </td>
-                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                     {{ $position['TargetAccount'] }}
                                 </td>
-                                <td class="px-2 py-3 text-right whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                <td class="px-4 py-2 text-right whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                     <span class="{{ $position['TargetPosition'] === 0 ? 'text-gray-500' : ($position['TargetPosition'] > 0 ? 'text-green-800' : 'text-red-800') }}">
                                         {{ $position['TargetPosition'] }}
                                     </span>
                                 </td>
-                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                     {{ $position['Weight'] }}
                                 </td>
-                                <td class="px-2 py-3 text-right whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                <td class="px-4 py-2 text-right whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                     <span class="{{ $position['Discrepancy'] === 0 ? 'text-gray-500' : ($position['Discrepancy'] > 0 ? 'text-green-800' : 'text-red-800') }}">
                                         {{ $position['Discrepancy'] }}
                                     </span>
@@ -66,7 +66,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-2 py-3 text-center whitespace-no-wrap text-sm leading-5 font-medium text-gray-800">
+                                <td colspan="7" class="px-4 py-2 text-center whitespace-no-wrap text-sm leading-5 font-medium text-gray-800">
                                     No positions found
                                 </td>
                             </tr>
