@@ -7,14 +7,7 @@ use Livewire\Component;
 
 class PulseInstructions extends Component
 {
-    public $toggleActivate;
-
     protected $listeners = ['InstructionRemoved' => '$refresh'];
-
-    public function mount()
-    {
-        $this->toggleActivate = ! Auth::user()->pulseInstructions()->inActive()->exists();
-    }
 
     public function render()
     {
@@ -29,11 +22,11 @@ class PulseInstructions extends Component
             'activated' => false,
             'instruction' => [
                 'conditions' => [
-                    'source_account' => '',
                     'excluded_symbols' => '',
+                    'source_account' => 'Source Account',
                 ],
                 'parameters' => [
-                    'account' => '',
+                    'target_account' => 'Target Account',
                     'side' => 'same',
                     'quantity' => 1,
                     'price_mode' => 'shift',
@@ -42,10 +35,5 @@ class PulseInstructions extends Component
                 ],
             ],
         ]);
-    }
-
-    public function updatedToggleActivate()
-    {
-        Auth::user()->pulseInstructions()->update(['activated' => $this->toggleActivate]);
     }
 }

@@ -54,8 +54,8 @@ trait HasSterlingTrader
         return $this->activePulseInstructions()->where('event', $event)->pluck('instruction', 'id');
     }
 
-    public function pulseSyncConfigs()
+    public function pulseSyncSettings()
     {
-        return $this->hasMany(PulseSyncConfig::class);
+        return $this->hasMany(PulseSyncSetting::class);
     }
 }

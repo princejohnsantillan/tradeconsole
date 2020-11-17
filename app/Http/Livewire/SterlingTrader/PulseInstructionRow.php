@@ -66,13 +66,6 @@ class PulseInstructionRow extends Component
                 $instruction->update(['event' => $value]);
                 break;
 
-            case 'sourceAccount':
-                $tmp = $instruction->instruction;
-                $tmp['conditions']['source_account'] = $value;
-                $instruction->instruction = $tmp;
-                $instruction->save();
-                break;
-
             case 'excludedSymbols':
                 $tmp = $instruction->instruction;
                 $tmp['conditions']['excluded_symbols'] = strtoupper($value);
@@ -80,9 +73,16 @@ class PulseInstructionRow extends Component
                 $instruction->save();
                 break;
 
-            case 'account':
+            case 'sourceAccount':
                 $tmp = $instruction->instruction;
-                $tmp['parameters']['account'] = $value;
+                $tmp['conditions']['source_account'] = $value;
+                $instruction->instruction = $tmp;
+                $instruction->save();
+                break;
+
+            case 'targetAccount':
+                $tmp = $instruction->instruction;
+                $tmp['parameters']['target_account'] = $value;
                 $instruction->instruction = $tmp;
                 $instruction->save();
                 break;

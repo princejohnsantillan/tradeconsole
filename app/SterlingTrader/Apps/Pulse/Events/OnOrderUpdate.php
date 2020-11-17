@@ -22,7 +22,7 @@ class OnOrderUpdate extends EventHandler
         $parameters = $instruction['parameters'];
 
         $orderStruct = OrderStruct::build([
-            'bstrAccount' => $parameters['account'],
+            'bstrAccount' => $parameters['target_account'],
             'bstrSymbol' => $this->data['bstrSymbol'],
             'bstrSide' => $this->determineSide($parameters),
             'nQuantity' => $this->determineQuantity($parameters),
@@ -32,7 +32,7 @@ class OnOrderUpdate extends EventHandler
             'bstrTif' => 'D',
         ]);
 
-        $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $parameters['account']);
+        $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $parameters['target_account']);
 
         $target_connection->send(AdapterResponse::submitOrderStruct($orderStruct));
     }

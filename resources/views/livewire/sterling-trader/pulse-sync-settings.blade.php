@@ -16,7 +16,7 @@
                         </th>
                         <th class="p-2 bg-gray-50 text-center ">
                             <span class="inline-flex rounded-md shadow-sm">
-                                <button wire:click='addConfig' type="button" class="inline-flex items-center px-2 py-1 border border-transparent text-xs leading-2 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                                <button wire:click='addSetting' type="button" class="inline-flex items-center px-2 py-1 border border-transparent text-xs leading-2 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
                                     Add
                                 </button>
                               </span>
@@ -24,12 +24,12 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse($configs as $config)
-                            @livewire('sterling-trader.pulse-sync-config-row', ['config' => $config], key($config->id))
+                        @forelse($settings as $setting)
+                            @livewire('sterling-trader.pulse-sync-setting-row', ['setting' => $setting], key($setting->id))
                         @empty
                         <tr>
                             <td colspan="4" class="px-2 py-3 text-center whitespace-no-wrap text-sm leading-5 font-medium text-gray-800">
-                                No sync config found
+                                No sync setting found
                             </td>
                         </tr>
                         @endforelse

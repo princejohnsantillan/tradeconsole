@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePulseSyncConfigsTable extends Migration
+class CreatePulseSyncSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePulseSyncConfigsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pulse_sync_configs', function (Blueprint $table) {
+        Schema::create('pulse_sync_settings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('source');
@@ -30,6 +30,6 @@ class CreatePulseSyncConfigsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pulse_sync_configs');
+        Schema::dropIfExists('pulse_sync_settings');
     }
 }
