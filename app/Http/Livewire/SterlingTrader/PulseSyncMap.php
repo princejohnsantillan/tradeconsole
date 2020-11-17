@@ -48,7 +48,7 @@ class PulseSyncMap extends Component
                 $targetPosition = (int) optional($positions->where('Account', $setting->target)->where('Symbol', $symbol)->first())->Position ?? 0;
                 $weight = $setting->weight;
 
-                $this->positionMap = [
+                $this->positionMap[] = [
                     'Symbol' => $symbol,
                     'SourceAccount' => $setting->source,
                     'SourcePosition' => $sourcePosition,

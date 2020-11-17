@@ -17,7 +17,7 @@ class PulseInstructionRow extends Component
 
     public $excludedSymbols;
 
-    public $account;
+    public $targetAccount;
 
     public $side;
 
@@ -36,7 +36,7 @@ class PulseInstructionRow extends Component
         $this->event = $instruction->event;
         $this->sourceAccount = data_get($instruction->instruction, 'conditions.source_account');
         $this->excludedSymbols = data_get($instruction->instruction, 'conditions.excluded_symbols');
-        $this->account = data_get($instruction->instruction, 'parameters.account');
+        $this->targetAccount = data_get($instruction->instruction, 'parameters.target_account');
         $this->side = data_get($instruction->instruction, 'parameters.side');
         $this->quantity = data_get($instruction->instruction, 'parameters.quantity');
         $this->priceMode = data_get($instruction->instruction, 'parameters.price_mode');
