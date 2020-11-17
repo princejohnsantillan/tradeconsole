@@ -9,11 +9,12 @@ use Livewire\Component;
 
 class PulseSyncMap extends Component
 {
-    public $positionMap = [];
+    public $positionMap;
 
     protected $listeners = [
         'echo:SterlingTraderAdapter,PositionUpdated' => 'analyzePositions',
         'SettingRemoved' => 'analyzePositions',
+        'SettingUpdated' => 'analyzePositions',
     ];
 
     public function mount()

@@ -59,5 +59,7 @@ class PulseSyncSettingRow extends Component
             default:
                 break;
         }
+
+        $this->emitUp('SettingUpdated');
     }
 }

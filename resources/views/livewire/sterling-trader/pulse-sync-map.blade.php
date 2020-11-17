@@ -35,35 +35,35 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($positionMap as $position)
-                        <tr>
-                            <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $position['Symbol'] }}
-                            </td>
-                            <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $position['SourceAccount'] }}
-                            </td>
-                            <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $position['SourcePosition'] }}
-                            </td>
-                            <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $position['TargetAccount'] }}
-                            </td>
-                            <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $position['TargetPosition'] }}
-                            </td>
-                            <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $position['Weight'] }}
-                            </td>
-                            <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $position['Discrepancy'] }}
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                    {{ $position['Symbol'] }}
+                                </td>
+                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                    {{ $position['SourceAccount'] }}
+                                </td>
+                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                    {{ $position['SourcePosition'] }}
+                                </td>
+                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                    {{ $position['TargetAccount'] }}
+                                </td>
+                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                    {{ $position['TargetPosition'] }}
+                                </td>
+                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                    {{ $position['Weight'] }}
+                                </td>
+                                <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                    {{ $position['Discrepancy'] }}
+                                </td>
+                            </tr>
                         @empty
-                        <tr>
-                            <td colspan="7" class="px-2 py-3 text-center whitespace-no-wrap text-sm leading-5 font-medium text-gray-800">
-                                No positions found
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="7" class="px-2 py-3 text-center whitespace-no-wrap text-sm leading-5 font-medium text-gray-800">
+                                    No positions found
+                                </td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
