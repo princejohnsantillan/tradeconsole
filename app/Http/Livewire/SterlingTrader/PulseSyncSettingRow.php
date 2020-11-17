@@ -32,7 +32,7 @@ class PulseSyncSettingRow extends Component
     {
         PulseSyncSetting::destroy($this->settingId);
 
-        $this->emitUp('SettingRemoved');
+        $this->emit('SettingRemoved');
     }
 
     public function updated($name, $value)
@@ -60,6 +60,6 @@ class PulseSyncSettingRow extends Component
                 break;
         }
 
-        $this->emitUp('SettingUpdated');
+        $this->emit('SettingUpdated');
     }
 }
