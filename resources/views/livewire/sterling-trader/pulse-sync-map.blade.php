@@ -43,19 +43,25 @@
                                     {{ $position['SourceAccount'] }}
                                 </td>
                                 <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                    {{ $position['SourcePosition'] }}
+                                    <span class="{{ $position['SourcePosition'] === 0 ? 'text-gray-500' : ($position['SourcePosition'] > 0 ? 'text-green-800' : 'text-red-800') }}">
+                                        {{ $position['SourcePosition'] }}
+                                    </span>
                                 </td>
                                 <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                     {{ $position['TargetAccount'] }}
                                 </td>
                                 <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                    {{ $position['TargetPosition'] }}
+                                    <span class="{{ $position['TargetPosition'] === 0 ? 'text-gray-500' : ($position['TargetPosition'] > 0 ? 'text-green-800' : 'text-red-800') }}">
+                                        {{ $position['TargetPosition'] }}
+                                    </span>
                                 </td>
                                 <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                     {{ $position['Weight'] }}
                                 </td>
                                 <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                    {{ $position['Discrepancy'] }}
+                                    <span class="{{ $position['Discrepancy'] === 0 ? 'text-gray-500' : ($position['Discrepancy'] > 0 ? 'text-green-800' : 'text-red-800') }}">
+                                        {{ $position['Discrepancy'] }}
+                                    </span>
                                 </td>
                             </tr>
                         @empty

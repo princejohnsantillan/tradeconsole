@@ -55,7 +55,7 @@ class PulseSyncMap extends Component
                     'SourcePosition' => $sourcePosition,
                     'TargetAccount' => $setting->target,
                     'TargetPosition' => $targetPosition,
-                    'Weight' =>  $setting->weight,
+                    'Weight' =>  $weight,
                     'Discrepancy' => round(round($sourcePosition * $weight) - $targetPosition),
                 ];
             }

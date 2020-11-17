@@ -35,7 +35,7 @@
                                 </td>
                                 <td class="px-2 py-3 text-left whitespace-no-wrap text-sm leading-5 ">
                                     <span class="{{ $position['Real'] === 0 ? 'text-gray-500' : ($position['Real'] > 0 ? 'text-green-800' : 'text-red-800') }}">
-                                        {{ $position['Real'] }}
+                                        {{ number_format($position['Real'],4) }}
                                     </span>
                                 </td>
                             </tr>
