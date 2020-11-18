@@ -19,7 +19,6 @@ class OrderRejected implements ShouldBroadcast
      */
     public function __construct()
     {
-        //
     }
 
     /**
