@@ -5,16 +5,16 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead>
                     <tr>
-                        <th wire:click="sortPosition('Account')" class="p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th wire:click="sortPosition('Account')" class="cursor-pointer p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Account
                         </th>
-                        <th wire:click="sortPosition('Symbol')" class="p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th wire:click="sortPosition('Symbol')" class="cursor-pointer p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Symbol
                         </th>
-                        <th wire:click="sortPosition('Position')" class="p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th wire:click="sortPosition('Position')" class="cursor-pointer p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Postion
                         </th>
-                        <th wire:click="sortPosition('Real')" class="p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th wire:click="sortPosition('Real')" class="cursor-pointer p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Real
                         </th>
                     </tr>
