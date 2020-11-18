@@ -13,6 +13,10 @@ class OnOrderReject extends EventHandler
 
     protected function execute(array $instruction)
     {
+    }
+
+    public function handle($data)
+    {
         event(new OrderRejected);
     }
 }
