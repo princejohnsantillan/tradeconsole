@@ -36,9 +36,35 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($rejects as $reject)
-                            <tr>
-
-                            </tr>
+                        <tr>
+                            <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                {{ $reject->message['Data']['bstrClOrderId'] }}
+                            </td>
+                            <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                {{ $reject->message['Data']['bstrAccount'] }}
+                            </td>
+                            <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                {{ $reject->message['Data']['bstrSymbol'] }}
+                            </td>
+                            <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                {{ $reject->message['Data']['nQuantity'] }}
+                            </td>
+                            <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                {{ $reject->message['Data']['bstrSide'] }}
+                            </td>
+                            <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                {{ $reject->message['Data']['bstrDestination'] }}
+                            </td>
+                            <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                {{ $reject->message['Data']['nRejectReason'] }}
+                            </td>
+                            <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                {{ $reject->message['Data']['bstrText'] }}
+                            </td>
+                            <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                {{ $reject->created_at }}
+                            </td>
+                        </tr>
                         @empty
                         <tr>
                             <td colspan="9" class="px-4 py-2 text-center whitespace-no-wrap text-sm leading-5 font-medium text-gray-800">

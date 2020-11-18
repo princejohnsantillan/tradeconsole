@@ -9,6 +9,10 @@ use Livewire\Component;
 
 class PulseRejects extends Component
 {
+    protected $listener = [
+        'echo:SterlingTraderAdapter,OrderRejected' => '$refresh',
+    ];
+
     public function render()
     {
         $adapter = Auth::user()->activeSterlingTraderAdapter;
