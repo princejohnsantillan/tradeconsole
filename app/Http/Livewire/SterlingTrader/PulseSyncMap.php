@@ -14,9 +14,9 @@ class PulseSyncMap extends Component
     public $sortAsc;
 
     protected $listeners = [
-        'echo:SterlingTraderAdapter,PositionUpdated' => 'analyzePositions',
-        'SettingRemoved' => 'analyzePositions',
-        'SettingUpdated' => 'analyzePositions',
+        'echo:SterlingTraderAdapter,PositionUpdated' => '$refresh',
+        'SettingRemoved' => '$refresh',
+        'SettingUpdated' => '$refresh',
     ];
 
     public function mount()
@@ -66,7 +66,7 @@ class PulseSyncMap extends Component
             }
         }
 
-        return collect($positionMap)->sortBy($this->sortField, SORT_STRING, ! $this->sortAsc);
+        return collect($positionMap)->sortBy($this->sortField, SORT_NATURAL, ! $this->sortAsc);
     }
 
     public function sortPosition($field)

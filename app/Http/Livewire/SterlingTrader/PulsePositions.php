@@ -7,26 +7,41 @@ use Livewire\Component;
 
 class PulsePositions extends Component
 {
-    public $positions;
+    public $sortField;
+
+    public $sortAsc;
 
     protected $listeners = [
-        'echo:SterlingTraderAdapter,PositionUpdated' => 'fetchPositions',
+        'echo:SterlingTraderAdapter,PositionUpdated' => '$refresh',
     ];
 
     public function mount()
     {
-        $this->fetchPositions();
+        $this->sortField = 'Account';
+
+        $this->sortAsc = true;
     }
 
     public function render()
     {
-        return view('livewire.sterling-trader.pulse-positions');
+        return view('livewire.sterling-trader.pulse-positions', [
+            'positions' => $this->fetchPositions(),
+        ]);
     }
 
     public function fetchPositions()
     {
         $adapterAction = Auth::user()->getSterlingTraderAdapterHttpAction();
 
-        $this->positions = optional($adapterAction)->fetchPositions() ?? [];
+        $positions = optional($adapterAction)->fetchPositions() ?? [];
+
+        return collect($positions)->sortBy($this->sortField, SORT_NATURAL, ! $this->sortAsc);
+    }
+
+    public function sortPosition($field)
+    {
+        $this->sortAsc = $this->sortField == $field ? ! $this->sortAsc : true;
+
+        $this->sortField = $field;
     }
 }
