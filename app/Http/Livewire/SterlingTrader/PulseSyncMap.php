@@ -69,7 +69,9 @@ class PulseSyncMap extends Component
             }
         }
 
-        return collect($positionMap)->sortBy($this->sortField, SORT_NATURAL, ! $this->sortAsc);
+        return collect($positionMap)
+            ->sortBy('Symbol')
+            ->sortBy($this->sortField, SORT_NATURAL, ! $this->sortAsc);
     }
 
     public function sortPosition($field)
