@@ -16,7 +16,7 @@
     <td class="py-2 px-1 whitespace-no-wrap text-sm leading-5 text-gray-500">
         <div class="mt-1 sm:mt-0 sm:col-span-2">
             <div class="max-w-lg rounded-md shadow-sm sm:max-w-xs">
-              <input wire:model.lazy="weight" type="number" step=".01" min="0" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+              <input wire:model.lazy="weight" type="number" step=".01" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
             </div>
         </div>
     </td>

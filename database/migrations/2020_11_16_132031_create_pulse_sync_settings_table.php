@@ -18,7 +18,7 @@ class CreatePulseSyncSettingsTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('source');
             $table->string('target');
-            $table->unsignedSmallInteger('weight')->default(100);
+            $table->smallInteger('weight')->default(100);
             $table->timestamps();
         });
     }
