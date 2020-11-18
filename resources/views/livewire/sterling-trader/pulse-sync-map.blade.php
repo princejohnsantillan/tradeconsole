@@ -32,6 +32,28 @@
                               </span>
                         </th>
                     </tr>
+                    <tr>
+                        <th class="p-1 bg-gray-50 text-center text-xs leading-2 font-smaller text-gray-400 lowercase tracking-wider">
+                            {{ $subHeader['Symbols'].' symbols' }}
+                        </th>
+                        <th class="p-1 bg-gray-50 text-center text-xs leading-2 font-smaller text-gray-400 lowercase tracking-wider">
+                            {{ $subHeader['SourceAccounts'].' accounts' }}
+                        </th>
+                        <th class="p-1 bg-gray-50 text-center text-xs leading-2 font-smaller text-gray-400 lowercase tracking-wider">
+                            {{ $subHeader['TotalSourcePosition'].' total' }}
+                        </th>
+                        <th class="p-1 bg-gray-50 text-center text-xs leading-2 font-smaller text-gray-400 lowercase tracking-wider">
+                            {{ $subHeader['TargetAccounts'].' accounts' }}
+                        </th>
+                        <th class="p-1 bg-gray-50 text-center text-xs leading-2 font-smaller text-gray-400 lowercase tracking-wider">
+                            {{ $subHeader['TotalTragetPosition'].' total ' }}
+                        </th>
+                        <th class="p-1 bg-gray-50 text-center text-xs leading-2 font-smaller text-gray-400 lowercase tracking-wider">
+                        </th>
+                        <th class="p-1 bg-gray-50 text-center text-xs leading-2 font-smaller text-gray-400 lowercase tracking-wider">
+                            {{ $subHeader['TotalDiscrepancy'].' total discrepancy' }}
+                        </th>
+                    </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($positionMap as $position)

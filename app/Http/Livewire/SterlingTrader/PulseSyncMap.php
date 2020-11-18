@@ -27,8 +27,19 @@ class PulseSyncMap extends Component
 
     public function render()
     {
+        $positionMap = $this->analyzePositions();
+        $subHeader = [
+            'Symbols' => $positionMap->unique('Symbol')->count(),
+            'SourceAccounts' => $positionMap->unique('SourceAccount')->count(),
+            'TotalSourcePosition' => $positionMap->sum('SourcePosition'),
+            'TargetAccounts' => $positionMap->unique('TragetAccount')->count(),
+            'TotalTragetPosition' => $positionMap->sum('TragetPosition'),
+            'TotalDiscrepancy' => $positionMap->sum('Discrepancy'),
+        ];
+
         return view('livewire.sterling-trader.pulse-sync-map', [
-            'positionMap' => $this->analyzePositions(),
+            'positionMap' => $positionMap,
+            'subHeader' => $subHeader,
         ]);
     }
 
