@@ -21,7 +21,7 @@ class PulseSyncMap extends Component
 
     public function mount()
     {
-        $this->sortField = 'Symbol';
+        $this->sortField = 'SourceAccount';
         $this->sortAsc = true;
     }
 
@@ -66,13 +66,14 @@ class PulseSyncMap extends Component
             }
         }
 
-        return $this->sortAsc ? collect($positionMap)->sortBy($this->sortField) : collect($positionMap)->sortByDesc($this->sortField);
+        return collect($positionMap)->sortBy($this->sortField, SORT_STRING, ! $this->sortAsc);
     }
 
     public function sortPosition($field)
     {
-        $this->sortField = $field;
         $this->sortAsc = $this->sortField == $field ? ! $this->sortAsc : true;
+
+        $this->sortField = $field;
     }
 
     public function alignPositions()
