@@ -21,8 +21,8 @@ class PulseSyncMap extends Component
 
     public function mount()
     {
-        $this->sortField = 'SourceAccount';
-        $this->sortAsc = true;
+        $this->sortField = 'Gap';
+        $this->sortAsc = false;
     }
 
     public function render()
@@ -52,7 +52,9 @@ class PulseSyncMap extends Component
             foreach ($symbols as $symbol) {
                 $sourcePosition = (int) optional($positions->where('Account', $setting->source)->where('Symbol', $symbol)->first())['Position'] ?? 0;
                 $targetPosition = (int) optional($positions->where('Account', $setting->target)->where('Symbol', $symbol)->first())['Position'] ?? 0;
+
                 $weight = $setting->weight / 100;
+                $discrepancy = (int) round(round($sourcePosition * $weight) - $targetPosition);
 
                 $positionMap[] = [
                     'Symbol' => $symbol,
@@ -61,7 +63,8 @@ class PulseSyncMap extends Component
                     'TargetAccount' => $setting->target,
                     'TargetPosition' => $targetPosition,
                     'Weight' =>  $weight,
-                    'Discrepancy' => (int) round(round($sourcePosition * $weight) - $targetPosition),
+                    'Discrepancy' => $discrepancy,
+                    'Gap' => abs($discrepancy),
                 ];
             }
         }
