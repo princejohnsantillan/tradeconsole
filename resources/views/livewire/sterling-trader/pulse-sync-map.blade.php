@@ -51,7 +51,7 @@
                         <th class="p-1 bg-gray-50 text-center text-xs leading-2 font-smaller text-gray-400 lowercase tracking-wider">
                         </th>
                         <th class="p-1 bg-gray-50 text-center text-xs leading-2 font-smaller text-gray-400 lowercase tracking-wider">
-                            {{ $subHeader['TotalDiscrepancy'].' total discrepancy' }}
+                            {{ $subHeader['TotalDiscrepancy'].' total' }}
                         </th>
                     </tr>
                     </thead>
@@ -77,7 +77,7 @@
                                         {{ $position['TargetPosition'] }}
                                     </span>
                                 </td>
-                                <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
+                                <td class="px-4 py-2 text-right whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                     {{ $position['Weight'] }}
                                 </td>
                                 <td class="px-4 py-2 text-right whitespace-no-wrap text-sm leading-5 font-medium">
