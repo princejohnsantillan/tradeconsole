@@ -9,7 +9,9 @@ use Livewire\Component;
 
 class PulseSyncMap extends Component
 {
-    public $positionMap;
+    public $sortField;
+
+    public $sortAsc;
 
     protected $listeners = [
         'echo:SterlingTraderAdapter,PositionUpdated' => 'analyzePositions',
@@ -19,17 +21,20 @@ class PulseSyncMap extends Component
 
     public function mount()
     {
-        $this->analyzePositions();
+        $this->sortField = 'Symbol';
+        $this->sortAsc = true;
     }
 
     public function render()
     {
-        return view('livewire.sterling-trader.pulse-sync-map');
+        return view('livewire.sterling-trader.pulse-sync-map', [
+            'positionMap' => $this->analyzePositions(),
+        ]);
     }
 
     public function analyzePositions()
     {
-        $this->positionMap = [];
+        $positionMap = [];
 
         $syncSettings = Auth::user()->pulseSyncSettings;
 
@@ -49,7 +54,7 @@ class PulseSyncMap extends Component
                 $targetPosition = (int) optional($positions->where('Account', $setting->target)->where('Symbol', $symbol)->first())['Position'] ?? 0;
                 $weight = $setting->weight / 100;
 
-                $this->positionMap[] = [
+                $positionMap[] = [
                     'Symbol' => $symbol,
                     'SourceAccount' => $setting->source,
                     'SourcePosition' => $sourcePosition,
@@ -60,15 +65,23 @@ class PulseSyncMap extends Component
                 ];
             }
         }
+
+        return $this->sortAsc ? collect($positionMap)->sortBy($this->sortField) : collect($positionMap)->sortByDesc($this->sortField);
+    }
+
+    public function sortPosition($field)
+    {
+        $this->sortField = $field;
+        $this->sortAsc = $this->sortField == $field ? ! $this->sortAsc : true;
     }
 
     public function alignPositions()
     {
-        $this->analyzePositions();
+        $positionMap = $this->analyzePositions();
 
         $httpAction = Auth::user()->getSterlingTraderAdapterHttpAction();
 
-        foreach ($this->positionMap as $position) {
+        foreach ($positionMap as $position) {
             if ($position['Discrepancy'] === 0) {
                 continue;
             }
