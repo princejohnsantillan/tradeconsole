@@ -38,28 +38,28 @@
                         @forelse($rejects as $reject)
                         <tr>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['Data']['bstrClOrderId'] }}
+                                {{ $reject->message['data']['bstrClOrderId'] }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['Data']['bstrAccount'] }}
+                                {{ $reject->message['data']['bstrAccount'] }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['Data']['bstrSymbol'] }}
+                                {{ $reject->message['data']['bstrSymbol'] }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['Data']['nQuantity'] }}
+                                {{ $reject->message['data']['nQuantity'] }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['Data']['bstrSide'] }}
+                                {{ $reject->message['data']['bstrSide'] }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['Data']['bstrDestination'] }}
+                                {{ $reject->message['data']['bstrDestination'] }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['Data']['nRejectReason'] }}
+                                {{ $reject->message['data']['nRejectReason'] }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['Data']['bstrText'] }}
+                                {{ $reject->message['data']['bstrText'] }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                 {{ $reject->created_at }}
