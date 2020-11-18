@@ -42,7 +42,7 @@ class OnTradeUpdate extends EventHandler
         $side = $this->data['bstrSide'];
         if ($parameters['side'] === 'reverse') {
             return [
-                'B' => 'S',
+                'B' => 'T',
                 'C' => 'T',
                 'S' => 'B',
                 'T' => 'B',
