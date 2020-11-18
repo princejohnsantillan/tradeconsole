@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class PulseRejects extends Component
 {
-    protected $listener = [
+    protected $listeners = [
         'echo:SterlingTraderAdapter,OrderRejected' => '$refresh',
     ];
 
