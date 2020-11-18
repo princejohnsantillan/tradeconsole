@@ -38,28 +38,28 @@
                         @forelse($rejects as $reject)
                         <tr>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['data']['bstrClOrderId'] }}
+                                {{ data_get($reject->message, 'data.bstrClOrderId') }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['data']['bstrAccount'] }}
+                                {{ data_get($reject->message, 'data.bstrAccount') }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['data']['bstrSymbol'] }}
+                                {{ data_get($reject->message, 'data.bstrSymbol') }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['data']['nQuantity'] }}
+                                {{ data_get($reject->message, 'data.nQuantity') }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['data']['bstrSide'] }}
+                                {{ data_get($reject->message, 'data.bstrSide') }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['data']['bstrDestination'] }}
+                                {{ data_get($reject->message, 'data.bstrDestination') }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['data']['nRejectReason'] }}
+                                {{ data_get($reject->message, 'data.nRejectReason') }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
-                                {{ $reject->message['data']['bstrText'] }}
+                                {{ data_get($reject->message, 'data.bstrText') }}
                             </td>
                             <td class="px-4 py-2 text-left whitespace-no-wrap text-sm leading-5 font-medium text-gray-500">
                                 {{ $reject->created_at }}
