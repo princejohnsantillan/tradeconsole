@@ -47,7 +47,7 @@ class PulseSyncMap extends Component
         $positions = collect(optional($adapterAction)->fetchPositions() ?? []);
 
         foreach ($syncSettings as $setting) {
-            $symbols = $positions->whereIn('Account', [$setting->source, $setting->target])->pluck('Symbol');
+            $symbols = $positions->whereIn('Account', [$setting->source, $setting->target])->pluck('Symbol')->unique();
 
             foreach ($symbols as $symbol) {
                 $sourcePosition = (int) optional($positions->where('Account', $setting->source)->where('Symbol', $symbol)->first())['Position'] ?? 0;
@@ -90,7 +90,7 @@ class PulseSyncMap extends Component
             $orderStruct = OrderStruct::build([
                 'bstrAccount' => $position['TargetAccount'],
                 'bstrSymbol' => $position['Symbol'],
-                'bstrSide' => $position['Discrepancy'] > 0 ? 'S' : 'B',
+                'bstrSide' => $position['Discrepancy'] > 0 ? 'B' : 'T',
                 'nQuantity' => abs($position['Discrepancy']),
                 'nPriceType' => 1,
                 'bstrDestination' => 'ARCA', //TODO: Revisit. This should not be hardcoded.
