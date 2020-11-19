@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class PulseSyncSettingRow extends Component
 {
+    public $show;
+
     public $settingId;
 
     public $source;
@@ -17,6 +19,8 @@ class PulseSyncSettingRow extends Component
 
     public function mount($setting)
     {
+        $this->show = true;
+
         $this->settingId = $setting->id;
         $this->source = $setting->source;
         $this->target = $setting->target;
@@ -30,6 +34,8 @@ class PulseSyncSettingRow extends Component
 
     public function removeSetting()
     {
+        $this->show = false;
+
         PulseSyncSetting::destroy($this->settingId);
 
         $this->emit('SettingRemoved');

@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class PulseInstructionRow extends Component
 {
+    public $show;
+
     public $instructionId;
 
     public $activated;
@@ -31,6 +33,8 @@ class PulseInstructionRow extends Component
 
     public function mount($instruction)
     {
+        $this->show = true;
+
         $this->instructionId = $instruction->id;
         $this->activated = $instruction->activated;
         $this->event = $instruction->event;
@@ -129,6 +133,8 @@ class PulseInstructionRow extends Component
 
     public function removeInstruction()
     {
+        $this->show = false;
+
         PulseInstruction::destroy($this->instructionId);
 
         $this->emitUp('InstructionRemoved');
