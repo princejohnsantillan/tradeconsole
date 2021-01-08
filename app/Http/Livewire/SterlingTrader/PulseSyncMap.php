@@ -33,7 +33,7 @@ class PulseSyncMap extends Component
             'SourceAccounts' => $positionMap->unique('SourceAccount')->count(),
             'TotalSourcePosition' => $positionMap->sum('SourcePosition'),
             'TargetAccounts' => $positionMap->unique('TragetAccount')->count(),
-            'TotalTragetPosition' => $positionMap->sum('TragetPosition'),
+            'TotalTargetPosition' => $positionMap->sum('TargetPosition'),
             'TotalDiscrepancy' => $positionMap->sum('Discrepancy'),
         ];
 

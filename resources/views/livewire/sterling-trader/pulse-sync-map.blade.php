@@ -50,7 +50,7 @@
                             {{ $subHeader['TargetAccounts'].' accounts' }}
                         </th>
                         <th class="p-1 bg-gray-50 text-center text-xs leading-2 font-smaller text-gray-400 lowercase tracking-wider">
-                            {{ $subHeader['TotalTragetPosition'].' total ' }}
+                            {{ $subHeader['TotalTargetPosition'].' total ' }}
                         </th>
                         <th class="p-1 bg-gray-50 text-center text-xs leading-2 font-smaller text-gray-400 lowercase tracking-wider">
                         </th>
