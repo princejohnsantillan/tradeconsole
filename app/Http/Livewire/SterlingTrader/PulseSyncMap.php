@@ -22,7 +22,7 @@ class PulseSyncMap extends Component
     public function mount()
     {
         $this->sortField = 'Gap';
-        $this->sortAsc = false;
+        $this->sortAsc = true;
     }
 
     public function render()
@@ -85,7 +85,6 @@ class PulseSyncMap extends Component
         }
 
         return collect($positionMap)
-            ->sortBy('Symbol')
             ->sortBy($this->sortField, SORT_NATURAL, $this->sortAsc);
     }
 
