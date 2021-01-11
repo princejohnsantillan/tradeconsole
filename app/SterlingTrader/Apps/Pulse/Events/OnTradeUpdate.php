@@ -21,16 +21,21 @@ class OnTradeUpdate extends EventHandler
     {
         $parameters = $instruction['parameters'];
 
-        $orderStruct = OrderStruct::build([
+        $data = [
             'bstrAccount' => $parameters['target_account'],
             'bstrSymbol' => $this->data['bstrSymbol'],
             'bstrSide' => $this->determineSide($parameters),
             'nQuantity' => $this->determineQuantity($parameters),
             'nPriceType' => $this->determinePriceType($parameters),
-            'fLmtPrice' => $this->determinePrice($parameters),
             'bstrDestination' => $parameters['destination'],
             'bstrTif' => 'D',
-        ]);
+        ];
+
+        if ($data['nPriceType'] === 5) {
+            $data['fLmtPrice'] = $this->determinePrice($parameters);
+        }
+
+        $orderStruct = OrderStruct::build($data);
 
         $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $parameters['target_account']);
 
