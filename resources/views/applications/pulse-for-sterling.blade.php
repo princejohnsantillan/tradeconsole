@@ -23,7 +23,7 @@
             <div class="lg:grid lg:grid-cols-10 lg:gap-2 space-y-4 lg:space-y-0">
                 <div class="lg:col-span-4 space-y-4">
                     @livewire('sterling-trader.pulse-sync-settings')
-                    @livewire('sterling-trader.pulse-positions')
+                    {{-- @livewire('sterling-trader.pulse-positions') --}}
                 </div>
                 <div class="lg:col-span-6">
                     @livewire('sterling-trader.pulse-sync-map')
