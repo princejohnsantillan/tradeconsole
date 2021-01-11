@@ -64,6 +64,10 @@ class PulseSyncMap extends Component
                 $sourcePosition = (int) optional($positions->where('Account', $setting->source)->where('Symbol', $symbol)->first())['Position'] ?? 0;
                 $targetPosition = (int) optional($positions->where('Account', $setting->target)->where('Symbol', $symbol)->first())['Position'] ?? 0;
 
+                if ($sourcePosition + $targetPosition === 0) {
+                    continue;
+                }
+
                 $weight = $setting->weight / 100;
                 $discrepancy = (int) round(round($sourcePosition * $weight) - $targetPosition);
 
