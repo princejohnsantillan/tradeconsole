@@ -35,6 +35,10 @@ class OnOrderUpdate extends EventHandler
             $data['fLmtPrice'] = $this->determinePrice($parameters);
         }
 
+        if ($data['nQuantity'] === 0) {
+            return;
+        }
+
         $orderStruct = OrderStruct::build($data);
 
         $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $parameters['target_account']);
