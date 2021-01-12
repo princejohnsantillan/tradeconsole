@@ -29,6 +29,7 @@ class OnOrderUpdate extends EventHandler
             'nPriceType' => $this->determinePriceType($parameters),
             'bstrDestination' => $parameters['destination'],
             'bstrTif' => 'D',
+            'bstrClOrderId' => uniqid($this->data['bstrClOrderId']),
         ];
 
         if ($data['nPriceType'] === 5) {
@@ -49,6 +50,7 @@ class OnOrderUpdate extends EventHandler
     private function determineSide($parameters)
     {
         $side = $this->data['bstrSide'];
+
         if ($parameters['side'] === 'reverse') {
             return [
                 'B' => 'S',
@@ -83,10 +85,6 @@ class OnOrderUpdate extends EventHandler
         $data_price = (float) $this->data['fLmtPrice'];
 
         $price_shift = (float) $parameters['price_shift'];
-
-        if ($parameters['price_mode'] === 'market') {
-            return $data_price;
-        }
 
         return $data_price + $price_shift;
     }
