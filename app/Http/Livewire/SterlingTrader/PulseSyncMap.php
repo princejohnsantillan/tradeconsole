@@ -114,7 +114,7 @@ class PulseSyncMap extends Component
                 'nPriceType' => 1,
                 'bstrDestination' => 'ARCA', //TODO: Revisit. This should not be hardcoded.
                 'bstrTif' => 'D',
-                'bstrClOrderId' => uniqid('TC-'),
+                'bstrClOrderId' => uniqid('TC-').md5(now()),
             ]);
 
             $httpAction->sendData($position['TargetAccount'], AdapterResponse::submitOrderStruct($orderStruct));
