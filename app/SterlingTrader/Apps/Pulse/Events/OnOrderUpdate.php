@@ -29,7 +29,7 @@ class OnOrderUpdate extends EventHandler
             'nPriceType' => $this->determinePriceType($parameters),
             'bstrDestination' => $parameters['destination'],
             'bstrTif' => 'D',
-            'bstrClOrderId' => uniqid($this->data['bstrClOrderId']),
+            'bstrClOrderId' => uniqid('OU').md5(now()),
         ];
 
         if ($data['nPriceType'] === 5) {

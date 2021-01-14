@@ -13,6 +13,9 @@ class OnTradeUpdate extends EventHandler
 
         $excluded_symbols = array_map('trim', explode(',', $conditions['excluded_symbols']));
 
+        ray($conditions['source_account'] === $this->data['bstrAccount']
+        && ! in_array($this->data['bstrSymbol'], $excluded_symbols));
+
         return $conditions['source_account'] === $this->data['bstrAccount']
             && ! in_array($this->data['bstrSymbol'], $excluded_symbols);
     }
@@ -29,7 +32,7 @@ class OnTradeUpdate extends EventHandler
             'nPriceType' => $this->determinePriceType($parameters),
             'bstrDestination' => $parameters['destination'],
             'bstrTif' => 'D',
-            'bstrClOrderId' => uniqid($this->data['bstrClOrderId']),
+            'bstrClOrderId' => uniqid('TU').md5(now()),
         ];
 
         if ($data['nPriceType'] === 5) {
