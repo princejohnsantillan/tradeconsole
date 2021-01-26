@@ -7,6 +7,8 @@ use App\SterlingTrader\Struct\OrderStruct;
 
 class OnTradeUpdate extends EventHandler
 {
+    private const MINIMUM_TRADE_VALUE = 1000;
+
     protected function canHandle(array $instruction): bool
     {
         $conditions = $instruction['conditions'];
@@ -32,12 +34,12 @@ class OnTradeUpdate extends EventHandler
             'bstrClOrderId' => uniqid('TU').md5(now()),
         ];
 
-        if ($data['nPriceType'] === 5) {
-            $data['fLmtPrice'] = $this->determinePrice($parameters);
-        }
-
         if ($data['nQuantity'] === 0) {
             return;
+        }
+
+        if ($data['nPriceType'] === 5) {
+            $data['fLmtPrice'] = $this->determinePrice($parameters);
         }
 
         $orderStruct = OrderStruct::build($data);
@@ -68,7 +70,14 @@ class OnTradeUpdate extends EventHandler
 
     private function determineQuantity($parameters)
     {
-        return (int) round((int) $this->data['nQuantity'] * (int) $parameters['quantity']);
+        $computed_quntity = (int) round((int) $this->data['nQuantity'] * (int) $parameters['quantity']);
+        $data_price = (float) $this->data['fLmtPrice'];
+
+        if ($computed_quntity * $data_price > static::MINIMUM_TRADE_VALUE) {
+            return $computed_quntity;
+        } else {
+            return (int) round(static::MINIMUM_TRADE_VALUE / $data_price);
+        }
     }
 
     private function determinePriceType($parameters): int
