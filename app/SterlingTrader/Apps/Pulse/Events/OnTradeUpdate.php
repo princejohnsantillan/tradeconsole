@@ -68,18 +68,6 @@ class OnTradeUpdate extends EventHandler
         return $side;
     }
 
-    private function determineQuantity($parameters)
-    {
-        $computed_quntity = (int) round((int) $this->data['nQuantity'] * (int) $parameters['quantity']);
-        $data_price = (float) $this->data['fLmtPrice'];
-
-        if ($computed_quntity * $data_price > static::MINIMUM_TRADE_VALUE) {
-            return $computed_quntity;
-        } else {
-            return (int) round(static::MINIMUM_TRADE_VALUE / $data_price);
-        }
-    }
-
     private function determinePriceType($parameters): int
     {
         if ($parameters['price_mode'] === 'market') {
@@ -96,5 +84,17 @@ class OnTradeUpdate extends EventHandler
         $price_shift = (float) $parameters['price_shift'];
 
         return $data_price + $price_shift;
+    }
+
+    private function determineQuantity($parameters)
+    {
+        $computed_price = $this->determinePrice($parameters);
+        $computed_quantity = (int) round((int) $this->data['nQuantity'] * (int) $parameters['quantity']);
+
+        if ($computed_price * $computed_quantity > static::MINIMUM_TRADE_VALUE) {
+            return $computed_quantity;
+        } else {
+            return (int) round(static::MINIMUM_TRADE_VALUE / $computed_price);
+        }
     }
 }
