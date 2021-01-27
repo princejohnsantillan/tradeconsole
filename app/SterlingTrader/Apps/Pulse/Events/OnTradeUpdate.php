@@ -91,7 +91,11 @@ class OnTradeUpdate extends EventHandler
         $computed_price = $this->determinePrice($parameters);
         $computed_quantity = (int) round((int) $this->data['nQuantity'] * (int) $parameters['quantity']);
 
-        if ($computed_price * $computed_quantity >= static::MINIMUM_TRADE_VALUE) {
+        if ($computed_price <= 0) {
+            return $computed_quantity;
+        }
+
+        if (($computed_price * $computed_quantity) >= static::MINIMUM_TRADE_VALUE) {
             return $computed_quantity;
         } else {
             return (int) round(static::MINIMUM_TRADE_VALUE / $computed_price);
