@@ -89,7 +89,7 @@ class OnTradeUpdate extends EventHandler
     private function determineQuantity($parameters)
     {
         $computed_price = $this->determinePrice($parameters);
-        $computed_quantity = (int) round((int) $this->data['nQuantity'] * (int) $parameters['quantity']);
+        $computed_quantity = (int) round($this->data['nQuantity'] * $parameters['quantity']);
 
         if ($computed_price <= 0) {
             return $computed_quantity;

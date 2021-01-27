@@ -68,7 +68,7 @@ class OnOrderUpdate extends EventHandler
 
     private function determineQuantity($parameters)
     {
-        return (int) round((int) $this->data['nQuantity'] * (int) $parameters['quantity']);
+        return (int) round($this->data['nQuantity'] * $parameters['quantity']);
     }
 
     private function determinePriceType($parameters): int
