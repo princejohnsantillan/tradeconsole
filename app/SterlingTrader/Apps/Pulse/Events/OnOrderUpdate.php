@@ -4,9 +4,17 @@ namespace App\SterlingTrader\Apps\Pulse\Events;
 
 use App\SterlingTrader\AdapterResponse;
 use App\SterlingTrader\Struct\OrderStruct;
+use Illuminate\Support\Facades\Cache;
 
 class OnOrderUpdate extends EventHandler
 {
+    public function handle($data)
+    {
+        Cache::put("quantity-{$data['nOrderRecordId']}-{$data['bstrClOrderId']}", $data['nQuantity'], now()->addHours(3));
+
+        parent::handle($data);
+    }
+
     protected function canHandle(array $instruction): bool
     {
         $conditions = $instruction['conditions'];
