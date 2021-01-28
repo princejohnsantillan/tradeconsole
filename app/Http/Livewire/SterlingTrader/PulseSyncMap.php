@@ -60,7 +60,13 @@ class PulseSyncMap extends Component
         foreach ($syncSettings as $setting) {
             $symbols = $positions->whereIn('Account', [$setting->source, $setting->target])->pluck('Symbol')->unique();
 
+            $excluded_symbols = array_map('trim', explode(',', $setting->excluded_symbols));
+
             foreach ($symbols as $symbol) {
+                if (in_array($symbol, $excluded_symbols)) {
+                    continue;
+                }
+
                 $sourcePosition = (int) optional($positions->where('Account', $setting->source)->where('Symbol', $symbol)->first())['Position'] ?? 0;
                 $targetPosition = (int) optional($positions->where('Account', $setting->target)->where('Symbol', $symbol)->first())['Position'] ?? 0;
 

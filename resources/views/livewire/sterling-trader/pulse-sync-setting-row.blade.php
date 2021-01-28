@@ -21,6 +21,13 @@
                 </div>
             </div>
         </td>
+        <td class="py-2 px-1 whitespace-no-wrap text-sm leading-5 text-gray-500">
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+                <div class="max-w-lg rounded-md shadow-sm sm:max-w-xs">
+                <input wire:model.lazy="excludedSymbols" type="text" required class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" >
+                </div>
+            </div>
+        </td>
         <td class="px-2 py-2 whitespace-no-wrap text-center text-sm leading-5 font-medium ">
             <svg wire:loading class="animate-spin mt-2 mb-1 h-4 w-4  text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

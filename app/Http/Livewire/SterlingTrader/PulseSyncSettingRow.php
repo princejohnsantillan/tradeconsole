@@ -15,6 +15,8 @@ class PulseSyncSettingRow extends Component
 
     public $target;
 
+    public $excludedSymbols = [];
+
     public $weight;
 
     public function mount($setting)
@@ -24,6 +26,7 @@ class PulseSyncSettingRow extends Component
         $this->settingId = $setting->id;
         $this->source = $setting->source;
         $this->target = $setting->target;
+        $this->excludedSymbols = $setting->excludedSymbols;
         $this->weight = $setting->weight / 100;
     }
 
@@ -60,6 +63,10 @@ class PulseSyncSettingRow extends Component
 
             case 'weight':
                 $setting->update(['weight' => $value * 100]);
+                break;
+
+            case 'excludedSymbols':
+                $setting->update(['excluded_symbols' => strtoupper($value)]);
                 break;
 
             default:
