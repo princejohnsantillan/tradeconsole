@@ -96,7 +96,7 @@ class OnTradeUpdate extends EventHandler
     {
         $computed_price = $this->determinePrice($parameters);
 
-        $original_quantity = (int) Cache::get("quantity-{$this->data['nOrderRecordId']}-{$this->data['bstrClOrderId']}", $this->data['nQuantity']);
+        $original_quantity = (int) Cache::get("quantity-{$this->data['nOrderRecordId']}", $this->data['nQuantity']);
 
         $computed_quantity = (int) round($original_quantity * $parameters['quantity']);
 
