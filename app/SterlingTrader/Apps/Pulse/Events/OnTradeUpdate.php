@@ -85,7 +85,7 @@ class OnTradeUpdate extends EventHandler
 
     private function determinePrice($parameters): float
     {
-        $data_price = (float) $this->data['fLmtPrice'];
+        $data_price = (float) $this->data['fExecPrice'];
 
         $price_shift = (float) $parameters['price_shift'];
 
@@ -96,7 +96,7 @@ class OnTradeUpdate extends EventHandler
     {
         $computed_price = $this->determinePrice($parameters);
 
-        $original_quantity = (int) Cache::get("quantity-{$this->data['nOrderRecordId']}", $this->data['nQuantity']);
+        $original_quantity = (int) Cache::get("quantity-{$this->data['bstrAccount']}-{$this->data['nOrderRecordId']}", $this->data['nQuantity']);
 
         $computed_quantity = (int) round($original_quantity * $parameters['quantity']);
 

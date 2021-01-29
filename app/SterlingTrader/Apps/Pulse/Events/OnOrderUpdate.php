@@ -10,7 +10,7 @@ class OnOrderUpdate extends EventHandler
 {
     public function handle($data)
     {
-        Cache::put("quantity-{$data['nOrderRecordId']}", $data['nQuantity'], now()->addHour());
+        Cache::put("quantity-{$data['bstrAccount']}-{$data['nOrderRecordId']}", $data['nQuantity'], now()->addHour());
 
         parent::handle($data);
     }
