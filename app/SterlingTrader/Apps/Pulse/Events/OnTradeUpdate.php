@@ -23,6 +23,10 @@ class OnTradeUpdate extends EventHandler
 
     protected function execute(array $instruction)
     {
+        if ($this->data['nLvsQuantity'] > 0) {
+            return;
+        }
+
         $parameters = $instruction['parameters'];
 
         $data = [
@@ -37,10 +41,6 @@ class OnTradeUpdate extends EventHandler
         ];
 
         if ($data['nQuantity'] === 0) {
-            return;
-        }
-
-        if ($data['nLvsQuantity'] > 0) {
             return;
         }
 
