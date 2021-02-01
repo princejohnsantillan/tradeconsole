@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\SterlingTrader;
 
-use App\SterlingTrader\AdapterResponse;
-use App\SterlingTrader\Struct\OrderStruct;
+use App\Jobs\AlignPositions;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -105,25 +104,6 @@ class PulseSyncMap extends Component
     {
         $positionMap = $this->analyzePositions();
 
-        $httpAction = Auth::user()->getSterlingTraderAdapterHttpAction();
-
-        foreach ($positionMap as $position) {
-            if ($position['Discrepancy'] === 0) {
-                continue;
-            }
-
-            $orderStruct = OrderStruct::build([
-                'bstrAccount' => $position['TargetAccount'],
-                'bstrSymbol' => $position['Symbol'],
-                'bstrSide' => $position['Discrepancy'] > 0 ? 'B' : 'T',
-                'nQuantity' => abs($position['Discrepancy']),
-                'nPriceType' => 1,
-                'bstrDestination' => 'ARCA', //TODO: Revisit. This should not be hardcoded.
-                'bstrTif' => 'D',
-                'bstrClOrderId' => uniqid('AP').md5(now()),
-            ]);
-
-            $httpAction->sendData($position['TargetAccount'], AdapterResponse::submitOrderStruct($orderStruct));
-        }
+        AlignPositions::dispatch($positionMap, Auth::user());
     }
 }
