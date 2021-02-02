@@ -2,6 +2,7 @@
 
 namespace App\SterlingTrader\Apps\Pulse\Events;
 
+use App\Models\SterlingTrader\SterlingSymbol;
 use App\SterlingTrader\AdapterResponse;
 use App\SterlingTrader\Struct\OrderStruct;
 use Illuminate\Support\Facades\Cache;
@@ -10,7 +11,11 @@ class OnOrderUpdate extends EventHandler
 {
     public function handle($data)
     {
+        //TODO: revisit approach
         Cache::put("quantity-{$data['bstrAccount']}-{$data['nOrderRecordId']}", $data['nQuantity'], now()->addHour());
+
+        //TODO: revisit approach
+        SterlingSymbol::firstOrCreate(['symbol' => $data['bstrSymbol']]);
 
         parent::handle($data);
     }

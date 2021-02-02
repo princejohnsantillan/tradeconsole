@@ -28,6 +28,7 @@ class AdapterResponse
     public const GETPOSITIONLIST = 'GetPositionList';
     public const GETPOSLISTBYACCOUNT = 'GetPosListByAccount';
     public const GETPOSLISTBYSYM = 'GetPosListBySym';
+    public const SWITCHLINKGROUPSYMBOL = 'SwitchLinkGroupSymbol';
 
     /**
      * @param  string $event
@@ -183,6 +184,15 @@ class AdapterResponse
     {
         return static::render(static::GETPOSLISTBYSYM, [
             'Symbol' => $symbol,
+        ]);
+    }
+
+    public static function switchLinkGroupSymbol(int $linkGroup, string $symbol, string $exchange = '*'): string
+    {
+        return static::render(static::SWITCHLINKGROUPSYMBOL, [
+            'LinkGroup' => $linkGroup,
+            'Symbol' => $symbol,
+            'Exchange' => $exchange,
         ]);
     }
 }
