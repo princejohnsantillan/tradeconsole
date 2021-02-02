@@ -14,7 +14,7 @@ class PopulateSterlingTrader extends Migration
         DB::statement('
             INSERT INTO sterling_symbols (`symbol`)
             SELECT TRIM(BOTH \'"\' FROM message->"$.data.bstrSymbol") AS symbol 
-            FROMsterling_trader_messages
+            FROM sterling_trader_messages
             WHERE message->"$.data.bstrSymbol" IS NOT NULL
             GROUP BY TRIM(BOTH \'"\' FROM message->"$.data.bstrSymbol")
         ');
