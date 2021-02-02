@@ -17,6 +17,16 @@ class OnOrderUpdate extends EventHandler
         //TODO: revisit approach
         SterlingSymbol::firstOrCreate(['symbol' => $data['bstrSymbol']]);
 
+        $adapter_connections = $this->connectionManager->getAdapterConnections($this->connection->adapter->key);
+
+        foreach ($adapter_connections as $connection) {
+            if (in_array($data['bstrAccount'], $connection['accounts'])) {
+                continue;
+            }
+
+            $connection['connection']->send(AdapterResponse::switchLinkGroupSymbol(1, $data['bstrSymbol']));
+        }
+
         parent::handle($data);
     }
 
