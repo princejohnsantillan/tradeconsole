@@ -2,34 +2,11 @@
 
 namespace App\SterlingTrader\Apps\Pulse\Events;
 
-use App\Models\SterlingTrader\SterlingSymbol;
 use App\SterlingTrader\AdapterResponse;
 use App\SterlingTrader\Struct\OrderStruct;
-use Illuminate\Support\Facades\Cache;
 
 class OnOrderUpdate extends EventHandler
 {
-    public function handle($data)
-    {
-        //TODO: revisit approach
-        Cache::put("quantity-{$data['bstrAccount']}-{$data['nOrderRecordId']}", $data['nQuantity'], now()->addHour());
-
-        //TODO: revisit approach
-        SterlingSymbol::firstOrCreate(['symbol' => $data['bstrSymbol']]);
-
-        $adapter_connections = $this->connectionManager->getAdapterConnections($this->connection->adapter->key);
-
-        foreach ($adapter_connections as $connection) {
-            if (in_array($data['bstrAccount'], $connection['accounts'])) {
-                continue;
-            }
-
-            $connection['connection']->send(AdapterResponse::switchLinkGroupSymbol(1, $data['bstrSymbol']));
-        }
-
-        parent::handle($data);
-    }
-
     protected function canHandle(array $instruction): bool
     {
         $conditions = $instruction['conditions'];

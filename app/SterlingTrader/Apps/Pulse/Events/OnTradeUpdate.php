@@ -4,13 +4,9 @@ namespace App\SterlingTrader\Apps\Pulse\Events;
 
 use App\SterlingTrader\AdapterResponse;
 use App\SterlingTrader\Struct\OrderStruct;
-use Illuminate\Support\Facades\Cache;
 
 class OnTradeUpdate extends EventHandler
 {
-    private const MINIMUM_TRADE_VALUE = 1000;
-    private const MINIMUM_TRADE_QUANTITY = 100;
-
     protected function canHandle(array $instruction): bool
     {
         $conditions = $instruction['conditions'];
@@ -94,20 +90,6 @@ class OnTradeUpdate extends EventHandler
 
     private function determineQuantity($parameters)
     {
-        $computed_price = $this->determinePrice($parameters);
-
-        $original_quantity = (int) Cache::get("quantity-{$this->data['bstrAccount']}-{$this->data['nOrderRecordId']}", $this->data['nQuantity']);
-
-        $computed_quantity = (int) round($original_quantity * $parameters['quantity']);
-
-        if ($computed_quantity >= static::MINIMUM_TRADE_QUANTITY) {
-            return $computed_quantity;
-        }
-
-        if (($computed_price * $computed_quantity) >= static::MINIMUM_TRADE_VALUE) {
-            return $computed_quantity;
-        }
-
-        return (int) ceil(static::MINIMUM_TRADE_VALUE / $computed_price);
+        return (int) round($this->data['nQuantity'] * $parameters['quantity']);
     }
 }
