@@ -4,6 +4,7 @@ namespace App\SterlingTrader\Apps\Pulse\Events;
 
 use App\SterlingTrader\AdapterResponse;
 use App\SterlingTrader\Struct\OrderStruct;
+use Illuminate\Support\Str;
 
 class OnOrderUpdate extends EventHandler
 {
@@ -27,9 +28,9 @@ class OnOrderUpdate extends EventHandler
             'bstrSide' => $this->determineSide($parameters),
             'nQuantity' => $this->determineQuantity($parameters),
             'nPriceType' => $this->determinePriceType($parameters),
-            'bstrDestination' => $parameters['destination'],
+            'bstrDestination' =>  $this->determineDestination($parameters),
             'bstrTif' => 'D',
-            'bstrClOrderId' => "OU{$this->connection->adapter->key}{$this->data['nOrderRecordId']}",
+            'bstrClOrderId' => $this->generateClOrderId(),
         ];
 
         if ($data['nPriceType'] === 5) {
@@ -49,15 +50,19 @@ class OnOrderUpdate extends EventHandler
                 $target_connection->send(AdapterResponse::submitOrderStruct($orderStruct));
                 break;
             case 8: //Cancelled
+                $clOrderId = "OU-{$this->data['nOrderRecordId']}".Str::between($this->data['bstrLogMessage'], $this->data['bstrAccount'], ')');
+
                 $target_connection->send(AdapterResponse::cancelOrder(
                     $parameters['target_account'],
                     0,
-                    "OU{$this->connection->adapter->key}{$this->data['nOrderRecordId']}",
-                    "XOU{$this->connection->adapter->key}{$this->data['nOrderRecordId']}"
+                    $clOrderId,
+                    $this->generateClOrderId()
                 ));
                 break;
             case 11: //Replaced
-                $target_connection->send(AdapterResponse::replaceOrderStruct($orderStruct, 0, "OU{$this->connection->adapter->key}{$this->data['nOrderRecordId']}"));
+                $clOrderId = "OU-{$this->data['nOrderRecordId']}".Str::between($this->data['bstrLogMessage'], $this->data['bstrAccount'], ')');
+
+                $target_connection->send(AdapterResponse::replaceOrderStruct($orderStruct, 0, $clOrderId));
                 break;
             default:
                 break;
@@ -104,5 +109,15 @@ class OnOrderUpdate extends EventHandler
         $price_shift = (float) $parameters['price_shift'];
 
         return $data_price + $price_shift;
+    }
+
+    private function determineDestination($parameters): string
+    {
+        return $parameters['destination'] == 'AS IS' ? $this->data['destination'] : $parameters['destination'];
+    }
+
+    private function generateClOrderId(): string
+    {
+        return "OU-{$this->data['nOrderRecordId']}-{$this->data['nSeqNo']}-{$this->data['nDbsNo']}";
     }
 }
