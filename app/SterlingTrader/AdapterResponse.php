@@ -95,7 +95,7 @@ class AdapterResponse
         return static::render(static::MAINTAINSYMBOLCONTROL, []);
     }
 
-    public static function replaceOrderStruct(OrderStruct $order, string $oldOrderRecordId, string $oldClientOrderId): string
+    public static function replaceOrderStruct(OrderStruct $order, int $oldOrderRecordId, string $oldClientOrderId): string
     {
         return static::render(static::REPLACEORDERSTRUCT, [
             'Order' => $order->asXML(),
@@ -114,7 +114,7 @@ class AdapterResponse
         return static::render(static::CANCELALLORDER, []);
     }
 
-    public static function cancelOrder(string $account, string $orderRecordId, string $oldClientOrderId, string $clientOrderId): string
+    public static function cancelOrder(string $account, int $orderRecordId, string $oldClientOrderId, string $clientOrderId): string
     {
         return static::render(static::CANCELORDER, [
             'Account' => $account,
