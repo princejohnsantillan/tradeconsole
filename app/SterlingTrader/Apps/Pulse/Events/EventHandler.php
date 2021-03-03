@@ -70,7 +70,7 @@ abstract class EventHandler
                     continue;
                 }
 
-                $connection['connection']->send(AdapterResponse::switchLinkGroupSymbol(1, $symbol));
+                $connection['connection']->send(AdapterResponse::switchLinkGroupSymbol(1, $symbol->symbol));
             }
         }
     }
