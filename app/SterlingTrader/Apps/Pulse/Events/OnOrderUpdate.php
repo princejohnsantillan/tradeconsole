@@ -44,7 +44,7 @@ class OnOrderUpdate extends EventHandler
 
         $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $parameters['target_account']);
 
-        switch ($data['nOrderStatus']) {
+        switch ($this->data['nOrderStatus']) {
             case 13: //New
                 $target_connection->send(AdapterResponse::submitOrderStruct($orderStruct));
                 break;
