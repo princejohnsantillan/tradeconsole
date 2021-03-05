@@ -87,7 +87,7 @@ class CopyOrder
 
     private function price(): float
     {
-        $data_price = (float) $this->data['fExecPrice'];
+        $data_price = (float) $this->data['fExecPrice'] ?? $this->data['fLmtPrice'];
 
         $price_shift = (float) $this->parameters['price_shift'];
 
