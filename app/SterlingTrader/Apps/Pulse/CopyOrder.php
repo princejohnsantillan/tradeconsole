@@ -22,7 +22,7 @@ class CopyOrder
         return new static($data, $parameters);
     }
 
-    public function generateOrderStruct() : OrderStruct
+    public function generateOrderStruct(): OrderStruct
     {
         //TODO: add validate data function
 
@@ -41,7 +41,7 @@ class CopyOrder
         return OrderStruct::build($order);
     }
 
-    public function isValid() : bool
+    public function isValid(): bool
     {
         //Check if required fields exist
 
@@ -71,7 +71,7 @@ class CopyOrder
         return $side;
     }
 
-    private function quantity() : int
+    private function quantity(): int
     {
         return (int) round($this->data['nQuantity'] * $this->parameters['quantity']);
     }
@@ -85,7 +85,7 @@ class CopyOrder
         ][$this->parameters['price_type']];
     }
 
-    private function price() : float
+    private function price(): float
     {
         $data_price = (float) $this->data['fExecPrice'];
 
