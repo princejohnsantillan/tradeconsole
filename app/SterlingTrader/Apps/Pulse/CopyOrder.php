@@ -109,7 +109,7 @@ class CopyOrder
         return "tcco-{$this->data['nOrderRecordId']}-{$this->data['nSeqNo']}-{$this->data['nDbsNo']}";
     }
 
-    public function getOrderIdFromLog()
+    public function generateOrderIdFromLog()
     {
         return "tcco-{$this->data['nOrderRecordId']}".Str::between($this->data['bstrLogMessage'], $this->data['bstrAccount'], ')');
     }

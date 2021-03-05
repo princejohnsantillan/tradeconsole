@@ -41,13 +41,13 @@ class OnOrderUpdate extends EventHandler
                 $target_connection->send(AdapterResponse::cancelOrder(
                     $parameters['target_account'],
                     0,
-                    $copyOrder->getOrderIdFromLog(),
+                    $copyOrder->generateOrderIdFromLog(),
                     uniqid('cancel-')
                 ));
                 break;
 
             case 11: //Replaced
-                $target_connection->send(AdapterResponse::replaceOrderStruct($orderStruct, 0, $copyOrder->getOrderIdFromLog()));
+                $target_connection->send(AdapterResponse::replaceOrderStruct($orderStruct, 0, $copyOrder->generateOrderIdFromLog()));
                 break;
 
             default:
