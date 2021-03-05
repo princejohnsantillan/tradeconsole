@@ -96,12 +96,12 @@ class CopyOrder
 
     private function destination()
     {
-        return  array_key_exists('destination', $this->parameters) ? $this->parameters['destination'] : $this->data['destination'];
+        return  empty($this->parameters['destination']) ? $this->data['destination'] : $this->parameters['destination'];
     }
 
     private function timeInForce()
     {
-        return array_key_exists('time_in_force', $this->parameters) ? $this->parameters['time_in_force'] : $this->data['bstrTif'];
+        return empty($this->parameters['time_in_force']) ? $this->data['bstrTif'] : $this->parameters['time_in_force'];
     }
 
     private function generateOrderId()
