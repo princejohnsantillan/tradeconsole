@@ -41,7 +41,7 @@
             <div class="mt-1 sm:mt-0 sm:col-span-2">
                 <div class="max-w-lg rounded-md shadow-sm sm:max-w-xs">
                 <select wire:model="side" class="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-                    <option value="same">Same Side</option>
+                    <option value="copy">Copy</option>
                     <option value="reverse">Reverse</option>
                 </select>
                 </div>
@@ -57,9 +57,10 @@
         <td class="py-2 px-1 whitespace-no-wrap text-sm leading-5 text-gray-500">
             <div class="mt-1 sm:mt-0 sm:col-span-2">
                 <div class="max-w-lg rounded-md shadow-sm sm:max-w-xs">
-                <select wire:model="priceMode" class="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-                    <option value='shift'>Shift</option>
+                <select wire:model="priceType" class="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                    <option value='copy'>Copy</option>
                     <option value='market'>Market</option>
+                    <option value='limit'>Limit</option>                    
                 </select>
                 </div>
             </div>
@@ -68,6 +69,13 @@
             <div class="mt-1 sm:mt-0 sm:col-span-2">
                 <div class="max-w-lg rounded-md shadow-sm sm:max-w-xs">
                 <input wire:model.lazy="priceShift" type="number" step=".01" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" >
+                </div>
+            </div>
+        </td>
+        <td class="py-2 px-1 whitespace-no-wrap text-sm leading-5 text-gray-500">
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+                <div class="max-w-lg rounded-md shadow-sm sm:max-w-xs">
+                <input wire:model.lazy="timeInForce" type="text" required class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                 </div>
             </div>
         </td>

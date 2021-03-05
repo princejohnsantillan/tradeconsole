@@ -27,10 +27,11 @@ class PulseInstructions extends Component
                 ],
                 'parameters' => [
                     'target_account' => 'Target Account',
-                    'side' => 'same',
+                    'side' => 'copy',
                     'quantity' => 1,
-                    'price_mode' => 'shift',
+                    'price_type' => 'copy',
                     'price_shift' => 0,
+                    'time_in_force' => 'D',
                     'destination' => 'ARCA',
                 ],
             ],

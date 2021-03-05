@@ -25,9 +25,11 @@ class PulseInstructionRow extends Component
 
     public $quantity;
 
-    public $priceMode;
+    public $priceType;
 
     public $priceShift;
+
+    public $timeInForce;
 
     public $destination;
 
@@ -43,8 +45,9 @@ class PulseInstructionRow extends Component
         $this->targetAccount = data_get($instruction->instruction, 'parameters.target_account');
         $this->side = data_get($instruction->instruction, 'parameters.side');
         $this->quantity = data_get($instruction->instruction, 'parameters.quantity');
-        $this->priceMode = data_get($instruction->instruction, 'parameters.price_mode');
+        $this->priceType = data_get($instruction->instruction, 'parameters.price_type');
         $this->priceShift = data_get($instruction->instruction, 'parameters.price_shift');
+        $this->timeInForce = data_get($instruction->instruction, 'parameters.time_in_force');
         $this->destination = data_get($instruction->instruction, 'parameters.destination');
     }
 
@@ -105,9 +108,9 @@ class PulseInstructionRow extends Component
                 $instruction->save();
                 break;
 
-            case 'priceMode':
+            case 'priceType':
                 $tmp = $instruction->instruction;
-                $tmp['parameters']['price_mode'] = $value;
+                $tmp['parameters']['price_type'] = $value;
                 $instruction->instruction = $tmp;
                 $instruction->save();
                 break;
@@ -115,6 +118,13 @@ class PulseInstructionRow extends Component
             case 'priceShift':
                 $tmp = $instruction->instruction;
                 $tmp['parameters']['price_shift'] = $value;
+                $instruction->instruction = $tmp;
+                $instruction->save();
+                break;
+
+            case 'timeInForce':
+                $tmp = $instruction->instruction;
+                $tmp['parameters']['time_in_force'] = $value;
                 $instruction->instruction = $tmp;
                 $instruction->save();
                 break;

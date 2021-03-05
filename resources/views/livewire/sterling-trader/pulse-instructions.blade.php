@@ -26,10 +26,13 @@
                     Quantity
                 </th>
                 <th class="p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                    Price Mode
+                    Price Type
                 </th>
                 <th class="p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                     Price Shift
+                </th>
+                <th class="p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    Time In Force
                 </th>
                 <th class="p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                     Destination
@@ -52,7 +55,7 @@
                     @livewire('sterling-trader.pulse-instruction-row',['instruction' => $instruction], key($instruction->id))
                 @empty
                   <tr>
-                    <td colspan='11' class="px-6 py-4 text-center whitespace-no-wrap text-sm leading-5 font-medium text-gray-800">
+                    <td colspan='12' class="px-6 py-4 text-center whitespace-no-wrap text-sm leading-5 font-medium text-gray-800">
                         No instructions found
                     </td>
                   </tr>

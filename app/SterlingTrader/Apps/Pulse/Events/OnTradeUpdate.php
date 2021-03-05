@@ -3,7 +3,7 @@
 namespace App\SterlingTrader\Apps\Pulse\Events;
 
 use App\SterlingTrader\AdapterResponse;
-use App\SterlingTrader\Struct\OrderStruct;
+use App\SterlingTrader\Apps\Pulse\CopyOrder;
 
 class OnTradeUpdate extends EventHandler
 {
@@ -19,77 +19,18 @@ class OnTradeUpdate extends EventHandler
 
     protected function execute(array $instruction)
     {
-        if ($this->data['nLvsQuantity'] > 0) {
-            return;
-        }
-
         $parameters = $instruction['parameters'];
 
-        $data = [
-            'bstrAccount' => $parameters['target_account'],
-            'bstrSymbol' => $this->data['bstrSymbol'],
-            'bstrSide' => $this->determineSide($parameters),
-            'nQuantity' => $this->determineQuantity($parameters),
-            'nPriceType' => $this->determinePriceType($parameters),
-            'bstrDestination' => $parameters['destination'],
-            'bstrTif' => 'D',
-            'bstrClOrderId' => uniqid('TU').md5(now()),
-        ];
+        $copyOrder = CopyOrder::given($this->data, $parameters);
 
-        if ($data['nQuantity'] === 0) {
+        if (! $copyOrder->isValid()) {
             return;
         }
 
-        if ($data['nPriceType'] === 5) {
-            $data['fLmtPrice'] = $this->determinePrice($parameters);
-        }
-
-        $orderStruct = OrderStruct::build($data);
+        $orderStruct = $copyOrder->generateOrderStruct();
 
         $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $parameters['target_account']);
 
         $target_connection->send(AdapterResponse::submitOrderStruct($orderStruct));
-    }
-
-    private function determineSide($parameters)
-    {
-        $side = $this->data['bstrSide'];
-
-        if ($parameters['side'] === 'reverse') {
-            return [
-                'B' => 'T',
-                'C' => 'T',
-                'S' => 'B',
-                'T' => 'B',
-                'M' => 'P',
-                'P' => 'M',
-                'E' => 'B',
-            ][$side];
-        }
-
-        return $side;
-    }
-
-    private function determinePriceType($parameters): int
-    {
-        if ($parameters['price_mode'] === 'market') {
-            return 1;
-        }
-
-        return 5;
-    }
-
-    private function determinePrice($parameters): float
-    {
-        $data_price = (float) $this->data['fExecPrice'];
-
-        $price_shift = (float) $parameters['price_shift'];
-
-        return $data_price + $price_shift;
-    }
-
-    private function determineQuantity($parameters)
-    {
-        return (int) round($this->data['nQuantity'] * $parameters['quantity']);
     }
 }
