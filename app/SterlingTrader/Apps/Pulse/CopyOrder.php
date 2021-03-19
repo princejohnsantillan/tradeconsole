@@ -3,8 +3,8 @@
 namespace App\SterlingTrader\Apps\Pulse;
 
 use App\SterlingTrader\Struct\OrderStruct;
-use Illuminate\Support\Str;
 use Exception;
+use Illuminate\Support\Str;
 
 class CopyOrder
 {
@@ -97,30 +97,22 @@ class CopyOrder
 
     private function destination()
     {
-        if(Str::contains($this->parameters['destination'], ":")){
-
+        if (Str::contains($this->parameters['destination'], ':')) {
             $destination_map = [];
 
-            try{
-
-                foreach(explode(",",$this->parameters['destination']) as $pair){
-                    
-                    [$from, $to] = explode(":",$pair);
+            try {
+                foreach (explode(',', $this->parameters['destination']) as $pair) {
+                    [$from, $to] = explode(':', $pair);
 
                     $destination_map[trim($from)] = trim($to);
-
                 }
-
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 //TODO: revisit implementation
             }
 
             return $destination_map[$this->data['bstrDestination']] ?? $this->data['bstrDestination'];
-
-        }else{
-
+        } else {
             return $this->parameters['destination'] ?: $this->data['bstrDestination'];
-            
         }
     }
 
