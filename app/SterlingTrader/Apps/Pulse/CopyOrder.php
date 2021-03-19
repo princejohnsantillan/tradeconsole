@@ -12,15 +12,20 @@ class CopyOrder
 
     private $parameters;
 
-    public function __construct($data, $parameters)
+    private $instructionId;
+
+    public function __construct($data, $instruction)
     {
         $this->data = $data;
-        $this->parameters = $parameters;
+
+        $this->parameters = $instruction['parameters'];
+
+        $this->instructionId = $instruction['id'];
     }
 
-    public static function given($data, $parameters)
+    public static function given($data, $instruction)
     {
-        return new static($data, $parameters);
+        return new static($data, $instruction);
     }
 
     public function generateOrderStruct(): OrderStruct
@@ -123,11 +128,11 @@ class CopyOrder
 
     private function generateOrderId()
     {
-        return "tcco-{$this->data['nOrderRecordId']}-{$this->data['nSeqNo']}-{$this->data['nDbsNo']}";
+        return "tcco-{$this->instructionId}-{$this->data['nOrderRecordId']}-{$this->data['nSeqNo']}-{$this->data['nDbsNo']}";
     }
 
     public function generateOrderIdFromLog()
     {
-        return "tcco-{$this->data['nOrderRecordId']}".Str::between($this->data['bstrLogMessage'], $this->data['bstrAccount'], ')');
+        return "tcco-{$this->instructionId}-{$this->data['nOrderRecordId']}".Str::between($this->data['bstrLogMessage'], $this->data['bstrAccount'], ')');
     }
 }

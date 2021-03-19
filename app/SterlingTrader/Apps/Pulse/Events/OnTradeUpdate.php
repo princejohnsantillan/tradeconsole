@@ -19,9 +19,7 @@ class OnTradeUpdate extends EventHandler
 
     protected function execute(array $instruction)
     {
-        $parameters = $instruction['parameters'];
-
-        $copyOrder = CopyOrder::given($this->data, $parameters);
+        $copyOrder = CopyOrder::given($this->data, $instruction);
 
         if (! $copyOrder->isValid()) {
             return;
@@ -29,7 +27,7 @@ class OnTradeUpdate extends EventHandler
 
         $orderStruct = $copyOrder->generateOrderStruct();
 
-        $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $parameters['target_account']);
+        $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $instruction['parameters']['target_account']);
 
         $target_connection->send(AdapterResponse::submitOrderStruct($orderStruct));
     }
