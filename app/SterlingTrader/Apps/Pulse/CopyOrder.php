@@ -96,7 +96,19 @@ class CopyOrder
 
     private function destination()
     {
-        return $this->parameters['destination'] ?: $this->data['bstrDestination'];
+        if(Str::contains($this->parameters['destination'], ":")){
+
+            $destination_map = [];
+            foreach(explode(",",$this->parameters['destination']) as $pair){
+                [$from, $to] = explode(":",$pair);
+                $destination_map[trim($from)] = trim($to);
+            }
+
+            return $destination_map[$this->data['bstrDestination']] ?? $this->data['bstrDestination'];
+
+        }else{
+            return $this->parameters['destination'] ?: $this->data['bstrDestination'];
+        }
     }
 
     private function timeInForce()
