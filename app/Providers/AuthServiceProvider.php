@@ -27,10 +27,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('viewWebSocketsDashboard', function ($user = null) {
-            return Auth::check() && in_array($user->email, [
-                'mail@princejohnsantillan.net',
-                'prince@tradeconsole.app',
-            ]);
+            return app()->environment('local') ||
+                Auth::check() && in_array($user->email, [
+                    'mail@princejohnsantillan.net',
+                    'prince@tradeconsole.app',
+                ]);
         });
     }
 }

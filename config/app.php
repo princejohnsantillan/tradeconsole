@@ -52,6 +52,10 @@ return [
     |
     */
 
+    'scheme' => env('APP_SCHEME', 'http'),
+
+    'host' => env('APP_HOST', 'localhost'),
+
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
@@ -178,6 +182,7 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+        App\Providers\SterlingTraderServiceProvider::class,
 
     ],
 
