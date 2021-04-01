@@ -37,6 +37,7 @@ class CopyOrder
             'bstrSymbol' => $this->data['bstrSymbol'],
             'bstrSide' => $this->side(),
             'nQuantity' => $this->quantity(),
+            'nDisplay' => $this->quantity(),
             'nPriceType' => $this->priceType(),
             'fLmtPrice' => $this->price(),
             'bstrDestination' => $this->destination(),
