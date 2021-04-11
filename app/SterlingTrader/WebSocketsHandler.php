@@ -34,58 +34,74 @@ class WebSocketsHandler implements MessageComponentInterface
 
     public function onOpen(ConnectionInterface $connection)
     {
-        $parameters = QueryParameters::create($connection->httpRequest);
+        try {
+            $parameters = QueryParameters::create($connection->httpRequest);
 
-        $connection->adapterKey = $parameters->get('adapterKey');
-        $connection->traderId = $parameters->get('traderId');
-        $connection->adapterVersion = $parameters->get('adapterVersion');
-        // $connection->signature = $parameters->get('signature');
+            $connection->adapterKey = $parameters->get('adapterKey');
+            $connection->traderId = $parameters->get('traderId');
+            $connection->adapterVersion = $parameters->get('adapterVersion');
+            // $connection->signature = $parameters->get('signature');
 
-        $this
-            ->verifyAdapter($connection)
-            // ->verifyRequestSignature($connection)
-            ->generateSocketId($connection)
-            ->registerConnection($connection)
-            ->bootstrap($connection);
+            $this
+                ->verifyAdapter($connection)
+                // ->verifyRequestSignature($connection)
+                ->generateSocketId($connection)
+                ->registerConnection($connection)
+                ->bootstrap($connection);
 
-        $connection->send(AdapterResponse::notify('Success! You are connected. Have a good trading day.'));
+            $connection->send(AdapterResponse::notify('Success! You are connected. Have a good trading day.'));
+        } catch (Exception $e) {
+            logger()->error('Sterling WebScoketHandler onOpen: '.$e->getMessage());
+        }
     }
 
     public function onClose(ConnectionInterface $connection)
     {
-        $this->connectionManger->removeConnection($connection->adapterKey, $connection->traderId);
+        try {
+            $this->connectionManger->removeConnection($connection->adapterKey, $connection->traderId);
+        } catch (Exception $e) {
+            logger()->error('Sterling WebScoketHandler onClose: '.$e->getMessage());
+        }
     }
 
     public function onError(ConnectionInterface $connection, Exception $exception)
     {
-        SterlingTraderWebsocketError::create([
-            'adapter_id' => isset($connection->adapter) ? $connection->adapter->id : null,
-            'socket_id' => $connection->socketId,
-            'class' => get_class($exception),
-            'code' => $exception->getCode(),
-            'message' => $exception->getMessage(),
-            'trace' => $exception->getTraceAsString(),
-        ]);
+        try {
+            SterlingTraderWebsocketError::create([
+                'adapter_id' => isset($connection->adapter) ? $connection->adapter->id : null,
+                'socket_id' => $connection->socketId,
+                'class' => get_class($exception),
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage(),
+                'trace' => $exception->getTraceAsString(),
+            ]);
 
-        if ($exception instanceof WebSocketException) {
-            $connection->send(AdapterResponse::webSocketException($exception));
-            $connection->close();
+            if ($exception instanceof WebSocketException) {
+                $connection->send(AdapterResponse::webSocketException($exception));
+                $connection->close();
+            }
+        } catch (Exception $e) {
+            logger()->error('Sterling WebScoketHandler onError: '.$e->getMessage());
         }
     }
 
     public function onMessage(ConnectionInterface $connection, MessageInterface $message)
     {
-        //TODO: Add signature verification to increase security.
+        try {
+            //TODO: Add signature verification to increase security.
 
-        $sterlingTraderMessage = SterlingTraderMessage::create([
-            'adapter_id' => $connection->adapter->id,
-            'socket_id' => $connection->socketId,
-            'trader_id' => $connection->traderId,
-            'adapter_version' => $connection->adapterVersion,
-            'message' => json_decode($message),
-        ]);
+            $sterlingTraderMessage = SterlingTraderMessage::create([
+                'adapter_id' => $connection->adapter->id,
+                'socket_id' => $connection->socketId,
+                'trader_id' => $connection->traderId,
+                'adapter_version' => $connection->adapterVersion,
+                'message' => json_decode($message),
+            ]);
 
-        Pulse::given($connection, $sterlingTraderMessage)->process();
+            Pulse::given($connection, $sterlingTraderMessage)->process();
+        } catch (Exception $e) {
+            logger()->error('Sterling WebScoketHandler onMessage: '.$e->getMessage());
+        }
     }
 
     private function verifyAdapter(ConnectionInterface $connection)
