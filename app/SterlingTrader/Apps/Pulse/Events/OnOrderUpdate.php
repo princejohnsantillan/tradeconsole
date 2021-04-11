@@ -31,6 +31,10 @@ class OnOrderUpdate extends EventHandler
 
         $targetConnection = $this->connectionManager->getConnection($this->connection->adapter->key, $targetAccount);
 
+        if ($targetConnection === null) {
+            return;
+        }
+
         switch ($this->data['nOrderStatus']) {
 
             case 13: //New
