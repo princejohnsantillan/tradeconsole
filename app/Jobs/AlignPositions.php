@@ -50,6 +50,7 @@ class AlignPositions implements ShouldQueue
                 'bstrSymbol' => $position['Symbol'],
                 'bstrSide' => $position['Discrepancy'] > 0 ? 'B' : 'T',
                 'nQuantity' => abs($position['Discrepancy']),
+                'nDisplay' => abs($position['Discrepancy']),
                 'nPriceType' => 1,
                 'bstrDestination' => 'ARCA', //TODO: Revisit. This should not be hardcoded.
                 'bstrTif' => 'D',

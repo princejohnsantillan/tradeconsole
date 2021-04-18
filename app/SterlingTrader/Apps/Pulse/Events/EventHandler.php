@@ -47,8 +47,10 @@ abstract class EventHandler
 
         $this->data = $data;
 
-        foreach ($this->instructions as $instruction) {
+        foreach ($this->instructions as $id => $instruction) {
             if ($this->canHandle($instruction)) {
+                $instruction['id'] = $id;
+
                 $this->execute($instruction);
             }
         }

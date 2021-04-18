@@ -19,9 +19,7 @@ class OnOrderUpdate extends EventHandler
 
     protected function execute(array $instruction)
     {
-        $parameters = $instruction['parameters'];
-
-        $copyOrder = CopyOrder::given($this->data, $parameters);
+        $copyOrder = CopyOrder::given($this->data, $instruction);
 
         if (! $copyOrder->isValid()) {
             return;
@@ -29,17 +27,23 @@ class OnOrderUpdate extends EventHandler
 
         $orderStruct = $copyOrder->generateOrderStruct();
 
-        $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $parameters['target_account']);
+        $targetAccount = $instruction['parameters']['target_account'];
+
+        $targetConnection = $this->connectionManager->getConnection($this->connection->adapter->key, $targetAccount);
+
+        if ($targetConnection === null) {
+            return;
+        }
 
         switch ($this->data['nOrderStatus']) {
 
             case 13: //New
-                $target_connection->send(AdapterResponse::submitOrderStruct($orderStruct));
+                $targetConnection->send(AdapterResponse::submitOrderStruct($orderStruct));
                 break;
 
             case 8: //Cancelled
-                $target_connection->send(AdapterResponse::cancelOrder(
-                    $parameters['target_account'],
+                $targetConnection->send(AdapterResponse::cancelOrder(
+                    $targetAccount,
                     0,
                     $copyOrder->generateOrderIdFromLog(),
                     uniqid('cancel-')
@@ -47,7 +51,7 @@ class OnOrderUpdate extends EventHandler
                 break;
 
             case 11: //Replaced
-                $target_connection->send(AdapterResponse::replaceOrderStruct($orderStruct, 0, $copyOrder->generateOrderIdFromLog()));
+                $targetConnection->send(AdapterResponse::replaceOrderStruct($orderStruct, 0, $copyOrder->generateOrderIdFromLog()));
                 break;
 
             default:
