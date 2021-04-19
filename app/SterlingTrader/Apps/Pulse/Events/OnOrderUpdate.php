@@ -35,7 +35,7 @@ class OnOrderUpdate extends EventHandler
             return;
         }
 
-        sleep($instruction['parameters']['delay'] ?? 0);
+        usleep(($instruction['parameters']['delay'] ?? 0) * 1000);
 
         switch ($this->data['nOrderStatus']) {
 
