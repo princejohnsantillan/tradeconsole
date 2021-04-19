@@ -29,6 +29,8 @@ class PulseInstructionRow extends Component
 
     public $priceShift;
 
+    public $delay;
+
     public $timeInForce;
 
     public $destination;
@@ -47,6 +49,7 @@ class PulseInstructionRow extends Component
         $this->quantity = data_get($instruction->instruction, 'parameters.quantity');
         $this->priceType = data_get($instruction->instruction, 'parameters.price_type');
         $this->priceShift = data_get($instruction->instruction, 'parameters.price_shift');
+        $this->delay = data_get($instruction->instruction, 'parameters.delay');
         $this->timeInForce = data_get($instruction->instruction, 'parameters.time_in_force');
         $this->destination = data_get($instruction->instruction, 'parameters.destination');
     }
@@ -118,6 +121,13 @@ class PulseInstructionRow extends Component
             case 'priceShift':
                 $tmp = $instruction->instruction;
                 $tmp['parameters']['price_shift'] = $value;
+                $instruction->instruction = $tmp;
+                $instruction->save();
+                break;
+
+            case 'delay':
+                $tmp = $instruction->instruction;
+                $tmp['parameters']['delay'] = $value;
                 $instruction->instruction = $tmp;
                 $instruction->save();
                 break;

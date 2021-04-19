@@ -31,6 +31,7 @@ class PulseInstructions extends Component
                     'quantity' => 1,
                     'price_type' => 'copy',
                     'price_shift' => 0,
+                    'delay' => 0,
                     'time_in_force' => 'D',
                     'destination' => 'ARCA',
                 ],

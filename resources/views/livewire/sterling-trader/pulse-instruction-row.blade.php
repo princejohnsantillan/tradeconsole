@@ -75,6 +75,13 @@
         <td class="py-2 px-1 whitespace-no-wrap text-sm leading-5 text-gray-500">
             <div class="mt-1 sm:mt-0 sm:col-span-2">
                 <div class="max-w-lg rounded-md shadow-sm sm:max-w-xs">
+                <input wire:model.lazy="delay" type="number" min="0" step="1" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" >
+                </div>
+            </div>
+        </td>
+        <td class="py-2 px-1 whitespace-no-wrap text-sm leading-5 text-gray-500">
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+                <div class="max-w-lg rounded-md shadow-sm sm:max-w-xs">
                 <input wire:model.lazy="timeInForce" type="text" required class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                 </div>
             </div>

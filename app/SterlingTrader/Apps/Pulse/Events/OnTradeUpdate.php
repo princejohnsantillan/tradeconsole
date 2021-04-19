@@ -29,6 +29,8 @@ class OnTradeUpdate extends EventHandler
 
         $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $instruction['parameters']['target_account']);
 
+        sleep($instruction['parameters']['delay'] ?? 0);
+
         $target_connection->send(AdapterResponse::submitOrderStruct($orderStruct));
     }
 }

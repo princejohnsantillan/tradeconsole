@@ -35,6 +35,8 @@ class OnOrderUpdate extends EventHandler
             return;
         }
 
+        sleep($instruction['parameters']['delay'] ?? 0);
+
         switch ($this->data['nOrderStatus']) {
 
             case 13: //New
