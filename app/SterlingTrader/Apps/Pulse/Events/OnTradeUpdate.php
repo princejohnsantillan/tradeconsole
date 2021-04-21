@@ -2,6 +2,7 @@
 
 namespace App\SterlingTrader\Apps\Pulse\Events;
 
+use App\Jobs\SendMessageToSterling;
 use App\SterlingTrader\AdapterResponse;
 use App\SterlingTrader\Apps\Pulse\CopyOrder;
 
@@ -27,10 +28,21 @@ class OnTradeUpdate extends EventHandler
 
         $orderStruct = $copyOrder->generateOrderStruct();
 
-        $target_connection = $this->connectionManager->getConnection($this->connection->adapter->key, $instruction['parameters']['target_account']);
+        $adapterKey = $this->connection->adapter->key;
 
-        usleep(($instruction['parameters']['delay'] ?? 0) * 1000);
+        $targetAccount = $instruction['parameters']['target_account'];
 
-        $target_connection->send(AdapterResponse::submitOrderStruct($orderStruct));
+        $targetConnection = $this->connectionManager->getConnection($adapterKey, $targetAccount);
+
+        $response = AdapterResponse::submitOrderStruct($orderStruct);
+
+        $delay = intval($instruction['parameters']['delay']);
+
+        if ($delay > 0) {
+            SendMessageToSterling::dispatch($adapterKey, $targetAccount, $response)
+                ->delay(now()->addMilliseconds($delay));
+        } else {
+            $targetConnection->send($response);
+        }
     }
 }
