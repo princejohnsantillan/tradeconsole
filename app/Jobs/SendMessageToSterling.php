@@ -4,12 +4,10 @@ namespace App\Jobs;
 
 use App\Models\SterlingTrader\SterlingTraderAdapter;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Carbon;
 
 class SendMessageToSterling implements ShouldQueue
 {
