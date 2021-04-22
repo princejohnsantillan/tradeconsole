@@ -138,7 +138,7 @@ return [
     |
     */
 
-    'fast_termination' => false,
+    'fast_termination' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -168,9 +168,9 @@ return [
         'supervisor-1' => [
             'connection' => 'redis',
             'queue' => ['default'],
-            'balance' => false,
-            'maxProcesses' => 1,
-            'memory' => 128,
+            'balance' => 'off',
+            'processes' => 8,
+            'memory' => 64,
             'tries' => 1,
             'nice' => 0,
         ],
@@ -179,15 +179,7 @@ return [
     'environments' => [
         'production' => [
             'supervisor-1' => [
-                'maxProcesses' => 10,
-                'balanceMaxShift' => 1,
-                'balanceCooldown' => 3,
-            ],
-        ],
-
-        'local' => [
-            'supervisor-1' => [
-                'maxProcesses' => 3,
+                'processes' => 32,
             ],
         ],
     ],
