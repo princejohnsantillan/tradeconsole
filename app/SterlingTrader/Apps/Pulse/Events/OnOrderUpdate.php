@@ -67,7 +67,7 @@ class OnOrderUpdate extends EventHandler
             return;
         }
 
-        $delay = intval($instruction['parameters']['delay']);
+        $delay = intval($instruction['parameters']['delay'] ?? 0);
 
         if ($delay > 0) {
             SendMessageToSterling::dispatch($adapterKey, $targetAccount, $response)
