@@ -179,7 +179,7 @@ return [
     'environments' => [
         'production' => [
             'supervisor-1' => [
-                'processes' => 32,
+                'processes' => 128,
             ],
         ],
     ],
