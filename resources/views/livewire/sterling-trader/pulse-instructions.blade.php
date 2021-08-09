@@ -40,6 +40,9 @@
                 <th class="p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                     Destination
                 </th>
+                <th class="p-2 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  
+              </th>
                 <th class="p-2 bg-gray-50 text-center ">
                     <svg wire:loading class="animate-spin mt-2 mb-1 h-4 w-4  text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
