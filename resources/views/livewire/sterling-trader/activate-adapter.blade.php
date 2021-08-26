@@ -7,7 +7,7 @@
             <div>
                 <div class="mt-2 max-w-2xl text-sm leading-5 text-gray-500">
                     <p>
-                        Download the latest Sterling Trader adapter and connect to Trade Console using this address.
+                        Download the latest Sterling Trader adapter and connect to The Pulse Plus using this address.
                     </p>
                 </div>
                 <div class="mt-5 sm:flex sm:items-center">

@@ -30,7 +30,7 @@ return [
     | Console Address
     |--------------------------------------------------------------------------
     |
-    | Use this address when connecting to Trade Console from the
+    | Use this address when connecting to The Pulse Plus from the
     | Sterling Trader adapter.
     |
     */

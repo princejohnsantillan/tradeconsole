@@ -6,8 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class AuthServiceProvider extends ServiceProvider
-{
+class AuthServiceProvider extends ServiceProvider {
     /**
      * The policy mappings for the application.
      *
@@ -22,15 +21,13 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
+    public function boot() {
         $this->registerPolicies();
 
         Gate::define('viewWebSocketsDashboard', function ($user = null) {
             return app()->environment('local') ||
                 Auth::check() && in_array($user->email, [
-                    'mail@princejohnsantillan.net',
-                    'prince@tradeconsole.app',
+                    'thepulseplus@gmail.com',
                 ]);
         });
     }

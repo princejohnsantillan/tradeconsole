@@ -13,7 +13,7 @@
                         <div class="flex-1 truncate">
                             <div class="flex items-center space-x-3">
                                 <h3 class="text-gray-900 text-sm leading-5 font-medium truncate">Debugger</h3>
-                                <span class="flex-shrink-0 inline-block px-2 py-0.5 text-indigo-800 text-xs leading-4 font-medium bg-indigo-100 rounded-full">Trade Console</span>
+                                <span class="flex-shrink-0 inline-block px-2 py-0.5 text-indigo-800 text-xs leading-4 font-medium bg-indigo-100 rounded-full">The Pulse Plus</span>
                             </div>
                             <p class="mt-1 text-gray-500 text-sm leading-5 truncate">Debugging tool for development.</p>
                         </div>
